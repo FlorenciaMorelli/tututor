@@ -67,3 +67,44 @@
    - Asegurarse de que la aplicación pueda ser desplegada en servicios de hosting básicos que permitan subir archivos por FTP/SSH.
 2. **Configuración de Base de Datos:**
    - Proporcionar una interfaz fácil para que los usuarios configuren la conexión con la base de datos durante la instalación.
+
+## Documentación de Tecnologías
+
+### Backend (PHP):
+- Se utilizará PHP como lenguaje de programación del lado del servidor.
+- [Enlace a la documentación de PHP](https://www.php.net/manual/es/)
+
+### Base de Datos (MySQL):
+- Se utilizará MySQL como sistema de gestión de base de datos.
+- [Enlace a la documentación de MySQL](https://dev.mysql.com/doc/)
+
+### Frontend (HTML5, CSS3, JavaScript):
+- HTML5, CSS3 y JavaScript serán utilizados para el desarrollo del frontend.
+- [Enlace a la documentación de HTML5](https://developer.mozilla.org/es/docs/Web/HTML)
+- [Enlace a la documentación de CSS3](https://developer.mozilla.org/es/docs/Web/CSS)
+- [Enlace a la documentación de JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript)
+
+### Framework Frontend (Angular):
+- Angular será el framework utilizado en el frontend.
+- [Enlace a la documentación de Angular](https://angular.io/docs)
+
+### Herramientas de Desarrollo:
+- Editor de Código: [Visual Studio Code](https://code.visualstudio.com/)
+- Control de Versiones: [GitHub](https://docs.github.com/es)
+- Diseño de Interfaz: [Figma](https://www.figma.com/)
+
+### Seguridad:
+- Se implementarán prácticas de seguridad en PHP y MySQL. Investigar sobre el manejo seguro de datos, protección contra inyecciones de SQL y autenticación segura.
+
+### Pruebas y Control de Calidad:
+- Pruebas de API: [Postman](https://www.postman.com/)
+- Pruebas en PHP: [PHPUnit](https://phpunit.de/)
+- Pruebas en Angular: [Jasmine](https://jasmine.github.io/) y [Karma](https://karma-runner.github.io/)
+
+### Hosting y Despliegue:
+- Hosting Gratuito: [000webhost](https://www.000webhost.com/)
+- Configuración de Base de Datos en 000webhost: [Guía de Configuración](https://www.000webhost.com/website/phpmyadmin)
+
+### Documentación:
+- Se utilizará el formato Markdown para documentar el código.
+- [Enlace a la Guía de Markdown](https://www.markdownguide.org/basic-syntax/)
