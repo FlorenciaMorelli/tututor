@@ -1,7 +1,7 @@
 <?php
 
-define('DBUSER', 'tututor');
-define('DBPASS', 'tututor');
+define('DBUSER', 'root');
+define('DBPASS', '');
 define('DBBASE', 'tututor');
 define('DBHOST', '127.0.0.1');
 function conectarBD()
