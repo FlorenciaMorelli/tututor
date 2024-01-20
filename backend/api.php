@@ -1,4 +1,5 @@
 <?php
+include "../config/config.php";
 
 require_once(__DIR__.'/../config/config.php');
 
@@ -39,25 +40,3 @@ function outputError($codigo = 500)
     }
 }
 
-function conectarBD()
-{
-    $link = mysqli_connect(DBHOST, DBUSER, DBPASS, DBBASE);
-    if ($link === false) {
-        print "Falló la conexión: " . mysqli_connect_error();
-        outputError(500);
-    }
-    mysqli_set_charset($link, 'utf8');
-    return $link;
-}
-
-function postRestablecer () {
-    $db = conectarBD();
-    $sql = sf__restablecerSql();
-    $result = mysqli_multi_query($db, $sql);
-    if ($result===false) {
-        print mysqli_error($db);
-        outputError(500);
-    }
-    mysqli_close($db);
-    outputJson([], 201);
-}
