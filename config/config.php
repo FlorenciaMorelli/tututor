@@ -1,9 +1,10 @@
 <?php
 
-define('DBUSER', 'root');
-define('DBPASS', '');
+define('DBUSER', 'MorelliFinal');
+define('DBPASS', 'ExamenFlorencia');
 define('DBBASE', 'tututor');
-define('DBHOST', '127.0.0.1');
+define('DBHOST', 'localhost');
+
 function conectarBD()
 {
     $link = mysqli_connect(DBHOST, DBUSER, DBPASS, DBBASE);
