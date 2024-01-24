@@ -17,6 +17,29 @@ if (function_exists($funcionNombre)) {
 }
 
 
+function conectarBD()
+{
+    $link = mysqli_connect(DBHOST, DBUSER, DBPASS, DBBASE);
+    if (!$link) {
+        print "Falló la conexión: " . mysqli_connect_error();
+        outputError(500);
+    }
+    mysqli_set_charset($link, 'utf8');
+    return $link;
+}
+
+function postRestablecer () {
+    $db = conectarBD();
+    $sql = sf__restablecerSql();
+    $result = mysqli_multi_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson([], 201);
+}
+
 function outputJson($data, $codigo = 200)
 {
     header('', true, $codigo);
@@ -61,6 +84,24 @@ function getUsuarios()
     outputJson($ret);
 }
 
+function getUsuariosConParametros($id){
+    $db = conectarBD();
+    $sql = "SELECT * FROM usuarios WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        settype($fila['id'], 'integer');
+        $ret[] = $fila;
+    }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
+
 function getAlumnos(){
     $db = conectarBD();
     $sql = "SELECT * FROM alumnos";
@@ -73,6 +114,20 @@ function getAlumnos(){
     while ($fila = mysqli_fetch_assoc($result)) {
         $ret[] = $fila;
     }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
+
+function getAlumnosConParametros($id){
+    $db = conectarBD();
+    $sql = "SELECT * FROM alumnos WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
     mysqli_close($db);
     outputJson($ret);
@@ -95,6 +150,20 @@ function getProfesores(){
     outputJson($ret);
 }
 
+function getProfesoresConParametros($id){
+    $db = conectarBD();
+    $sql = "SELECT * FROM profesores WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
+
 function getMaterias(){
     $db = conectarBD();
     $sql = "SELECT * FROM materias";
@@ -107,6 +176,20 @@ function getMaterias(){
     while ($fila = mysqli_fetch_assoc($result)) {
         $ret[] = $fila;
     }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
+
+function getMateriasConParametros($id){
+    $db = conectarBD();
+    $sql = "SELECT * FROM materias WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
     mysqli_close($db);
     outputJson($ret);
@@ -135,7 +218,67 @@ function getTopMaterias(){
 }
 
 // Función para agregar una materia que no había
-function postMateria(){
+function postUsuario(){
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $mail = mysqli_real_escape_string($db, $data['mail']);
+    $password = mysqli_real_escape_string($db, $data['password']);
+    $rol = mysqli_real_escape_string($db, $data['rol']);
+    $sql = "INSERT INTO usuarios (mail, password, rol) VALUES ($mail, $password, $rol)";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $id = mysqli_insert_id($db);
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function postAlumno(){
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $nombre = mysqli_real_escape_string($db, $data['nombre']);
+    $apellido = mysqli_real_escape_string($db, $data['apellido']);
+    $zona = mysqli_real_escape_string($db, $data['zona']);
+    $direccion = mysqli_real_escape_string($db, $data['direccion']);
+    $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
+    $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
+    $sql = "INSERT INTO alumnos (nombre, apellido, zona, direccion, foto_path, puntuacion) VALUES ($nombre, $apellido, $zona, $direccion, $foto_path, $puntuacion)";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $id = mysqli_insert_id($db);
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function postProfesores(){
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $nombre = mysqli_real_escape_string($db, $data['nombre']);
+    $apellido = mysqli_real_escape_string($db, $data['apellido']);
+    $modalidad = mysqli_real_escape_string($db, $data['modalidad']);
+    $zona = mysqli_real_escape_string($db, $data['zona']);
+    $direccion = mysqli_real_escape_string($db, $data['direccion']);
+    $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
+    $archivos_path = mysqli_real_escape_string($db, $data['archivos_path']);
+    $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
+    $sql = "INSERT INTO profesores (nombre, apellido, modalidad, zona, direccion, foto_path, archivos_path, puntuacion) VALUES ($nombre, $apellido, $modalidad, $zona, $direccion, $foto_path, $archivos_path, $puntuacion)";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $id = mysqli_insert_id($db);
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+// Función para agregar una materia que no había
+function postMaterias(){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
     $nombre = mysqli_real_escape_string($db, $data['nombre']);
@@ -146,6 +289,78 @@ function postMateria(){
         outputError(500);
     }
     $id = mysqli_insert_id($db);
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function patchUsuarios($id){
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $mail = mysqli_real_escape_string($db, $data['mail']);
+    $password = mysqli_real_escape_string($db, $data['password']);
+    $rol = mysqli_real_escape_string($db, $data['rol']);
+    $sql = "UPDATE usuarios SET mail = $mail, password = $password, rol = $rol WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function patchAlumnos($id){
+    global $alumnos;
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $nombre = mysqli_real_escape_string($db, $data['nombre']);
+    $apellido = mysqli_real_escape_string($db, $data['apellido']);
+    $zona = mysqli_real_escape_string($db, $data['zona']);
+    $direccion = mysqli_real_escape_string($db, $data['direccion']);
+    $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
+    $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
+    $sql = "UPDATE alumnos SET nombre = $nombre, apellido = $apellido, zona = $zona, direccion = $direccion, foto_path = $foto_path, puntuacion = $puntuacion WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function patchProfesor($id){
+    global $profesores;
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $nombre = mysqli_real_escape_string($db, $data['nombre']);
+    $apellido = mysqli_real_escape_string($db, $data['apellido']);
+    $modalidad = mysqli_real_escape_string($db, $data['modalidad']);
+    $zona = mysqli_real_escape_string($db, $data['zona']);
+    $direccion = mysqli_real_escape_string($db, $data['direccion']);
+    $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
+    $archivos_path = mysqli_real_escape_string($db, $data['archivos_path']);
+    $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
+    $sql = "UPDATE profesores SET nombre = $nombre, apellido = $apellido, modalidad = $modalidad, zona = $zona, direccion = $direccion, foto_path = $foto_path, archivos_path = $archivos_path, puntuacion = $puntuacion WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function patchMateria($id){
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $nombre = mysqli_real_escape_string($db, $data['nombre']);
+    $sql = "UPDATE materias SET nombre = $nombre WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
     mysqli_close($db);
     outputJson(['id' => $id]);
 }
