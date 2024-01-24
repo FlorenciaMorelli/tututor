@@ -63,12 +63,7 @@ function getUsuarios()
 
 function getAlumnos(){
     $db = conectarBD();
-    $sql = "SELECT m.id_materia, m.nombre, COUNT(am.id_alumno) AS cantidad_alumnos
-        FROM materias m
-        JOIN alumnos_materias am ON m.id_materia = am.id_materia
-        GROUP BY m.id_materia
-        ORDER BY cantidad_alumnos DESC
-        LIMIT 5";
+    $sql = "SELECT * FROM alumnos";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
@@ -83,16 +78,48 @@ function getAlumnos(){
     outputJson($ret);
 }
 
+function getProfesores(){
+    $db = conectarBD();
+    $sql = "SELECT * FROM profesores";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        $ret[] = $fila;
+    }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
+
+function getMaterias(){
+    $db = conectarBD();
+    $sql = "SELECT * FROM materias";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        $ret[] = $fila;
+    }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
 
 // Función top 5 materias para banner de inicio
 function getTopMaterias(){
     $db = conectarBD();
-    $sql = "SELECT m.id_materia, m.nombre, COUNT(am.id_alumno) AS cantidad_alumnos
+    $sql = "SELECT TOP(5) m.nombre, m.icono
         FROM materias m
-        JOIN alumnos_materias am ON m.id_materia = am.id_materia
+        INNER JOIN alumnos_materias am ON m.id_materia = am.id_materia
         GROUP BY m.id_materia
-        ORDER BY cantidad_alumnos DESC
-        LIMIT 5";
+        ORDER BY cantidad_alumnos DESC";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
