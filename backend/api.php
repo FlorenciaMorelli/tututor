@@ -364,3 +364,51 @@ function patchMateria($id){
     mysqli_close($db);
     outputJson(['id' => $id]);
 }
+
+function deleteUsuarios($id){
+    $db = conectarBD();
+    $sql = "DELETE FROM usuarios WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function deleteAlumnos($id){
+    $db = conectarBD();
+    $sql = "DELETE FROM alumnos WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function deleteProfesores($id){
+    $db = conectarBD();
+    $sql = "DELETE FROM profesores WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
+
+function deleteMaterias($id){
+    $db = conectarBD();
+    $sql = "DELETE FROM materias WHERE id = $id";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    mysqli_close($db);
+    outputJson(['id' => $id]);
+}
