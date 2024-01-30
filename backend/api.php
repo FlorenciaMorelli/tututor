@@ -76,7 +76,7 @@ function getUsuarios()
     }
     $ret = [];
     while ($fila = mysqli_fetch_assoc($result)) {
-        settype($fila['id'], 'integer');
+        settype($fila['id_user'], 'integer');
         $ret[] = $fila;
     }
     mysqli_free_result($result);
@@ -86,7 +86,7 @@ function getUsuarios()
 
 function getUsuariosConParametros($id){
     $db = conectarBD();
-    $sql = "SELECT * FROM usuarios WHERE id = $id";
+    $sql = "SELECT * FROM usuarios WHERE id_user = $id";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
@@ -94,7 +94,7 @@ function getUsuariosConParametros($id){
     }
     $ret = [];
     while ($fila = mysqli_fetch_assoc($result)) {
-        settype($fila['id'], 'integer');
+        settype($fila['id_user'], 'integer');
         $ret[] = $fila;
     }
     mysqli_free_result($result);
@@ -112,6 +112,7 @@ function getAlumnos(){
     }
     $ret = [];
     while ($fila = mysqli_fetch_assoc($result)) {
+        settype($fila['id_alumno'], 'integer');
         $ret[] = $fila;
     }
     mysqli_free_result($result);
@@ -121,13 +122,17 @@ function getAlumnos(){
 
 function getAlumnosConParametros($id){
     $db = conectarBD();
-    $sql = "SELECT * FROM alumnos WHERE id = $id";
+    $sql = "SELECT * FROM alumnos WHERE id_alumno = $id";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
         outputError(500);
     }
-    $ret = mysqli_fetch_assoc($result);
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        settype($fila['id_alumno'], 'integer');
+        $ret[] = $fila;
+    }
     mysqli_free_result($result);
     mysqli_close($db);
     outputJson($ret);
@@ -143,6 +148,7 @@ function getProfesores(){
     }
     $ret = [];
     while ($fila = mysqli_fetch_assoc($result)) {
+        settype($fila['id_profesor'], 'integer');
         $ret[] = $fila;
     }
     mysqli_free_result($result);
@@ -152,13 +158,17 @@ function getProfesores(){
 
 function getProfesoresConParametros($id){
     $db = conectarBD();
-    $sql = "SELECT * FROM profesores WHERE id = $id";
+    $sql = "SELECT * FROM profesores WHERE id_profesor = $id";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
         outputError(500);
     }
-    $ret = mysqli_fetch_assoc($result);
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        settype($fila['id_profesor'], 'integer');
+        $ret[] = $fila;
+    }
     mysqli_free_result($result);
     mysqli_close($db);
     outputJson($ret);
@@ -174,6 +184,7 @@ function getMaterias(){
     }
     $ret = [];
     while ($fila = mysqli_fetch_assoc($result)) {
+        settype($fila['id_materia'], 'integer');
         $ret[] = $fila;
     }
     mysqli_free_result($result);
@@ -183,13 +194,17 @@ function getMaterias(){
 
 function getMateriasConParametros($id){
     $db = conectarBD();
-    $sql = "SELECT * FROM materias WHERE id = $id";
+    $sql = "SELECT * FROM materias WHERE id_materia = $id";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
         outputError(500);
     }
-    $ret = mysqli_fetch_assoc($result);
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        settype($fila['id_materia'], 'integer');
+        $ret[] = $fila;
+    }
     mysqli_free_result($result);
     mysqli_close($db);
     outputJson($ret);
