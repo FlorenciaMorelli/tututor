@@ -244,6 +244,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "TOP MATERIAS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/topmaterias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"topmaterias"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
