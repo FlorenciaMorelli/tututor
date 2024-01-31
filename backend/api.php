@@ -346,74 +346,192 @@ function postMaterias(){
 function patchUsuarios($id){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
-    $mail = mysqli_real_escape_string($db, $data['mail']);
-    $password = mysqli_real_escape_string($db, $data['password']);
-    $rol = mysqli_real_escape_string($db, $data['rol']);
-    $sql = "UPDATE usuarios SET mail = $mail, password = $password, rol = $rol WHERE id = $id";
+
+    if (empty($data)) {
+        outputError(400); // No hay datos proporcionados para actualizar
+    }
+
+    $cambios = [];
+
+    if (isset($data['mail'])) {
+        $mail = mysqli_real_escape_string($db, $data['mail']);
+        $cambios[] = "mail = '$mail'";
+    }
+
+    if (isset($data['password'])) {
+        $password = mysqli_real_escape_string($db, $data['password']);
+        $cambios[] = "password = '$password'";
+    }
+
+    if (isset($data['rol'])) {
+        $rol = mysqli_real_escape_string($db, $data['rol']);
+        $cambios[] = "rol = '$rol'";
+    }
+
+    $seteador = implode(", ", $cambios);
+
+    $sql = "UPDATE usuarios SET $seteador WHERE id_user = $id";
     $result = mysqli_query($db, $sql);
-    if ($result===false) {
+
+    if ($result === false) {
         print mysqli_error($db);
         outputError(500);
     }
+
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_user' => $id]);
 }
+
 
 function patchAlumnos($id){
     global $alumnos;
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
-    $nombre = mysqli_real_escape_string($db, $data['nombre']);
-    $apellido = mysqli_real_escape_string($db, $data['apellido']);
-    $zona = mysqli_real_escape_string($db, $data['zona']);
-    $direccion = mysqli_real_escape_string($db, $data['direccion']);
-    $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
-    $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
-    $sql = "UPDATE alumnos SET nombre = $nombre, apellido = $apellido, zona = $zona, direccion = $direccion, foto_path = $foto_path, puntuacion = $puntuacion WHERE id = $id";
+    
+    if (empty($data)) {
+        outputError(400); // No hay datos proporcionados para actualizar
+    }
+    
+    $cambios = [];
+    
+    if (isset($data['nombre'])) {
+        $nombre = mysqli_real_escape_string($db, $data['nombre']);
+        $cambios[] = "nombre = '$nombre'";
+    }
+
+    if (isset($data['apellido'])) {
+        $apellido = mysqli_real_escape_string($db, $data['apellido']);
+        $cambios[] = "apellido = '$apellido'";
+    }
+
+    if (isset($data['zona'])) {
+        $zona = mysqli_real_escape_string($db, $data['zona']);
+        $cambios[] = "zona = '$zona'";
+    }
+
+    if (isset($data['direccion'])) {
+        $direccion = mysqli_real_escape_string($db, $data['direccion']);
+        $cambios[] = "direccion = '$direccion'";
+    }
+
+    if (isset($data['foto_path'])) {
+        $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
+        $cambios[] = "foto_path = '$foto_path'";
+    }
+
+    if (isset($data['puntuacion'])) {
+        $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
+        $cambios[] = "puntuacion = '$puntuacion'";
+    }
+
+    $seteador = implode(", ", $cambios);
+    
+    $sql = "UPDATE alumnos SET $seteador WHERE id_alumno = $id";
     $result = mysqli_query($db, $sql);
+    
     if ($result===false) {
         print mysqli_error($db);
         outputError(500);
     }
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_alumno' => $id]);
 }
 
-function patchProfesor($id){
-    global $profesores;
+
+function patchProfesores($id){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
-    $nombre = mysqli_real_escape_string($db, $data['nombre']);
-    $apellido = mysqli_real_escape_string($db, $data['apellido']);
-    $modalidad = mysqli_real_escape_string($db, $data['modalidad']);
-    $zona = mysqli_real_escape_string($db, $data['zona']);
-    $direccion = mysqli_real_escape_string($db, $data['direccion']);
-    $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
-    $archivos_path = mysqli_real_escape_string($db, $data['archivos_path']);
-    $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
-    $sql = "UPDATE profesores SET nombre = $nombre, apellido = $apellido, modalidad = $modalidad, zona = $zona, direccion = $direccion, foto_path = $foto_path, archivos_path = $archivos_path, puntuacion = $puntuacion WHERE id = $id";
+
+    if (empty($data)) {
+        outputError(400); // No hay datos proporcionados para actualizar
+    }
+
+    $cambios = [];
+
+    if (isset($data['nombre'])) {
+        $nombre = mysqli_real_escape_string($db, $data['nombre']);
+        $cambios[] = "nombre = '$nombre'";
+    }
+
+    if (isset($data['apellido'])) {
+        $apellido = mysqli_real_escape_string($db, $data['apellido']);
+        $cambios[] = "apellido = '$apellido'";
+    }
+
+    if (isset($data['modalidad'])) {
+        $modalidad = mysqli_real_escape_string($db, $data['modalidad']);
+        $cambios[] = "modalidad = '$modalidad'";
+    }
+
+    if (isset($data['zona'])) {
+        $zona = mysqli_real_escape_string($db, $data['zona']);
+        $cambios[] = "zona = '$zona'";
+    }
+
+    if (isset($data['direccion'])) {
+        $direccion = mysqli_real_escape_string($db, $data['direccion']);
+        $cambios[] = "direccion = '$direccion'";
+    }
+
+    if (isset($data['foto_path'])) {
+        $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
+        $cambios[] = "foto_path = '$foto_path'";
+    }
+
+    if (isset($data['archivos_path'])) {
+        $archivos_path = mysqli_real_escape_string($db, $data['archivos_path']);
+        $cambios[] = "archivos_path = '$archivos_path'";
+    }
+
+    if (isset($data['puntuacion'])) {
+        $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
+        $cambios[] = "puntuacion = '$puntuacion'";
+    }
+
+    $seteador = implode(", ", $cambios);
+
+    $sql = "UPDATE profesores SET $seteador WHERE id_profesor = $id";
     $result = mysqli_query($db, $sql);
-    if ($result===false) {
+
+    if ($result === false) {
         print mysqli_error($db);
         outputError(500);
     }
+
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_profesor' => $id]);
 }
 
-function patchMateria($id){
+
+function patchMaterias($id){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
-    $nombre = mysqli_real_escape_string($db, $data['nombre']);
-    $sql = "UPDATE materias SET nombre = $nombre WHERE id = $id";
+
+    if (empty($data)) {
+        outputError(400); // No hay datos proporcionados para actualizar
+    }
+
+    $cambios = [];
+
+    if (isset($data['nombre'])) {
+        $nombre = mysqli_real_escape_string($db, $data['nombre']);
+        $cambios[] = "nombre = '$nombre'";
+    }
+
+    $seteador = implode(", ", $cambios);
+
+    $sql = "UPDATE materias SET $seteador WHERE id_materia = $id";
     $result = mysqli_query($db, $sql);
-    if ($result===false) {
+
+    if ($result === false) {
         print mysqli_error($db);
         outputError(500);
     }
+
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_materia' => $id]);
 }
+
 
 function deleteUsuarios($id){
     $db = conectarBD();
