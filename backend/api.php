@@ -213,11 +213,12 @@ function getMateriasConParametros($id){
 // Función top 5 materias para banner de inicio
 function getTopMaterias(){
     $db = conectarBD();
-    $sql = "SELECT TOP(5) m.nombre, m.icono
+    $sql = "SELECT m.nombre, m.icono
         FROM materias m
         INNER JOIN alumnos_materias am ON m.id_materia = am.id_materia
         GROUP BY m.id_materia
-        ORDER BY cantidad_alumnos DESC";
+        ORDER BY COUNT(am.id_alumno) DESC
+        LIMIT 5";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
