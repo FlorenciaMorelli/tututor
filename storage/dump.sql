@@ -118,7 +118,7 @@ INSERT INTO profesores (id_usuario, nombre, zona, modalidad, puntuacion) VALUES
 (4, 'Profesor2', 'Zona4', 'Virtual', 4.7);
 
 INSERT INTO alumnos_materias (id_alumno, id_materia) VALUES 
-(1, 1), (1, 3), (2, 2), (2, 4);
+(1, 1), (1, 3), (2, 2), (2, 3);
 
 INSERT INTO profesores_materias (id_profesor, id_materia) VALUES 
 (1, 1), (1, 3), (2, 2), (2, 4);
