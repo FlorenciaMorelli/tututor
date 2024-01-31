@@ -269,7 +269,168 @@
 		},
 		{
 			"name": "POST",
-			"item": []
+			"item": [
+				{
+					"name": "USUARIOS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mail\": \"usuario_de_prueba@post.com\",\r\n    \"password\": \"soylaprueba123\",\r\n    \"rol\": \"alumno\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_usuario\": 6,\r\n  \"nombre\": \"Prueba\",\r\n  \"apellido\": \"Pruebita\",\r\n  \"zona\": \"Zona 1\",\r\n  \"direccion\": \"Calle Principal 123\",\r\n  \"foto_path\": \"url_de_la_foto.jpg\",\r\n  \"puntuacion\": 5.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESORES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_usuario\": 1,\r\n  \"nombre\": \"Juan\",\r\n  \"apellido\": \"Pérez\",\r\n  \"modalidad\": \"Presencial\",\r\n  \"zona\": \"Centro\",\r\n  \"direccion\": \"Calle Principal 123\",\r\n  \"foto_path\": \"/path/to/foto.jpg\",\r\n  \"archivos_path\": \"/path/to/archivos\",\r\n  \"puntuacion\": 4.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MATERIAS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_usuario\": 1,\r\n  \"nombre\": \"Juan\",\r\n  \"apellido\": \"Pérez\",\r\n  \"modalidad\": \"Presencial\",\r\n  \"zona\": \"Centro\",\r\n  \"direccion\": \"Calle Principal 123\",\r\n  \"foto_path\": \"/path/to/foto.jpg\",\r\n  \"archivos_path\": \"/path/to/archivos\",\r\n  \"puntuacion\": 4.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
