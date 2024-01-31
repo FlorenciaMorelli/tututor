@@ -234,13 +234,18 @@ function getTopMaterias(){
 }
 
 // Función para agregar una materia que no había
-function postUsuario(){
+function postUsuarios(){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['mail']) || !isset($data['password']) || !isset($data['rol'])) {
+        outputError(400);
+    }
+
     $mail = mysqli_real_escape_string($db, $data['mail']);
     $password = mysqli_real_escape_string($db, $data['password']);
     $rol = mysqli_real_escape_string($db, $data['rol']);
-    $sql = "INSERT INTO usuarios (mail, password, rol) VALUES ($mail, $password, $rol)";
+    $sql = "INSERT INTO usuarios (mail, password, rol) VALUES ('$mail', '$password', '$rol')";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
@@ -248,32 +253,48 @@ function postUsuario(){
     }
     $id = mysqli_insert_id($db);
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_user' => $id]);
 }
 
-function postAlumno(){
+function postAlumnos(){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['id_usuario']) || !isset($data['nombre']) || !isset($data['apellido']) || !isset($data['zona']) || !isset($data['direccion']) || !isset($data['foto_path']) || !isset($data['puntuacion'])) {
+        outputError(400);
+    }
+    
+    $id_usuario = mysqli_real_escape_string($db, $data['id_usuario']);
     $nombre = mysqli_real_escape_string($db, $data['nombre']);
     $apellido = mysqli_real_escape_string($db, $data['apellido']);
     $zona = mysqli_real_escape_string($db, $data['zona']);
     $direccion = mysqli_real_escape_string($db, $data['direccion']);
     $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
     $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
-    $sql = "INSERT INTO alumnos (nombre, apellido, zona, direccion, foto_path, puntuacion) VALUES ($nombre, $apellido, $zona, $direccion, $foto_path, $puntuacion)";
+
+    $sql = "INSERT INTO alumnos (id_usuario, nombre, apellido, zona, direccion, foto_path, puntuacion) VALUES ('$id_usuario', '$nombre', '$apellido', '$zona', '$direccion', '$foto_path', '$puntuacion')";
     $result = mysqli_query($db, $sql);
+    
     if ($result===false) {
         print mysqli_error($db);
         outputError(500);
     }
+
     $id = mysqli_insert_id($db);
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_alumno' => $id]);
 }
+
 
 function postProfesores(){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['id_usuario']) || !isset($data['nombre']) || !isset($data['apellido']) || !isset($data['modalidad']) || !isset($data['zona']) || !isset($data['direccion']) || !isset($data['foto_path']) || !isset($data['archivos_path']) || !isset($data['puntuacion'])) {
+        outputError(400);
+    }
+
+    $id_usuario = mysqli_real_escape_string($db, $data['id_usuario']);
     $nombre = mysqli_real_escape_string($db, $data['nombre']);
     $apellido = mysqli_real_escape_string($db, $data['apellido']);
     $modalidad = mysqli_real_escape_string($db, $data['modalidad']);
@@ -282,32 +303,45 @@ function postProfesores(){
     $foto_path = mysqli_real_escape_string($db, $data['foto_path']);
     $archivos_path = mysqli_real_escape_string($db, $data['archivos_path']);
     $puntuacion = mysqli_real_escape_string($db, $data['puntuacion']);
-    $sql = "INSERT INTO profesores (nombre, apellido, modalidad, zona, direccion, foto_path, archivos_path, puntuacion) VALUES ($nombre, $apellido, $modalidad, $zona, $direccion, $foto_path, $archivos_path, $puntuacion)";
+
+    $sql = "INSERT INTO profesores (id_usuario, nombre, apellido, modalidad, zona, direccion, foto_path, archivos_path, puntuacion) VALUES ('$id_usuario', '$nombre', '$apellido', '$modalidad', '$zona', '$direccion', '$foto_path', '$archivos_path', '$puntuacion')";
     $result = mysqli_query($db, $sql);
+
     if ($result===false) {
         print mysqli_error($db);
         outputError(500);
     }
+
     $id = mysqli_insert_id($db);
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_profesor' => $id]);
 }
+
 
 // Función para agregar una materia que no había
 function postMaterias(){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['nombre'])) {
+        outputError(400);
+    }
+
     $nombre = mysqli_real_escape_string($db, $data['nombre']);
-    $sql = "INSERT INTO materias (nombre, icono) VALUES ($nombre, 'https://via.placeholder.com/50')"; //en este caso, sería útil tener un ícono estándar de materia guardado en el proyecto. y después se podría cambiar el ícono desde el admin
+    $sql = "INSERT INTO materias (nombre, icono) VALUES ('$nombre', 'https://via.placeholder.com/50')";
+    
     $result = mysqli_query($db, $sql);
+    
     if ($result===false) {
         print mysqli_error($db);
         outputError(500);
     }
+
     $id = mysqli_insert_id($db);
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_materia' => $id]);
 }
+
 
 function patchUsuarios($id){
     $db = conectarBD();
