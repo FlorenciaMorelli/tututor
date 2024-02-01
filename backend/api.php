@@ -342,7 +342,6 @@ function postMaterias(){
     outputJson(['id_materia' => $id]);
 }
 
-
 function patchUsuarios($id){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
@@ -381,7 +380,6 @@ function patchUsuarios($id){
     mysqli_close($db);
     outputJson(['id_user' => $id]);
 }
-
 
 function patchAlumnos($id){
     global $alumnos;
@@ -436,7 +434,6 @@ function patchAlumnos($id){
     mysqli_close($db);
     outputJson(['id_alumno' => $id]);
 }
-
 
 function patchProfesores($id){
     $db = conectarBD();
@@ -532,51 +529,206 @@ function patchMaterias($id){
     outputJson(['id_materia' => $id]);
 }
 
-
-function deleteUsuarios($id){
+// Función para eliminar un Usuario y sus relaciones
+function deleteUsuarios($id) {
     $db = conectarBD();
-    $sql = "DELETE FROM usuarios WHERE id = $id";
-    $result = mysqli_query($db, $sql);
-    if ($result===false) {
+    // Eliminar registros de alumnos_resenas y profesores_resenas
+    $sqlAlumnoRes = "DELETE FROM alumnos_resenas WHERE id_alumno IN (SELECT id_alumno FROM alumnos WHERE id_usuario = $id)";
+    $resultAlumnoRes = mysqli_query($db, $sqlAlumnoRes);
+
+    if ($resultAlumnoRes === false) {
         print mysqli_error($db);
         outputError(500);
     }
+
+    // Eliminar registros de profesores_resenas
+    $sqlProfRes = "DELETE FROM profesores_resenas WHERE id_profesor IN (SELECT id_profesor FROM profesores WHERE id_usuario = $id)";
+    $resultProfRes = mysqli_query($db, $sqlProfRes);
+
+    if ($resultProfRes === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Eliminar registros de alumnos_materias
+    $sqlAlumnoMat = "DELETE FROM alumnos_materias WHERE id_alumno IN (SELECT id_alumno FROM alumnos WHERE id_usuario = $id)";
+    $resultAlumnoMat = mysqli_query($db, $sqlAlumnoMat);
+
+    if ($resultAlumnoMat === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Eliminar registros de profesores_materias
+    $sqlProfMat = "DELETE FROM profesores_materias WHERE id_profesor IN (SELECT id_profesor FROM profesores WHERE id_usuario = $id)";
+    $resultProfMat = mysqli_query($db, $sqlProfMat);
+
+    if ($resultProfMat === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Eliminar registros de alumnos
+    $sqlAlumno = "DELETE FROM alumnos WHERE id_usuario = $id";
+    $resultAlumno = mysqli_query($db, $sqlAlumno);
+
+    if ($resultAlumno === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Eliminar registros de profesores
+    $sqlProfesor = "DELETE FROM profesores WHERE id_usuario = $id";
+    $resultProfesor = mysqli_query($db, $sqlProfesor);
+
+    if ($resultProfesor === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Finalmente, eliminar el usuario
+    $sqlUsuario = "DELETE FROM usuarios WHERE id_user = $id";
+    $resultUsuario = mysqli_query($db, $sqlUsuario);
+
+    if ($resultUsuario === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_user' => $id]);
 }
 
-function deleteAlumnos($id){
+// Función para eliminar un Alumno y sus relaciones
+function deleteAlumnos($id) {
     $db = conectarBD();
-    $sql = "DELETE FROM alumnos WHERE id = $id";
-    $result = mysqli_query($db, $sql);
-    if ($result===false) {
+
+    // Eliminar registros de alumnos_resenas
+    $sqlAlumnoRes = "DELETE FROM alumnos_resenas WHERE id_alumno IN (SELECT id_alumno FROM alumnos WHERE id_usuario = $id)";
+    $resultAlumnoRes = mysqli_query($db, $sqlAlumnoRes);
+
+    if ($resultAlumnoRes === false) {
         print mysqli_error($db);
         outputError(500);
     }
+
+    $sqlProfRes = "DELETE FROM profesores_resenas WHERE id_profesor IN (SELECT id_profesor FROM profesores WHERE id_usuario = $id)";
+    $resultProfRes = mysqli_query($db, $sqlProfRes);
+
+    if ($resultProfRes === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Eliminar registros de alumnos_materias
+    $sqlAlumnoMat = "DELETE FROM alumnos_materias WHERE id_alumno IN (SELECT id_alumno FROM alumnos WHERE id_usuario = $id)";
+    $resultAlumnoMat = mysqli_query($db, $sqlAlumnoMat);
+
+    if ($resultAlumnoMat === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Eliminar registros de profesores_materias
+    $sqlProfMat = "DELETE FROM profesores_materias WHERE id_profesor IN (SELECT id_profesor FROM profesores WHERE id_usuario = $id)";
+    $resultProfMat = mysqli_query($db, $sqlProfMat);
+
+    if ($resultProfMat === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Eliminar registros de alumnos
+    $sqlAlumno = "DELETE FROM alumnos WHERE id_usuario = $id";
+    $resultAlumno = mysqli_query($db, $sqlAlumno);
+
+    if ($resultAlumno === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Finalmente, eliminar el usuario
+    $sqlUsuario = "DELETE FROM usuarios WHERE id_user = $id";
+    $resultUsuario = mysqli_query($db, $sqlUsuario);
+
+    if ($resultUsuario === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_alumno' => $id]);
 }
 
-function deleteProfesores($id){
+// Función para eliminar un Profesor y sus relaciones
+function deleteProfesores($id) {
+    if (empty($id) || !is_numeric($id)) {
+        outputError(400); // Bad Request, ID no válido
+    }
+
     $db = conectarBD();
-    $sql = "DELETE FROM profesores WHERE id = $id";
-    $result = mysqli_query($db, $sql);
-    if ($result===false) {
+
+    // Eliminar registros de profesores_resenas
+    $sqlProfRes = "DELETE FROM profesores_resenas WHERE id_profesor = $id";
+    $resultProfRes = mysqli_query($db, $sqlProfRes);
+
+    if ($resultProfRes === false) {
         print mysqli_error($db);
         outputError(500);
     }
+
+    // Eliminar registros de profesores_materias
+    $sqlProfMat = "DELETE FROM profesores_materias WHERE id_profesor = $id";
+    $resultProfMat = mysqli_query($db, $sqlProfMat);
+
+    if ($resultProfMat === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Finalmente, eliminar el profesor
+    $sqlProf = "DELETE FROM profesores WHERE id_profesor = $id";
+    $resultProf = mysqli_query($db, $sqlProf);
+
+    if ($resultProf === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_profesor' => $id]);
 }
 
-function deleteMaterias($id){
+// Función para eliminar una Materia y sus relaciones
+function deleteMaterias($id) {
     $db = conectarBD();
-    $sql = "DELETE FROM materias WHERE id = $id";
-    $result = mysqli_query($db, $sql);
-    if ($result===false) {
+
+    // Eliminar registros de alumnos_materias y profesores_materias
+    $sqlAlumnoMat = "DELETE FROM alumnos_materias WHERE id_materia = $id";
+    $resultAlumnoMat = mysqli_query($db, $sqlAlumnoMat);
+
+    if ($resultAlumnoMat === false) {
         print mysqli_error($db);
         outputError(500);
     }
+
+    $sqlProfMat = "DELETE FROM profesores_materias WHERE id_materia = $id";
+    $resultProfMat = mysqli_query($db, $sqlProfMat);
+
+    if ($resultProfMat === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
+    // Finalmente, eliminar la materia
+    $sqlMateria = "DELETE FROM materias WHERE id_materia = $id";
+    $resultMateria = mysqli_query($db, $sqlMateria);
+
+    if ($resultMateria === false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+
     mysqli_close($db);
-    outputJson(['id' => $id]);
+    outputJson(['id_materia' => $id]);
 }
