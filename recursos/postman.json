@@ -556,6 +556,95 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "USUARIOS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnos/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESORES",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MATERIAS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"materias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
