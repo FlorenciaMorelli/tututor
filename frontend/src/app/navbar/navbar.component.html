@@ -1,0 +1,21 @@
+<div class="container">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../../favicon.ico" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            {{titulo}}
+        </a>
+        <ul class="nav justify-content-end" *ngFor="let item of menu">
+            @if(item.tipo == 1){
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ item.link }}">{{ item.texto }}</a>
+                </li>
+            } @else if (item.tipo == 2) {
+                <button type="button" class="btn btn-primary"><a class="nav-link active" aria-current="page" href="{{ item.link }}">{{ item.texto }}</a></button>
+            } @else {
+                <button type="button" class="btn btn-secondary"><a class="nav-link active" aria-current="page" href="{{ item.link }}">{{ item.texto }}</a></button>
+            }
+        </ul>
+        </div>
+    </nav>
+</div>
