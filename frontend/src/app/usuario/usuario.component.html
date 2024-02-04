@@ -1,0 +1,11 @@
+<ul>
+    @for(nombre of usuarios; track nombre.id){
+        <li (click)="marcarUsuario(nombre.username)">{{ nombre.username }}</li>
+    }
+</ul>
+
+@if (isLoggedIn &&  usuarioActual != "") { 
+    <h1 (click)="greet()">Bienvenido {{usuarioActual}}!</h1>
+} @else {
+    <button (click)="isLoggedIn = true" type="button" class="btn btn-primary">Login</button>
+}
