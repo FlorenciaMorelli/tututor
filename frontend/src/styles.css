@@ -1,5 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Kufam:ital,wght@0,400..900;1,400..900&display=swap');
+
 :root{
     color-scheme: light dark;
     --primary: #3B3A5D;
     --secondary: #FFBB50;
+}
+
+h1{
+    font-family: 'Kufam';
+    font-weight: bold;
+    font-size: 45px;
+    line-height: 110%;
+}
+
+h3{
+    font-family: 'Kufam';
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 110%;
 }

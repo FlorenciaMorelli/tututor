@@ -8,4 +8,11 @@ section{
 
 h1{
     margin-top: 20px;
+    color: #274C77;
+}
+
+h3{
+    color: white;
+    text-align: left;
+    margin-left: 15%;
 }
