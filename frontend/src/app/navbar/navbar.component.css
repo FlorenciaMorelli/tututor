@@ -1,5 +1,7 @@
-:root{
-    color-scheme: light dark;
-    --primary: #3B3A5D;
-    --secondary: #FFBB50;
+*{
+    border-radius: 10px;
+}
+
+a{
+    color: #3B3A5D;
 }
