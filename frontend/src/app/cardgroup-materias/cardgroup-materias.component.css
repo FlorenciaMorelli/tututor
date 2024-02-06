@@ -7,5 +7,5 @@ section{
     margin: 0.5%;
     background-color: rgba(255, 255, 255, 0.50);
     border-color: #A3CEF1;
-    border-top-right-radius: 10px;
+    border-radius: 10px !important;
 }
