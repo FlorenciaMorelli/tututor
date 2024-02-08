@@ -16,7 +16,6 @@ if (function_exists($funcionNombre)) {
     outputError(400);
 }
 
-
 function conectarBD()
 {
     $link = mysqli_connect(DBHOST, DBUSER, DBPASS, DBBASE);
@@ -731,4 +730,33 @@ function deleteMaterias($id) {
 
     mysqli_close($db);
     outputJson(['id_materia' => $id]);
+}
+
+function postLogin() {
+    $db = conectarBD();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['mail']) || !isset($data['password'])) {
+        outputError(400); // Bad Request, Datos faltantes
+    }
+
+    $mail = mysqli_real_escape_string($db, $data['mail']);
+    $password = mysqli_real_escape_string($db, $data['password']);
+
+    $sql = "SELECT * FROM usuarios WHERE mail = '$mail' AND password = '$password'";
+    $result = mysqli_query($db, $sql);
+
+    if ($result === false) {
+        print mysqli_error($db);
+        outputError(500); // Internal Server Error
+    }
+
+    $user = mysqli_fetch_assoc($result);
+
+    if (!$user) {
+        outputError(401); // Unauthorized, Credenciales incorrectas
+    }
+
+    mysqli_close($db);
+    outputJson($user);
 }
