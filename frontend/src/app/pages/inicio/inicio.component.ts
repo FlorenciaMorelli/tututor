@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BannerComponent } from '../../banner/banner.component';
-import { LoginFormComponent } from '../login-form/login-form.component';
+import { BannerComponent } from '../../components/banner/banner.component';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
 @Component({
   selector: 'app-inicio',

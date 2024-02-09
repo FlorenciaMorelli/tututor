@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MateriasService } from '../materias.service';
+import { MateriasService } from '../../materias.service';
 
 @Component({
   selector: 'cardgroup-materias',
