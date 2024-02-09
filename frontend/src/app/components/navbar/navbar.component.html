@@ -11,11 +11,44 @@
                     <a class="nav-link active" aria-current="page" href="{{ item.link }}">{{ item.texto }}</a>
                 </li>
             } @else if (item.tipo == 2) {
-                <button type="button" class="btn btn-primary"><a class="nav-link active" aria-current="page" href="{{ item.link }}">{{ item.texto }}</a></button>
+                <button class="btn btn-primary" data-bs-target="#modalLoginToggle" data-bs-toggle="modal">{{ item.texto }}</button>
             } @else {
-                <button type="button" class="btn btn-secondary"><a class="nav-link active" aria-current="page" href="{{ item.link }}">{{ item.texto }}</a></button>
+                <button class="btn btn-secondary" data-bs-target="#modalLoginToggle" data-bs-toggle="modal">{{ item.texto }}</button>
             }
         </ul>
         </div>
     </nav>
+</div>
+
+<div class="modal fade" id="modalLoginToggle" aria-hidden="true" aria-labelledby="modalLoginToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLoginToggleLabel">Iniciar sesión</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <login-form />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#modalLoginToggle2" data-bs-toggle="modal">No tengo cuenta aún</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalLoginToggle2" aria-hidden="true" aria-labelledby="modalLoginToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLoginToggleLabel2">Crear cuenta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <signup-form />
+            </div>
+                <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#modalLoginToggle" data-bs-toggle="modal">Ya tengo cuenta</button>
+            </div>
+        </div>
+    </div>
 </div>
