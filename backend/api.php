@@ -327,7 +327,7 @@ function postMaterias(){
     }
 
     $nombre = mysqli_real_escape_string($db, $data['nombre']);
-    $sql = "INSERT INTO materias (nombre, icono) VALUES ('$nombre', 'https://via.placeholder.com/50')";
+    $sql = "INSERT INTO materias (nombre, icono) VALUES ('$nombre', 'materia.png')";
     
     $result = mysqli_query($db, $sql);
     
