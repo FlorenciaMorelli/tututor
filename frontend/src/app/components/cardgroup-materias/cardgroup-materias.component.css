@@ -8,4 +8,13 @@ section{
     background-color: rgba(255, 255, 255, 0.50);
     border-color: #A3CEF1;
     border-radius: 10px !important;
+    align-items: center;
+    justify-content: center !important;
+    padding: 2%;
+}
+
+.card-img-top{
+    max-width: 100px;
+    width: 100%;
+    height: auto;
 }
