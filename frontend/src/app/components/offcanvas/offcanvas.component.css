@@ -1,0 +1,33 @@
+#offcanvas-nav{
+    background-color: #274C77 !important;
+}
+
+.offcanvas-header{
+    background-color: #274C77 !important;
+}
+
+.offcanvas-body{
+    background-color: #274C77 !important;
+}
+
+
+li{
+    align-items:baseline;
+    justify-items: baseline;
+}
+
+img.offcanvas-icon{
+    width: 24px;
+    height: auto;
+    margin-right: 15px;
+}
+
+a{
+    color: white;
+    font-size: 24px;
+    font-family: 'Kufam';
+}
+
+a:hover{
+    color: grey;
+}
