@@ -251,6 +251,7 @@ function getAlumnosmateriasConParametros($id){
     mysqli_close($db);
     outputJson($ret);
 }
+
 function getAlumnosresenasConParametros($id){
     $db = conectarBD();
     $sql = "SELECT p.foto_path, p.nombre AS nombre_profesor, p.apellido AS apellido_profesor, r.estrellas, r.opinion
