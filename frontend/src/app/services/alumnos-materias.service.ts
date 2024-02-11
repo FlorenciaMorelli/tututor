@@ -8,7 +8,7 @@ export class AlumnosMateriasService {
   private apiURL: string;
 
   constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/alumnosMaterias/4'/* + 'id' */;
+    this.apiURL = 'http://localhost/tututor/backend/alumnosMaterias/1'/* + 'id' */;
   }
   getAlumnosMaterias() {
     return this.http.get(this.apiURL);
