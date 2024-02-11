@@ -285,6 +285,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ALUMNOS-RESEÑAS CON PARÁMETROS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnosmaterias/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnosmaterias",
+								"4"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
