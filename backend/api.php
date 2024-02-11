@@ -230,6 +230,25 @@ function getAlumnosmateriasConParametros($id){
     mysqli_close($db);
     outputJson($ret);
 }
+function getAlumnosresenasConParametros($id){
+    $db = conectarBD();
+    $sql = "SELECT p.foto_path, p.nombre AS nombre_profesor, p.apellido AS apellido_profesor, r.estrellas, r.opinion
+        FROM resenas r
+        INNER JOIN profesores p ON r.id_usuario_receptor = p.id_usuario
+        WHERE r.id_usuario_emisor = (SELECT id_usuario FROM alumnos WHERE id_alumno = $id)";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        $ret[] = $fila;
+    }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
 
 // Función top 5 materias para banner de inicio
 function getTopMaterias(){
