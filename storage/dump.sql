@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS profesores (
 CREATE TABLE IF NOT EXISTS materias (
     id_materia INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre TEXT NOT NULL,
-    icono BLOB NOT NULL
+    icono TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS alumnos_materias (
@@ -94,13 +94,14 @@ CREATE TABLE IF NOT EXISTS profesores_resenas (
 
 -- Inyección de datos de ejemplo
 INSERT INTO materias (nombre, icono) VALUES 
-('Matemáticas', 'https://via.placeholder.com/150'),
-('Historia', 'https://via.placeholder.com/150'),
-('Ciencias', 'https://via.placeholder.com/150'),
-('Arte', 'https://via.placeholder.com/150'),
-('Literatura', 'https://via.placeholder.com/150'),
-('Música', 'https://via.placeholder.com/150'),
-('Física', 'https://via.placeholder.com/150');
+('Matemática', 'matematica.png'),
+('Literatura', 'literatura.png'),
+('Inglés', 'ingles.png'),
+('Cívica', 'civica.png'),
+('Biología', 'biologia.png'),
+('Linguística', 'linguistica.png'),
+('Física', 'fisica.png'),
+('Química', 'quimica.png');
 
 INSERT INTO usuarios (mail, password, rol) VALUES 
 ('alumno1@email.com', 'contraseña1', 'alumno'),

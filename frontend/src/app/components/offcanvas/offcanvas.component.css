@@ -1,0 +1,75 @@
+*{
+    color: #FFFFFF;
+}
+
+#offcanvas-nav{
+    background-color: #274C77 !important;
+}
+
+.offcanvas-header{
+    background-color: #274C77 !important;
+    color:#FFFFFF !important;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 5%;
+}
+
+#closeOffcanvas{
+    color: #FFFFFF !important;
+}
+
+.welcome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 10%;
+}
+
+#profPic{
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 10%;
+}
+
+.offcanvas-body{
+    background-color: #274C77 !important;
+}
+
+
+li{
+    align-items:baseline;
+    justify-items: baseline;
+}
+
+img.offcanvas-icon{
+    width: 24px;
+    height: auto;
+    margin-right: 15px;
+}
+
+a{
+    color: white;
+    font-size: 24px;
+    font-family: 'Kufam';
+}
+
+a:hover{
+    color: grey;
+}
+
+.logoutbtn{
+    background-color: #274C77;
+}
+
+#cerrarSesion{
+    float: right;
+    text-align: right;
+}
+
+#cerrarSesion:hover{
+    color: grey;
+}

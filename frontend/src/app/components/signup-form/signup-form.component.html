@@ -1,0 +1,21 @@
+<form>
+    <div class="mb-3">
+        <label for="newEmail" class="form-label">Correo electrónico *</label>
+        <input type="email" class="form-control" id="newEmail" aria-describedby="emailHelp" required>
+        <div id="emailHelp" class="form-text">Tu email está a salvo con nosotros.</div>
+    </div>
+    <div class="mb-3">
+        <label for="newPassword" class="form-label">Contraseña *</label>
+        <input type="password" class="form-control" id="newPassword" required>
+    </div>
+    <div class="mb-3">
+        <label for="newConfirmPassword" class="form-label">Confirmar contraseña *</label>
+        <input type="password" class="form-control" id="newConfirmPassword" required>
+    </div>
+    <select class="form-select" aria-label="Default select example">
+        <option selected>Tipo de perfil *</option>
+        <option value="newAlumno">Alumno</option>
+        <option value="newProfesor">Profesor</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Crear cuenta</button>
+</form>
