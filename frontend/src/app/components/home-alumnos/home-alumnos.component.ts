@@ -19,8 +19,8 @@ export class HomeAlumnosComponent {
 
   ngOnInit(): void {
     this.alumnosMateriasService.getAlumnosMaterias().subscribe((materiasResponse:any) => {
-      console.log('Respuesta del servicio getMaterias: ',materiasResponse);
-      this.materiasAlumno=materiasResponse;
+      console.log('Respuesta del servicio getAlumnosMaterias: ',materiasResponse);
+      this.materiasAlumno = materiasResponse;
     });
   }
 }
