@@ -3,12 +3,14 @@
 
 <div id="offcanvas-nav" class="offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
-        <img src="..." alt="" height="50" />
-        <h3>Bienvenido</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button id="closeOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         <!-- Botón tipo toggle: <button type="button" class="btn-close" data-bs-toggle="offcanvas" aria-label="Close"></button> -->
     </div>
     <div class="offcanvas-body">
+        <div class="welcome">
+            <img id="profPic" src="../../../assets/img/profilePic.jpg" alt="" height="50" />
+            <h3>Bienvenido</h3>
+        </div>
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/dashboardAlumnos">
@@ -17,14 +19,29 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/mensajesAlumnos">Mensajes</a>
+                <a class="nav-link" href="/mensajesAlumnos">
+                    <img class="offcanvas-icon" src="../../../assets/icon/messages.png" alt="">
+                    Mensajes
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/resenasAlumnos">Mis reseñas</a>
+                <a class="nav-link" href="/resenasAlumnos">
+                    <img class="offcanvas-icon" src="../../../assets/icon/reviews.png" alt="">
+                    Mis reseñas
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/perfilAlumnos">Perfil</a>
+                <a class="nav-link" href="/perfilAlumnos">
+                    <img class="offcanvas-icon" src="../../../assets/icon/profile.png" alt="">
+                    Perfil
+                </a>
             </li>
         </ul>
+    </div>
+    <div class="logoutbtn">
+        <button id="cerrarSesion" type="button" class="btn">
+            Salir
+            <img class="offcanvas-icon" src="../../../assets/icon/logout.png" alt="" />
+        </button>
     </div>
 </div>
