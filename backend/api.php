@@ -29,12 +29,33 @@ function conectarBD()
 
 function postRestablecer () {
     $db = conectarBD();
-    $sql = sf__restablecerSql();
-    $result = mysqli_multi_query($db, $sql);
-    if ($result===false) {
-        print mysqli_error($db);
-        outputError(500);
+    $tables = array(
+        'alumnos_resenas',
+        'profesores_resenas',
+        'resenas',
+        'alumnos_materias',
+        'profesores_materias',
+        'alumnos',
+        'profesores',
+        'materias',
+        'usuarios'
+    );
+    
+    foreach ($tables as $table) {
+        $sql = "DROP TABLE IF EXISTS $table";
+        if ($db->query($sql) === FALSE) {
+            echo "Error al eliminar la tabla $table: " . $db->error . "<br>";
+        }
     }
+    
+    // Crear las tablas nuevamente
+    $sql = file_get_contents('../storage/dump.sql');
+    if ($db->multi_query($sql) === TRUE) {
+        echo "Tablas creadas correctamente<br>";
+    } else {
+        echo "Error al crear las tablas: " . $db->error . "<br>";
+    }
+    
     mysqli_close($db);
     outputJson([], 201);
 }
@@ -217,6 +238,26 @@ function getAlumnosmateriasConParametros($id){
         INNER JOIN alumnos a ON am.id_alumno = a.id_alumno
         WHERE a.id_alumno = $id
         GROUP BY m.id_materia";
+    $result = mysqli_query($db, $sql);
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        $ret[] = $fila;
+    }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
+
+function getAlumnosresenasConParametros($id){
+    $db = conectarBD();
+    $sql = "SELECT p.foto_path, p.nombre AS nombre_profesor, p.apellido AS apellido_profesor, r.estrellas, r.opinion
+        FROM resenas r
+        INNER JOIN profesores p ON r.id_usuario_receptor = p.id_usuario
+        WHERE r.id_usuario_emisor = (SELECT id_usuario FROM alumnos WHERE id_alumno = $id)";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);

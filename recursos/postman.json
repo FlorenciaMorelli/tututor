@@ -285,6 +285,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ALUMNOS-RESEÑAS CON PARÁMETROS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnosresenas/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnosresenas",
+								"4"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -670,6 +691,26 @@
 		{
 			"name": "SERVICIOS",
 			"item": [
+				{
+					"name": "RESTABLECER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/restablecer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"restablecer"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "LOGIN",
 					"event": [
