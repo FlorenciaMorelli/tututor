@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlumnosMateriasService } from '../../services/alumnos-materias.service';
 import { CommonModule } from '@angular/common';
 import { SearchbarComponent } from '../searchbar/searchbar.component';
+import { AlumnosResenasService } from '../../services/alumnos-resenas.service';
 
 @Component({
   selector: 'home-alumnos',
@@ -12,8 +13,9 @@ import { SearchbarComponent } from '../searchbar/searchbar.component';
 })
 export class HomeAlumnosComponent {
   materiasAlumno: any[] = [];
+  resenasAlumno: any[] = [];
 
-  constructor(private alumnosMateriasService: AlumnosMateriasService) {
+  constructor(private alumnosMateriasService: AlumnosMateriasService, private alumnosResenasService: AlumnosResenasService) {
 
   }
 
@@ -21,6 +23,11 @@ export class HomeAlumnosComponent {
     this.alumnosMateriasService.getAlumnosMaterias().subscribe((materiasResponse:any) => {
       console.log('Respuesta del servicio getAlumnosMaterias: ',materiasResponse);
       this.materiasAlumno = materiasResponse;
+    });
+    
+    this.alumnosResenasService.getAlumnosResenas().subscribe( (resenasResponse: any)=>{
+      console.log('Respuesta del servicio getAlumnosResenas: ',resenasResponse);
+      this.resenasAlumno =  resenasResponse;
     });
   }
 }

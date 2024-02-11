@@ -23,3 +23,32 @@ section{
     width: 100%;
     height: auto;
 }
+
+#card-clase{
+    max-width: 60%;
+}
+
+.claseTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.datosProfe{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.datosProfe h5{
+    padding: 0% 10%;
+}
+
+.resenaPic{
+    width: 50px;
+    min-width: 49px;
+    height: 50px;
+    min-height: 49px;
+    overflow: hidden;
+    border-radius: 50%;
+}
