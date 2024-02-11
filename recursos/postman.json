@@ -264,6 +264,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ALUMNOS-MATERIAS CON PARÁMETROS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnosmaterias/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnosmaterias",
+								"4"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -667,7 +688,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mail\": \"usuario_de_prueba@post.com\",\r\n    \"password\": \"soylaprueba123\",\r\n    \"rol\": \"alumno\"\r\n}",
+							"raw": "{\r\n    \"mail\": \"usuario_de_prueba@post.com\",\r\n    \"password\": \"soylaprueba123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
