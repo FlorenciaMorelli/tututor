@@ -29,12 +29,33 @@ function conectarBD()
 
 function postRestablecer () {
     $db = conectarBD();
-    $sql = sf__restablecerSql();
-    $result = mysqli_multi_query($db, $sql);
-    if ($result===false) {
-        print mysqli_error($db);
-        outputError(500);
+    $tables = array(
+        'alumnos_resenas',
+        'profesores_resenas',
+        'resenas',
+        'alumnos_materias',
+        'profesores_materias',
+        'alumnos',
+        'profesores',
+        'materias',
+        'usuarios'
+    );
+    
+    foreach ($tables as $table) {
+        $sql = "DROP TABLE IF EXISTS $table";
+        if ($db->query($sql) === FALSE) {
+            echo "Error al eliminar la tabla $table: " . $db->error . "<br>";
+        }
     }
+    
+    // Crear las tablas nuevamente
+    $sql = file_get_contents('../storage/dump.sql');
+    if ($db->multi_query($sql) === TRUE) {
+        echo "Tablas creadas correctamente<br>";
+    } else {
+        echo "Error al crear las tablas: " . $db->error . "<br>";
+    }
+    
     mysqli_close($db);
     outputJson([], 201);
 }
