@@ -6,13 +6,18 @@ section{
     text-align: center;
 }
 
+.content{
+    width: 80%;
+}
+
 h1{
-    margin-top: 20px;
+    margin-top: 10%;
     color: #274C77;
 }
 
 h3{
     color: white;
     text-align: left;
-    margin-left: 15%;
+    width: 100%;
+    margin-top: 3%;
 }
