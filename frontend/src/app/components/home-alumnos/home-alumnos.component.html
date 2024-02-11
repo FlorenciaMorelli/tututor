@@ -1,8 +1,9 @@
 <section id="main-content">
+    <searchbar />
     <section id="materias">
         <h3>Mis materias</h3>
         <div id="cardgroup-materias" class="card-group">
-            <div id="card-materia" class="card" *ngFor="let materia of materiasAlumno.slice(0, 8)">
+            <div id="card-materia" class="card" *ngFor="let materia of materiasAlumno.slice(0, 5)">
                 <img id="cardimg-materia" src="../../../assets/img/{{ materia.icono }}" class="card-img-top" alt="...">
                 <div id="cardbody-materia" class="card-body">
                     <h5 class="card-title">{{ materia.nombre }}</h5>
