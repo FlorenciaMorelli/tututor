@@ -2,6 +2,18 @@
     color: #FFFFFF;
 }
 
+#offcanvas-toggle{
+    background-color: #274C77 !important;
+    border-radius: 0 10% 10% 0 !important;
+    border-color:  transparent !important;
+}
+
+#offcanvas-toggle2{
+    background-color: #274C77 !important;
+    border-radius: 0 10% 10% 0 !important;
+    border-color:  transparent !important;
+}
+
 #offcanvas-nav{
     background-color: #274C77 !important;
 }
