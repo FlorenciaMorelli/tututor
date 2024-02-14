@@ -1,48 +1,38 @@
 <?php
-session_start();
 include "../config/config.php";
 
-function checkLogin(){
-    if(isset($_POST['mail']) && isset($_POST['password']) && isset($_POST['role']) ){
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
+$link = conectarBD();
 
-        $mail = test_input($_POST['mail']);
-        $password = test_input($_POST['password']);
-        $role = test_input($_POST['role']); //Lo dejo para referencia para el sign up, pero no debería preguntar el rol en el login
-        
-        if(empty($mail)){
-            header("Location: /index.html?error=User Name is Required"); //Cambiar index.html al login cuando esté desarrollado
-        } else if(empty($password)){
-            header("Location: /index.html?error=Password is Required"); //Cambiar index.html al login cuando esté desarrollado
-        } else {
-            // Hash
-            $password = md5($password);
-            
-            $sql = "SELECT * FROM usuarios WHERE mail='$mail' AND password='$password'";
-            $result = mysqli_query($link, $sql);
+if(isset($_POST['mail']) && isset($_POST['password'])){
+    $mail = $_POST['mail'];
+    $password = $_POST['password'];
+    
+    
+    $sql = "SELECT * FROM usuarios WHERE mail='$mail'";
+    $result = mysqli_query($link, $sql);
 
-            if(mysqli_num_rows($result) === 1){
-                //usuario unico
-                $row = mysqli_fetch_assoc($result);
-                if($row['password'] === $password && $row['role'] == $role){
-                    $_SESSION['name'] = $row ['name'];
-                    $_SESSION['id'] = $row ['id'];
-                    $_SESSION['role'] = $row ['role'];
-                    $_SESSION['mail'] = $row ['mail'];
+    if(mysqli_num_rows($result) === 1){
+        //usuario unico
+        $usuario = mysqli_fetch_assoc($result);
+        if($usuario['password_hash'] === $password){
+            $_SESSION['id_usuario'] = $usuario['id_user'];
+            $_SESSION['rol'] = $usuario['rol'];
+            $_SESSION['mail'] = $usuario['mail'];
 
-                    header("Location: /dashboard.html"); //Cambiar dashboard.html al login cuando esté desarrollado
-                }
-            } else {
-                header("Location: /index.html?error=Mail o Contrasena Incorrectos"); //Cambiar index.html al login cuando esté desarrollado
-            }
+            header("Location: /dashboard");
         }
     } else {
-        header("Location: /index.html"); //Cambiar index.html al login cuando esté desarrollado
+        header("Location: /error=Mail o Contrasena Incorrectos");
+    }
+} else {
+    if(empty($mail)){
+        echo '<div class="alert alert-primary" role="alert">
+                Debe ingresar un correo electrónico
+            </div>';
+    } else if(empty($password)){
+        echo '<div class="alert alert-primary" role="alert">
+                Debe ingresar una contraseña válida
+            </div>';
     }
 }
 

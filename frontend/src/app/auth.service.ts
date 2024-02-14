@@ -12,7 +12,19 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
-    const url = `${this.apiUrl}/login`; // Ruta correcta para iniciar sesión
+    const url = `${this.apiUrl}/checklogin.php`; // Ruta correcta para iniciar sesión
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<any>(url, credentials, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  signup(credentials: any){
+    const url = `${this.apiUrl}/signup.php`; // Ruta correcta para iniciar sesión
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

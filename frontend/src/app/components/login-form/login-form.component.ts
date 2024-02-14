@@ -1,41 +1,40 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'login-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
-  loginForm = new FormGroup({
-    mail: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
-  });
+  loginObj: Login;
+  mailValue: string = '<?php htmlspecialchars($_POST["mail"] ?? "") ?>';
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
-    this.loginForm = formBuilder.group({
-      mail: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required,]]
-    });
+  error = false;
+  errorMessage = "<?php if(isset($_GET['error'])){$_GET['error']} ?>";
+
+  constructor(private router: Router, private authService: AuthService) {
+    this.loginObj = new Login();
   }
 
-  onSubmit() {
-    console.log("Se enviaron los datos:");
-    console.log(this.loginForm.value); 
-    // TODO: Implementar la autenticación del usuario en el servidor y manejar errores adecuadamente
-    
-    // Llamada al servicio de autenticación
-    this.authService.login(this.loginForm.value).subscribe((respuesta) =>{
-      if (respuesta != null){
-        localStorage.setItem('token', respuesta['id']);
-        alert("Usuario logueado correctamente");
-      } else {
-        alert("Error en el inicio de sesión");
-      }
-      
-    }, error=>console.error(<any>error));
+  onLogin() {
+    if(this.authService.login(this.loginObj)){
+      alert("Login Success");
+    }
   }
+}
+
+export class Login { 
+  mail: string;
+  password_hash: string;
+  
+  constructor() {
+    this.mail = '';
+    this.password_hash = '';
+  } 
 }
