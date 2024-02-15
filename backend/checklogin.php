@@ -1,39 +1,52 @@
 <?php
-include "../config/config.php";
 
-$link = conectarBD();
+function conectarBase() {
+    include "../config/config.php";
 
-if(isset($_POST['mail']) && isset($_POST['password'])){
-    $mail = $_POST['mail'];
-    $password = $_POST['password'];
-    
-    
-    $sql = "SELECT * FROM usuarios WHERE mail='$mail'";
-    $result = mysqli_query($link, $sql);
+    $db = mysqli_connect(DBHOST, DBUSER, DBPASS, DBBASE);
 
-    if(mysqli_num_rows($result) === 1){
-        //usuario unico
-        $usuario = mysqli_fetch_assoc($result);
-        if($usuario['password_hash'] === $password){
-            $_SESSION['id_usuario'] = $usuario['id_user'];
-            $_SESSION['rol'] = $usuario['rol'];
-            $_SESSION['mail'] = $usuario['mail'];
-
-            header("Location: /dashboard");
-        }
-    } else {
-        header("Location: /error=Mail o Contrasena Incorrectos");
+    if (!$db) {
+        die("Falló la conexión: " . mysqli_connect_error());
     }
-} else {
-    if(empty($mail)){
+
+    return $db;
+}
+
+$db = conectarBase();
+
+$data = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($data['mail']) || !isset($data['password'])) {
+    outputError(400); // Bad Request, Datos faltantes
+    if(empty($data['mail'])) {
         echo '<div class="alert alert-primary" role="alert">
                 Debe ingresar un correo electrónico
             </div>';
-    } else if(empty($password)){
+    } else if($data['password']){
         echo '<div class="alert alert-primary" role="alert">
                 Debe ingresar una contraseña válida
             </div>';
     }
+}
+
+$mail = mysqli_real_escape_string($db, $data['mail']);
+$password = mysqli_real_escape_string($db, $data['password']);
+
+$sql = "SELECT * FROM usuarios WHERE mail='$mail'";
+$result = mysqli_query($db, $sql);
+
+if(mysqli_num_rows($result) === 1){
+    //usuario unico
+    $usuario = mysqli_fetch_assoc($result);
+    if($usuario['password_hash'] === $password){
+        $_SESSION['id_usuario'] = $usuario['id_user'];
+        $_SESSION['rol'] = $usuario['rol'];
+        $_SESSION['mail'] = $usuario['mail'];
+    }
+} else {
+    header("Location: /error=Mail o Contrasena Incorrectos");
+    echo $mail;
+    echo $password;
 }
 
 /*

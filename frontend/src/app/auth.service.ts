@@ -12,6 +12,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
+    console.log(credentials);
     const url = `${this.apiUrl}/checklogin.php`; // Ruta correcta para iniciar sesión
     const httpOptions = {
       headers: new HttpHeaders({
@@ -24,7 +25,7 @@ export class AuthService {
   }
 
   signup(credentials: any){
-    const url = `${this.apiUrl}/signup.php`; // Ruta correcta para iniciar sesión
+    const url = `${this.apiUrl}/signup.php`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

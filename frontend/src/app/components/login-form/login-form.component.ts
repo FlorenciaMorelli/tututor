@@ -24,7 +24,8 @@ export class LoginFormComponent {
 
   onLogin() {
     if(this.authService.login(this.loginObj)){
-      alert("Login Success");
+      localStorage.setItem('loggedInUser', JSON.stringify(this.loginObj));
+      this.router.navigate(['dashboardAlumnos']);
     }
   }
 }
