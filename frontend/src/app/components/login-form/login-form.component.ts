@@ -30,11 +30,8 @@ export class LoginFormComponent {
     .subscribe(
       (data) =>{
         console.log("this.authService.login(this.loginObj) devolvió el observable: " + JSON.stringify(data));
-        localStorage.setItem('loggedInUser', JSON.stringify({
-            mail: data.mail,
-            rol: data.rol,
-            id_usuario: data.id_user
-        }));
+        localStorage.setItem('id_usuario', data.id_user);
+        localStorage.setItem('rol', data.rol);
         const modalElement = document.getElementById('modalLoginToggle2');
         const backdropElement =  document.querySelectorAll('.modal-backdrop');
         if(modalElement && backdropElement){

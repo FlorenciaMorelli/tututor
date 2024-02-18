@@ -18,7 +18,6 @@ export class AuthService {
         'Content-Type': 'application/json'
       })
     };
-    console.log("Post devuelve: " + this.http.post<any>(url, JSON.stringify(credentials), httpOptions));
     return this.http.post<any>(url, JSON.stringify(credentials), httpOptions)
   }
 
