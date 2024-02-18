@@ -19,4 +19,15 @@ export class MateriasService {
   getMateriasConParametros(id: any) {
     return this.http.get(this.apiURL + '/' + id);
   }
+  editarMateria(id: any, value: any){
+    return this.http.patch(this.apiURL + '/' + id, value);
+  }
+
+  postMateria(value: any){
+    return this.http.post(this.apiURL, value);
+  }
+
+  deleteMateria(id: any) {
+    return this.http.delete(this.apiURL + "/" + id);
+  }
 }

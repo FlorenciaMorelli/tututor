@@ -1,0 +1,44 @@
+<div class="container" id="userAdmin">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">ID Materia</th>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Ícono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let materia of materias">
+                        <th scope="row" class="text-center">{{ materia.id_materia }}</th>
+                        <td class="text-center">{{ materia.nombre }}</td>
+                        <td class="text-center">{{ materia.icono }}</td>
+                        <td class="text-center text-nowrap">
+                            <button type="button" (click)="editar(materia)" class="btn btn-sm btn-primary me-1">Editar</button>
+                            <button type="button" (click)="borrar(materia)" class="btn btn-sm btn-success">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <form [formGroup]="materiasForm">
+                <div class="mb-3">
+                    <label for="id_materia" class="col-sm-2 col-form-label">ID de la materia</label>
+                    <input formControlName="id_materia" type="text" class="form-control" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input formControlName="nombre" type="text" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="icono" class="form-label">Ícono</label>
+                    <input formControlName="icono" type="text" class="form-control">
+                </div>
+                <button type="button" (click)="guardarMateria()" [disabled]="materiasForm.invalid" class="btn btn-outline-primary me-1">Guardar</button>
+                <button type="reset" (click)="descartarMateria()" class="btn btn-outline-secondary">Descartar</button>
+            </form>
+        </div>
+    </div>
+</div>

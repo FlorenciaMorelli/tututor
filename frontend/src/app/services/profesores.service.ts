@@ -19,4 +19,15 @@ export class ProfesoresService {
     return this.http.get(this.apiURL + '/' + id);
   }
 
+  editarProfesor(id: any, value: any){
+    return this.http.patch(this.apiURL + '/' + id, value);
+  }
+
+  postProfesor(value: any){
+    return this.http.post(this.apiURL, value);
+  }
+
+  deleteProfesor(id: any) {
+    return this.http.delete(this.apiURL + "/" + id);
+  }
 }

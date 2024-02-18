@@ -1,49 +1,39 @@
-<div class="container" id="userAdmin">
-    <h1>Bienvenido al administrador de TuTutor.com</h1>
-    <div class="row">
-        <h2>Administrar usuarios: </h2>
-        <div class="col-8">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center">ID Usuario</th>
-                        <th scope="col" class="text-center">Mail</th>
-                        <th scope="col" class="text-center">Rol</th>
-                        <th scope="col" class="text-center">Fecha de creación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let usuario of usuarios">
-                        <th scope="row" class="text-center">{{ usuario.id_user }}</th>
-                        <td class="text-center">{{ usuario.mail }}</td>
-                        <td class="text-center">{{ usuario.rol }}</td>
-                        <td class="text-center">{{ usuario.fecha_creacion }}</td>
-                        <td class="text-center text-nowrap">
-                            <button type="button" (click)="editar(usuario)" class="btn btn-sm btn-primary me-1">Editar</button>
-                            <button type="button" (click)="borrar(usuario)" class="btn btn-sm btn-success">Borrar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<section>
+    <div class="container">
+        <h1>Bienvenido al administrador de TuTutor.com</h1>
+        <ul class="nav nav-tabs">
+            <li class="nav-item" *ngFor="let tab of tabs">
+                @if(tabActivo === tab){
+                    <a id="{{ tab }}" class="w-100 nav-item nav-link active" (click)="show(tab)" style="flex: 1">
+                        {{ tab }}
+                    </a>
+                } @else {
+                    <a id="{{ tab }}" class="w-100 nav-item nav-link" (click)="show(tab)" style="flex: 1">
+                        {{ tab }}
+                    </a>
+                }
+            </li>
+        </ul>
+
+        <div class="show">
+            @switch (tabActivo) {
+                @case ("Usuarios") {
+                    <admin-usuarios />
+                }
+                @case("Alumnos"){
+                    <admin-alumnos />
+                }
+                @case("Profesores"){
+                    <admin-profesores />
+                }
+                @case("Materias"){
+                    <admin-materias />
+                }
+            }
         </div>
-        <div class="col-4">
-            <form [formGroup]="usuarioForm">
-                <div class="mb-3">
-                    <label for="mail" class="form-label">Mail</label>
-                    <input formControlName="mail" type="email" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="rol" class="form-label">Rol</label>
-                    <select formControlName="rol" class="form-select" required>
-                        <option *ngFor="let rol of roles" value="{{ rol }}" [ngValue]="rol">{{ rol }}</option>
-                    </select>
-                </div>
-                <button type="button" (click)="guardarUsuario()" [disabled]="usuarioForm.invalid" class="btn btn-outline-primary me-1">Guardar</button>
-                <button type="reset" (click)="descartarUsuario()" class="btn btn-outline-secondary">Descartar</button>
-            </form>
+
+        <div class="row">
+            <button type="button" (click)="restablecerBD()" class="btn btn-danger btn-block">Restablecer BBDD</button>
         </div>
     </div>
-    <div class="row">
-        <button type="button" (click)="restablecerBD()" class="btn btn-danger btn-block">Restablecer BBDD</button>
-    </div>
-</div>
+</section>

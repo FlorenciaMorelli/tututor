@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -15,7 +15,19 @@ export class AlumnosService {
     return this.http.get(this.apiURL);
   }
   
-  getAlumnosConParametros(id: any) {
+  getAlumnosConParametros(id: number) {
     return this.http.get(this.apiURL + '/' + id);
+  }
+
+  editarAlumno(id: any, value: any){
+    return this.http.patch(this.apiURL + '/' + id, value);
+  }
+
+  postAlumno(value: any){
+    return this.http.post(this.apiURL, value);
+  }
+
+  deleteAlumno(id: any) {
+    return this.http.delete(this.apiURL + "/" + id);
   }
 }

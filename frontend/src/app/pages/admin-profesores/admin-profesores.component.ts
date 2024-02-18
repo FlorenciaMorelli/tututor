@@ -1,0 +1,122 @@
+import { Component } from '@angular/core';
+import { ProfesoresService } from '../../services/profesores.service';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'admin-profesores',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './admin-profesores.component.html',
+  styleUrl: './admin-profesores.component.css'
+})
+export class AdminProfesoresComponent {
+  profesores: any[] = [];
+
+  profesoresForm: FormGroup;
+
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private profesoresService: ProfesoresService)
+    {
+      this.profesoresForm = this.formBuilder.group({
+        id_profesor  : [null, []],
+        id_usuario  : [null, []],
+        nombre    : ['', [Validators.required]],
+        apellido    : ['', [Validators.required]],
+        zona    : ['', [Validators.required]],
+        modalidad    : ['', [Validators.required]],
+        direccion    : ['', []],
+        foto_path    : ['', []],
+        archivos_path    : ['', []],
+        puntuacion    : [null, []],
+      });
+    }
+
+  private cargarProfesores(): void {
+    this.profesoresService.getAllProfesores()
+    .subscribe((profesoresResponse:any) => {
+      this.profesores = profesoresResponse;
+      console.log("cargamos:" + profesoresResponse);
+    });
+  }
+
+  guardarProfesor (): void {
+    let comp = this;
+    if (this.profesoresForm.value.id_profesor) {
+      console.log("Vamos a editar: " + this.profesoresForm.value.id_profesor);
+      this.profesoresService.editarProfesor(this.profesoresForm.value.id_profesor, this.profesoresForm.value)
+      .subscribe({
+        next : function (response: any) {
+          comp.cargarProfesores();
+        },
+      });
+    } else {
+      this.profesoresService.postProfesor(this.profesoresForm.value)
+      .subscribe({
+        next : function (response: any) {
+          comp.cargarProfesores();
+        },
+      });
+    }
+    this.descartarProfesor();
+  }
+
+  descartarProfesor(): void {
+    this.profesoresForm.setValue({
+      id_profesor: null,
+      id_usuario: null,
+      nombre: '',
+      apellido: '',
+      modalidad: '',
+      zona: '',
+      direccion: '',
+      foto_path: '',
+      archivos_path: '',
+      puntuacion: null,
+    });
+  }
+
+  editar (profesor: any): void {
+    let comp = this;
+    this.profesoresService.getProfesoresConParametros(profesor.id_profesor)
+      .subscribe({
+        next : function (response: any) {
+          comp.profesoresForm.setValue({
+            id_profesor: response[0].id_profesor,
+            id_usuario: response[0].id_usuario,
+            nombre: response[0].nombre,
+            apellido: response[0].apellido,
+            modalidad: response[0].modalidad,
+            zona: response[0].zona,
+            direccion: response[0].direccion,
+            foto_path: response[0].foto_path,
+            archivos_path: response[0].archivos_path,
+            puntuacion: response[0].puntuacion,
+          });
+        },
+      });
+  }
+
+  borrar (profesor: any): void {
+    if (confirm("¿Estás seguro de que querés borrar este profesor? Se borrarán también los datos asociados a él. Esta acción es irreversible.")) {
+      let comp = this;
+      this.profesoresService.deleteProfesor(profesor.id_profesor)
+        .subscribe({
+          next : function (response: any) {
+            if(comp.profesoresForm.value.id==profesor.id_profesor) {
+              comp.descartarProfesor();
+            }
+            comp.cargarProfesores();
+          },
+        });
+    }
+  }
+
+  ngOnInit () {
+    let comp = this;
+    comp.cargarProfesores();
+  }
+}
