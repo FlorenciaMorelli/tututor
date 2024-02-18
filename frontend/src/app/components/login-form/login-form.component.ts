@@ -32,15 +32,7 @@ export class LoginFormComponent {
         console.log("this.authService.login(this.loginObj) devolvió el observable: " + JSON.stringify(data));
         localStorage.setItem('id_usuario', data.id_user);
         localStorage.setItem('rol', data.rol);
-        const modalElement = document.getElementById('modalLoginToggle2');
-        const backdropElement =  document.querySelectorAll('.modal-backdrop');
-        if(modalElement && backdropElement){
-          const modal = new bootstrap.Modal(modalElement);
-          modal.dispose();
-          backdropElement.forEach(element => element.remove());
-        } else {
-          console.log("Error al cerrar ventana del modal");
-        }
+        this.cerrarModal();
         const dashboardRoute = data.rol === "profesor" ? 'dashboardProfesores' :
         data.rol === "alumno" ? 'dashboardAlumnos' : 'dashboardAdmin';
         this.router.navigate([dashboardRoute]);
@@ -51,6 +43,21 @@ export class LoginFormComponent {
       this.error = true;
       this.errorMessage = "El mail o la contraseña son incorrectos.";
     })
+  }
+
+  cerrarModal(){
+    const modalElement = document.getElementById('modalLoginToggle2');
+    const backdropElement =  document.querySelectorAll('.modal-backdrop');
+    const bodyElement = document.getElementById('mybody');
+    if(modalElement && backdropElement && bodyElement){
+      const modal = new bootstrap.Modal(modalElement);
+      modal.dispose();
+      backdropElement.forEach(element => element.remove());
+      bodyElement.removeAttribute('class');
+      bodyElement.removeAttribute('style');
+    } else {
+      console.log("Error al cerrar ventana del modal");
+    }
   }
 }
 
