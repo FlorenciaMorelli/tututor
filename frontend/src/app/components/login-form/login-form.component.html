@@ -8,8 +8,8 @@
         <label for="password_hash" class="form-label">Contraseña</label>
         <input type="password" class="form-control" id="password_hash" [(ngModel)]="loginObj.password_hash" name="password_hash" required>
     </div>
-    <div *ngIf="error==true" class="invalid-feedback">
+    <div *ngIf="error==true" class="mb-3" style="color: red !important;">
         {{ errorMessage }}
     </div>
-    <button type="button" class="btn btn-primary" (click)="onLogin()" data-bs-dismiss="modal">Ingresar</button>
+    <button type="button" class="btn btn-primary" (click)="onLogin()">Ingresar</button>
 </form>

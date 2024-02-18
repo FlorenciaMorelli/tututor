@@ -1,30 +1,28 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost/tututor/backend';
+  private apiUrl = 'http://localhost/tututor/backend'; // URL del endpoint de login
 
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
-    console.log(credentials);
     const url = `${this.apiUrl}/checklogin.php`; // Ruta correcta para iniciar sesión
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>(url, credentials, httpOptions).pipe(
-      catchError(this.handleError)
-    );
+    console.log("Post devuelve: " + this.http.post<any>(url, JSON.stringify(credentials), httpOptions));
+    return this.http.post<any>(url, JSON.stringify(credentials), httpOptions)
   }
 
-  signup(credentials: any){
+  signup(credentials: any): Observable<any> {
     const url = `${this.apiUrl}/signup.php`;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -47,3 +45,4 @@ export class AuthService {
     return throwError(errorMessage);
   }
 }
+
