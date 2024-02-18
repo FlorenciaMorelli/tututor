@@ -9,8 +9,16 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id_user INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     mail TEXT NOT NULL,
     password VARCHAR(255) NOT NULL,
-    rol TEXT NOT NULL
+    rol ENUM('admin', 'alumno', 'profesor') NOT NULL,
+    fecha_creacion TIMESTAMP NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS sesiones (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    usuario_id INT FOREIGN KEY REFERENCES usuarios(id_user),
+    token VARCHAR(255),
+    fecha_expiracion TIMESTAMP
+)
 
 CREATE TABLE IF NOT EXISTS alumnos (
     id_alumno INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -97,12 +105,19 @@ INSERT INTO materias (nombre, icono) VALUES
 ('Física', 'fisica.png'),
 ('Química', 'quimica.png');
 
+-- Función de hash
+SET @hashed_password1 = PASSWORD('contraseña1');
+SET @hashed_password2 = PASSWORD('contraseña2');
+SET @hashed_password3 = PASSWORD('contraseña3');
+SET @hashed_password4 = PASSWORD('contraseña4');
+SET @hashed_password5 = PASSWORD('contraseña5');
+
 INSERT INTO usuarios (mail, password, rol) VALUES 
-('alumno1@email.com', 'contraseña1', 'alumno'),
-('alumno2@email.com', 'contraseña2', 'alumno'),
-('profesor1@email.com', 'contraseña3', 'profesor'),
-('profesor2@email.com', 'contraseña4', 'profesor'),
-('admin@email.com', 'contraseña5', 'admin');
+('alumno1@email.com', @hashed_password1, 'alumno'),
+('alumno2@email.com', @hashed_password2, 'alumno'),
+('profesor1@email.com', @hashed_password3, 'profesor'),
+('profesor2@email.com', @hashed_password4, 'profesor'),
+('admin@email.com', @hashed_password5, 'admin');
 
 INSERT INTO alumnos (id_usuario, nombre, zona, puntuacion) VALUES 
 (1, 'Alumno1', 'Zona1', 4.5),
