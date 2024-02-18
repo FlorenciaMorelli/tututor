@@ -11,5 +11,5 @@ import { SearchbarComponent } from '../../components/searchbar/searchbar.compone
   styleUrl: './dashboard-alumnos.component.css'
 })
 export class DashboardAlumnosComponent {
-
+  
 }

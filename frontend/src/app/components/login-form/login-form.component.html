@@ -1,12 +1,15 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form>
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Correo electrónico</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="mail" required>
+        <label for="mail" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" [(ngModel)]="loginObj.mail" name="mail" value="{{ mailValue }}" required>
         <div id="emailHelp" class="form-text">Tu email está a salvo con nosotros.</div>
     </div>
     <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" required="">
+        <label for="password_hash" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password_hash" [(ngModel)]="loginObj.password_hash" name="password_hash" required>
     </div>
-    <button type="submit" class="btn btn-primary">Ingresar</button>
+    <div *ngIf="error==true" class="mb-3" style="color: red !important;">
+        {{ errorMessage }}
+    </div>
+    <button type="button" class="btn btn-primary" (click)="onLogin()">Ingresar</button>
 </form>

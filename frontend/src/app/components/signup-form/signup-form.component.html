@@ -1,21 +1,19 @@
 <form>
     <div class="mb-3">
-        <label for="newEmail" class="form-label">Correo electrónico *</label>
-        <input type="email" class="form-control" id="newEmail" aria-describedby="emailHelp" required>
+        <label for="newMail" class="form-label">Correo electrónico *</label>
+        <input type="email" class="form-control" id="newMail" aria-describedby="emailHelp" [(ngModel)]="signupObj.newMail" name="newMail" required>
         <div id="emailHelp" class="form-text">Tu email está a salvo con nosotros.</div>
     </div>
     <div class="mb-3">
         <label for="newPassword" class="form-label">Contraseña *</label>
-        <input type="password" class="form-control" id="newPassword" required>
+        <input type="password" class="form-control" id="newPassword" [(ngModel)]="signupObj.newPassword" name="newPassword" required>
     </div>
     <div class="mb-3">
         <label for="newConfirmPassword" class="form-label">Confirmar contraseña *</label>
-        <input type="password" class="form-control" id="newConfirmPassword" required>
+        <input type="password" class="form-control" id="newConfirmPassword" [(ngModel)]="signupObj.newConfirmPassword" name="newConfirmPassword" required>
     </div>
-    <select class="form-select" aria-label="Default select example">
-        <option selected>Tipo de perfil *</option>
-        <option value="newAlumno">Alumno</option>
-        <option value="newProfesor">Profesor</option>
+    <select class="form-select" aria-label="Default select example" [(ngModel)]="signupObj.newRole" name="newRole" required>
+        <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
     </select>
-    <button type="submit" class="btn btn-primary">Crear cuenta</button>
+    <button type="button" class="btn btn-primary" (click)="onSignup()" data-bs-dismiss="modal">Crear cuenta</button>
 </form>
