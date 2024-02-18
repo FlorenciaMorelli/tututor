@@ -22,7 +22,7 @@ export class SearchComponent {
   }
 
   ngOnInit(): void {
-    this.profesoresService.getProfesores().subscribe((profesoresResponse:any) => {
+    this.profesoresService.getAllProfesores().subscribe((profesoresResponse:any) => {
       console.log('Respuesta del servicio getProfesores: ',profesoresResponse);
       this.profesores=profesoresResponse;
     });

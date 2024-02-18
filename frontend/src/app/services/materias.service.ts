@@ -11,7 +11,12 @@ export class MateriasService {
   constructor(private http: HttpClient) {
     this.apiURL = 'http://localhost/tututor/backend/materias';
   }
-  getMaterias() {
+  
+  getAllMaterias() {
     return this.http.get(this.apiURL);
+  }
+
+  getMateriasConParametros(id: any) {
+    return this.http.get(this.apiURL + '/' + id);
   }
 }

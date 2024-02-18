@@ -1,22 +1,21 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfesoresService {
+export class AlumnosService {
   private apiURL: string;
 
   constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/profesores';
+    this.apiURL = 'http://localhost/tututor/backend/alumnos';
   }
 
-  getAllProfesores() {
+  getAllAlumnos() {
     return this.http.get(this.apiURL);
   }
   
-  getProfesoresConParametros(id: any) {
+  getAlumnosConParametros(id: any) {
     return this.http.get(this.apiURL + '/' + id);
   }
-
 }

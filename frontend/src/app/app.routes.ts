@@ -22,6 +22,7 @@ export const routes: Routes = [
         path:'dashboardAdmin',
         component: DashboardAdminComponent
     },
+    {
         path: 'buscar',
         component: SearchComponent
     }
