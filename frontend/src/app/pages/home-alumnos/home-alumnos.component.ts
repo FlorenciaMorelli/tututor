@@ -7,7 +7,7 @@ import { AlumnosResenasService } from '../../services/alumnos-resenas.service';
 @Component({
   selector: 'home-alumnos',
   standalone: true,
-  imports: [CommonModule, SearchbarComponent],
+  imports: [CommonModule],
   templateUrl: './home-alumnos.component.html',
   styleUrl: './home-alumnos.component.css'
 })
