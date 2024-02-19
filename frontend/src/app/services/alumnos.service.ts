@@ -1,33 +1,39 @@
+import { Injectable, inject } from '@angular/core';
+import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Alumnos } from '../helpers/interfaces/alumnos';
+
+const apiUrl = environment.apiUrl;
+/* const apiKey = environment.apiKey; */
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnosService {
-  private apiURL: string;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/alumnos';
+  constructor() {
   }
 
-  getAllAlumnos() {
-    return this.http.get(this.apiURL);
+  getAllAlumnos(): Observable<Alumnos> {
+    return this.http.get<Alumnos>(apiUrl);
+    /* return this.http.get(`${apiUrl}?api_key=${apiKey}`); */
   }
   
   getAlumnosConParametros(id: number) {
-    return this.http.get(this.apiURL + '/' + id);
+    return this.http.get(apiUrl + '/' + id);
   }
 
   editarAlumno(id: number, value: any){
-    return this.http.patch(this.apiURL + '/' + id, JSON.stringify(value));
+    return this.http.patch(apiUrl + '/' + id, JSON.stringify(value));
   }
 
   postAlumno(value: any){
-    return this.http.post(this.apiURL, value);
+    return this.http.post(apiUrl, value);
   }
 
   deleteAlumno(id: any) {
-    return this.http.delete(this.apiURL + "/" + id);
+    return this.http.delete(apiUrl + "/" + id);
   }
 }

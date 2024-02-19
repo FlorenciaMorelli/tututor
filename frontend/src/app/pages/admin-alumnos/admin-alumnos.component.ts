@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AlumnosService } from '../../services/alumnos.service';
 import { CommonModule } from '@angular/common';
 import { __values } from 'tslib';
+import { Alumnos } from '../../helpers/interfaces/alumnos';
 
 @Component({
   selector: 'admin-alumnos',
@@ -13,14 +13,13 @@ import { __values } from 'tslib';
   styleUrl: './admin-alumnos.component.css'
 })
 export class AdminAlumnosComponent {
-  alumnos: any[] = [];
+  private alumnosService = inject(AlumnosService);
+  alumnos: Alumnos[] = [];
 
   alumnosForm: FormGroup;
 
   constructor(
-    private http: HttpClient,
-    private formBuilder: FormBuilder,
-    private alumnosService: AlumnosService)
+    private formBuilder: FormBuilder)
     {
       this.alumnosForm = this.formBuilder.group({
         id_alumno  : [null, []],
@@ -36,9 +35,11 @@ export class AdminAlumnosComponent {
 
   private cargarAlumnos(): void {
     this.alumnosService.getAllAlumnos()
-    .subscribe((alumnosResponse:any) => {
-      this.alumnos = alumnosResponse;
-      console.log("cargamos:" + alumnosResponse);
+    .subscribe({
+      next: (alumnosResponse:any) => {
+        this.alumnos = alumnosResponse as Alumnos[];
+        console.log("cargamos:" + alumnosResponse);
+      }, error: (error) => console.log("Error al cargar los alumnos: ", error)
     });
   }
 
@@ -48,14 +49,14 @@ export class AdminAlumnosComponent {
       console.log("Vamos a editar: " + this.alumnosForm.value.id_alumno);
       this.alumnosService.editarAlumno(this.alumnosForm.value.id_alumno, this.alumnosForm.value)
       .subscribe({
-        next : function (response: any) {
+        next : function () {
           comp.cargarAlumnos();
         },
       });
     } else {
       this.alumnosService.postAlumno(this.alumnosForm.value)
       .subscribe({
-        next : function (response: any) {
+        next : function () {
           comp.cargarAlumnos();
         },
       });
@@ -100,7 +101,7 @@ export class AdminAlumnosComponent {
       let comp = this;
       this.alumnosService.deleteAlumno(alumno.id_alumno)
         .subscribe({
-          next : function (response: any) {
+          next : function () {
             if(comp.alumnosForm.value.id==alumno.id_alumno) {
               comp.descartarAlumno();
             }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlumnosService } from '../../services/alumnos.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './perfil-alumnos.component.css'
 })
 export class PerfilAlumnosComponent {
+  private alumnosService = inject(AlumnosService);
   private idUsuario = Number(localStorage.getItem("id_user"));
   datosAlumno: any[] = [];
 
@@ -18,7 +19,7 @@ export class PerfilAlumnosComponent {
 
   editando: boolean = false;
 
-  constructor(private alumnosService: AlumnosService, private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder){
     this.perfilAlumno = this.formBuilder.group({
       foto_path: ['', []],
       nombre: ['', [Validators.required]],

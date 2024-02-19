@@ -15,20 +15,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let alumno of alumnos">
-                        <th scope="row" class="text-center">{{ alumno.id_alumno }}</th>
-                        <td class="text-center">{{ alumno.id_usuario }}</td>
-                        <td class="text-center">{{ alumno.nombre }}</td>
-                        <td class="text-center">{{ alumno.apellido }}</td>
-                        <td class="text-center">{{ alumno.zona }}</td>
-                        <td class="text-center">{{ alumno.direccion }}</td>
-                        <td class="text-center">{{ alumno.foto_path }}</td>
-                        <td class="text-center">{{ alumno.puntuacion }}</td>
-                        <td class="text-center text-nowrap">
-                            <button type="button" (click)="editar(alumno)" class="btn btn-sm btn-primary me-1">Editar</button>
-                            <button type="button" (click)="borrar(alumno)" class="btn btn-sm btn-success">Borrar</button>
-                        </td>
-                    </tr>
+                    @for(alumno of alumnos; track alumno.id_alumno){
+                        <tr>
+                            <th scope="row" class="text-center">{{ alumno.id_alumno }}</th>
+                            <td class="text-center">{{ alumno.id_usuario }}</td>
+                            <td class="text-center">{{ alumno.nombre }}</td>
+                            <td class="text-center">{{ alumno.apellido }}</td>
+                            <td class="text-center">{{ alumno.zona }}</td>
+                            <td class="text-center">{{ alumno.direccion }}</td>
+                            <td class="text-center">{{ alumno.foto_path }}</td>
+                            <td class="text-center">{{ alumno.puntuacion }}</td>
+                            <td class="text-center text-nowrap">
+                                <button type="button" (click)="editar(alumno)" class="btn btn-sm btn-primary me-1">Editar</button>
+                                <button type="button" (click)="borrar(alumno)" class="btn btn-sm btn-success">Borrar</button>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
