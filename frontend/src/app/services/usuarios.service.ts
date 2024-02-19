@@ -4,30 +4,30 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AlumnosService {
+export class UsuariosService {
   private apiURL: string;
 
   constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/alumnos';
+    this.apiURL = 'http://localhost/tututor/backend/usuarios';
   }
 
-  getAllAlumnos() {
+  getAllUsuarios() {
     return this.http.get(this.apiURL);
   }
   
-  getAlumnosConParametros(id: number) {
+  getUsuariosConParametros(id: number) {
     return this.http.get(this.apiURL + '/' + id);
   }
 
-  editarAlumno(id: number, value: any){
-    return this.http.patch(this.apiURL + '/' + id, JSON.stringify(value));
+  editarUsuario(id: any, value: any){
+    return this.http.patch(this.apiURL + '/' + id, value);
   }
 
-  postAlumno(value: any){
+  postUsuario(value: any){
     return this.http.post(this.apiURL, value);
   }
 
-  deleteAlumno(id: any) {
+  deleteUsuario(id: any) {
     return this.http.delete(this.apiURL + "/" + id);
   }
 }

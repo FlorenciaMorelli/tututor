@@ -11,7 +11,7 @@ export class ProfesoresService {
     this.apiURL = 'http://localhost/tututor/backend/profesores/';
   }
 
-  getProfesores() {
+  getAllProfesores(){
     return this.http.get(this.apiURL);
   }
   
@@ -25,5 +25,13 @@ export class ProfesoresService {
 
   editarProfesor(idProfesor: number, value: any){
     return this.http.patch(this.apiURL + '/' + idProfesor, JSON.stringify(value));
+  }
+
+  postProfesor(value: any){
+    return this.http.post(this.apiURL, value);
+  }
+
+  deleteProfesor(id: any) {
+    return this.http.delete(this.apiURL + "/" + id);
   }
 }

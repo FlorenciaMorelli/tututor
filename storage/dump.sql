@@ -7,18 +7,11 @@ USE tututor;
 -- Cración de tablas
 CREATE TABLE IF NOT EXISTS usuarios (
     id_user INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    mail TEXT NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    mail TEXT NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
     rol ENUM('admin', 'alumno', 'profesor') NOT NULL,
     fecha_creacion TIMESTAMP NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS sesiones (
-    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    usuario_id INT FOREIGN KEY REFERENCES usuarios(id_user),
-    token VARCHAR(255),
-    fecha_expiracion TIMESTAMP
-)
 
 CREATE TABLE IF NOT EXISTS alumnos (
     id_alumno INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

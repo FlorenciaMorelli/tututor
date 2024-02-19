@@ -1,1 +1,39 @@
-<p>dashboard-admin works!</p>
+<section>
+    <div class="container">
+        <h1>Bienvenido al administrador de TuTutor.com</h1>
+        <ul class="nav nav-tabs">
+            <li class="nav-item" *ngFor="let tab of tabs">
+                @if(tabActivo === tab){
+                    <a id="{{ tab }}" class="w-100 nav-item nav-link active" (click)="show(tab)" style="flex: 1">
+                        {{ tab }}
+                    </a>
+                } @else {
+                    <a id="{{ tab }}" class="w-100 nav-item nav-link" (click)="show(tab)" style="flex: 1">
+                        {{ tab }}
+                    </a>
+                }
+            </li>
+        </ul>
+
+        <div class="show">
+            @switch (tabActivo) {
+                @case ("Usuarios") {
+                    <admin-usuarios />
+                }
+                @case("Alumnos"){
+                    <admin-alumnos />
+                }
+                @case("Profesores"){
+                    <admin-profesores />
+                }
+                @case("Materias"){
+                    <admin-materias />
+                }
+            }
+        </div>
+
+        <div class="row">
+            <button type="button" (click)="restablecerBD()" class="btn btn-danger btn-block">Restablecer BBDD</button>
+        </div>
+    </div>
+</section>
