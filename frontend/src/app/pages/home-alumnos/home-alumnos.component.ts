@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { AlumnosMateriasService } from '../../services/alumnos-materias.service';
 import { CommonModule } from '@angular/common';
-import { SearchbarComponent } from '../searchbar/searchbar.component';
+import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
 import { AlumnosResenasService } from '../../services/alumnos-resenas.service';
 
 @Component({
   selector: 'home-alumnos',
   standalone: true,
-  imports: [CommonModule, SearchbarComponent],
+  imports: [CommonModule],
   templateUrl: './home-alumnos.component.html',
   styleUrl: './home-alumnos.component.css'
 })

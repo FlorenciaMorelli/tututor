@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MateriasService } from '../../materias.service';
+import { MateriasService } from '../../services/materias.service';
 
 @Component({
   selector: 'cardgroup-materias',
@@ -18,7 +18,7 @@ export class CardgroupMateriasComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.materiasService.getMaterias().subscribe((materiasResponse:any) => {
+    this.materiasService.getAllMaterias().subscribe((materiasResponse:any) => {
       console.log('Respuesta del servicio getMaterias: ',materiasResponse);
       this.materias=materiasResponse;
     });
