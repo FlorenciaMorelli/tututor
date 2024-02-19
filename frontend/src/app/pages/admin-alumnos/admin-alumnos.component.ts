@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { AlumnosService } from '../../services/alumnos.service';
 import { CommonModule } from '@angular/common';
 import { __values } from 'tslib';
-import { Alumnos } from '../../helpers/interfaces/alumnos';
+import { Alumno } from '../../helpers/interfaces/alumno';
 
 @Component({
   selector: 'admin-alumnos',
@@ -14,7 +14,7 @@ import { Alumnos } from '../../helpers/interfaces/alumnos';
 })
 export class AdminAlumnosComponent {
   private alumnosService = inject(AlumnosService);
-  alumnos: Alumnos[] = [];
+  alumnos: Alumno[] = [];
 
   alumnosForm: FormGroup;
 
@@ -37,7 +37,7 @@ export class AdminAlumnosComponent {
     this.alumnosService.getAllAlumnos()
     .subscribe({
       next: (alumnosResponse:any) => {
-        this.alumnos = alumnosResponse as Alumnos[];
+        this.alumnos = alumnosResponse as Alumno[];
         console.log("cargamos:" + alumnosResponse);
       }, error: (error) => console.log("Error al cargar los alumnos: ", error)
     });
@@ -77,7 +77,7 @@ export class AdminAlumnosComponent {
     });
   }
 
-  editar (alumno: any): void {
+  editar (alumno: Alumno): void {
     let comp = this;
     this.alumnosService.getAlumnosConParametros(alumno.id_alumno)
       .subscribe({
@@ -96,7 +96,7 @@ export class AdminAlumnosComponent {
       });
   }
 
-  borrar (alumno: any): void {
+  borrar (alumno: Alumno): void {
     if (confirm("¿Estás seguro de que querés borrar este alumno? Se borrarán también los datos asociados a él. Esta acción es irreversible.")) {
       let comp = this;
       this.alumnosService.deleteAlumno(alumno.id_alumno)

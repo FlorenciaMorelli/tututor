@@ -1,4 +1,4 @@
-export interface Alumnos {
+export interface Alumno {
     //TODO: JSON to TS
     id_alumno: number,
     id_usuario: number,
