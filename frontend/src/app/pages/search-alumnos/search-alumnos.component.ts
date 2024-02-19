@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfesoresService } from '../../services/profesores.service';
 import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
 import { CardProfesorComponent } from '../../components/card-profesor/card-profesor.component';
+import { Profesor } from '../../helpers/interfaces/profesor';
 
 @Component({
   selector: 'search-alumnos',
@@ -28,17 +29,17 @@ export class SearchAlumnosComponent {
     {id: 3, nombre: "Punto de encuentro", estado: false}
   ]; */
 
-  profesores: any[] = [];
+  profesores: Profesor[] = [];
   default: boolean = true;
   m: boolean = false;
 
-  resultado: any[] = [];
+  resultado: Profesor[] = [];
 
   constructor(private profesoresService: ProfesoresService, private cardProfesor: CardProfesorComponent) {
 
   }
 
-  contactar(profesor: any){
+  contactar(profesor: Profesor){
   }
 
   buscarPorZona(idZona: number){
@@ -78,7 +79,7 @@ export class SearchAlumnosComponent {
     this.profesoresService.getAllProfesores()
     .subscribe(
       (profesoresResponse: any) => {
-        this.profesores = profesoresResponse;
+        this.profesores = profesoresResponse as Profesor[];
       }
     )
   }

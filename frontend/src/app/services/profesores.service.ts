@@ -1,38 +1,41 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Profesor } from '../helpers/interfaces/profesor';
 
+const apiUrl = environment.apiUrl + '/profesores';
+/* const apiKey = environment.apiKey; */
 @Injectable({
   providedIn: 'root'
 })
 export class ProfesoresService {
-  private apiURL: string;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/profesores';
-  }
+  constructor() {}
 
-  getAllProfesores(): Observable<any>{
-    return this.http.get(this.apiURL);
+  getAllProfesores(): Observable<Profesor>{
+    return this.http.get<Profesor>(apiUrl);
+    /* return this.http.get(`${apiUrl}?api_key=${apiKey}`); */
   }
   
-  getProfesoresConParametros(id: any) {
-    return this.http.get(this.apiURL + '/' + id);
+  getProfesoresConParametros(id: any): Observable<Profesor> {
+    return this.http.get<Profesor>(apiUrl + '/' + id);
   }
   
-  getIDProfesor(id: any) {
-    return this.http.get('http://localhost/tututor/backend/profesor/' + id);
+  getIDProfesor(id: any): Observable<Profesor> {
+    return this.http.get<Profesor>('http://localhost/tututor/backend/profesor/' + id);
   }
 
-  editarProfesor(idProfesor: number, value: any){
-    return this.http.patch(this.apiURL + '/' + idProfesor, value);
+  editarProfesor(idProfesor: number, value: any): Observable<Profesor>{
+    return this.http.patch<Profesor>(apiUrl + '/' + idProfesor, value);
   }
 
-  postProfesor(value: any){
-    return this.http.post(this.apiURL, value);
+  postProfesor(value: any): Observable<Profesor>{
+    return this.http.post<Profesor>(apiUrl, value);
   }
 
-  deleteProfesor(id: any) {
-    return this.http.delete(this.apiURL + "/" + id);
+  deleteProfesor(id: any): Observable<Profesor> {
+    return this.http.delete<Profesor>(apiUrl + "/" + id);
   }
 }
