@@ -1,0 +1,108 @@
+<div class="container">
+    <searchbar />
+    <div class="row">
+        <div class="col-4">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Zonas
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body" *ngFor="let zona of zonas">
+                        <span class="badge text-bg-light" (click)="buscarPorZona(zona.id)">{{ zona.nombre }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Modalidad
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body" *ngFor="let modalidad of modalidades">
+                        <span class="badge text-bg-light" (click)="buscarPorModalidad(modalidad)">{{ modalidad }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        @if (default === true) {
+            <div class="results" *ngFor="let profesor of profesores">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="cardTop">
+                            <div class="datosProfe">
+                                <img class="profilePic" [src]="profesor.foto_path ? profesor.foto_path : '../../../assets/img/profilePic.jpg'" alt="">
+                                <h5 class="card-title">{{ profesor.nombre }} {{ profesor.apellido }}</h5>
+                            </div>
+                            <h5>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                {{ profesor.puntuacion }}
+                            </h5>
+                        </div>
+                        <div class="cardBottom">
+                            <div class="info">
+                                <p>Modalidad(es)</p>
+                                <span class="badge bg-secondary">{{ profesor.modalidad }}</span>
+                            </div>
+                            <div class="divider">
+                            </div>
+                            <div class="info">
+                                <p>Zona</p>
+                                <span class="badge bg-secondary">{{ profesor.zona }}</span>
+                            </div>
+                            <div class="divider">
+                            </div>
+                            <div class="info">
+                                <button>Contactar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        } @else {
+            <div class="results" *ngFor="let profesor of resultado">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="cardTop">
+                            <div class="datosProfe">
+                                <img class="profilePic" [src]="profesor.foto_path ? profesor.foto_path : '../../../assets/img/profilePic.jpg'" alt="">
+                                <h5 class="card-title">{{ profesor.nombre }} {{ profesor.apellido }}</h5>
+                            </div>
+                            <h5>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                {{ profesor.puntuacion }}
+                            </h5>
+                        </div>
+                        <div class="cardBottom">
+                            <div class="info">
+                                <p>Modalidad(es)</p>
+                                <span class="badge bg-secondary">{{ profesor.modalidad }}</span>
+                            </div>
+                            <div class="divider">
+                            </div>
+                            <div class="info">
+                                <p>Zona</p>
+                                <span class="badge bg-secondary">{{ profesor.zona }}</span>
+                            </div>
+                            <div class="divider">
+                            </div>
+                            <div class="info">
+                                <button>Contactar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
