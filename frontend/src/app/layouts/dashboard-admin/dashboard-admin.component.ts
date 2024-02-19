@@ -5,10 +5,10 @@ import { ProfesoresService } from '../../services/profesores.service';
 import { MateriasService } from '../../services/materias.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AdminUsuariosComponent } from '../admin-usuarios/admin-usuarios.component';
-import { AdminAlumnosComponent } from '../admin-alumnos/admin-alumnos.component';
-import { AdminProfesoresComponent } from '../admin-profesores/admin-profesores.component';
-import { AdminMateriasComponent } from '../admin-materias/admin-materias.component';
+import { AdminUsuariosComponent } from '../../pages/admin-usuarios/admin-usuarios.component';
+import { AdminAlumnosComponent } from '../../pages/admin-alumnos/admin-alumnos.component';
+import { AdminProfesoresComponent } from '../../pages/admin-profesores/admin-profesores.component';
+import { AdminMateriasComponent } from '../../pages/admin-materias/admin-materias.component';
 
 @Component({
   selector: 'app-dashboard-admin',

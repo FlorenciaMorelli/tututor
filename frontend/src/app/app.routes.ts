@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { InicioComponent } from './pages/inicio/inicio.component';
-import { DashboardAlumnosComponent } from './pages/dashboard-alumnos/dashboard-alumnos.component';
-import { DashboardProfesoresComponent } from './pages/dashboard-profesores/dashboard-profesores.component';
-import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
+import { InicioComponent } from './layouts/inicio/inicio.component';
+import { DashboardAlumnosComponent } from './layouts/dashboard-alumnos/dashboard-alumnos.component';
+import { DashboardProfesoresComponent } from './layouts/dashboard-profesores/dashboard-profesores.component';
+import { DashboardAdminComponent } from './layouts/dashboard-admin/dashboard-admin.component';
 import { SearchAlumnosComponent } from './pages/search-alumnos/search-alumnos.component';
 import { ResenasAlumnosComponent } from './pages/resenas-alumnos/resenas-alumnos.component';
 import { PerfilAlumnosComponent } from './pages/perfil-alumnos/perfil-alumnos.component';

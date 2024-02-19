@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ProfesoresHomeComponent } from '../profesores-home/profesores-home.component';
-import { ProfesoresResenasComponent } from '../profesores-resenas/profesores-resenas.component';
-import { ProfesoresPerfilComponent } from '../profesores-perfil/profesores-perfil.component';
+import { ProfesoresHomeComponent } from '../../pages/profesores-home/profesores-home.component';
+import { ProfesoresResenasComponent } from '../../pages/profesores-resenas/profesores-resenas.component';
+import { ProfesoresPerfilComponent } from '../../pages/profesores-perfil/profesores-perfil.component';
 
 @Component({
   selector: 'app-dashboard-profesores',

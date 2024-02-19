@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeAlumnosComponent } from '../home-alumnos/home-alumnos.component';
-import { SearchAlumnosComponent } from '../search-alumnos/search-alumnos.component';
-import { ResenasAlumnosComponent } from '../resenas-alumnos/resenas-alumnos.component';
-import { PerfilAlumnosComponent } from '../perfil-alumnos/perfil-alumnos.component';
+import { HomeAlumnosComponent } from '../../pages/home-alumnos/home-alumnos.component';
+import { SearchAlumnosComponent } from '../../pages/search-alumnos/search-alumnos.component';
+import { ResenasAlumnosComponent } from '../../pages/resenas-alumnos/resenas-alumnos.component';
+import { PerfilAlumnosComponent } from '../../pages/perfil-alumnos/perfil-alumnos.component';
 
 @Component({
   selector: 'dashboard-alumnos',
