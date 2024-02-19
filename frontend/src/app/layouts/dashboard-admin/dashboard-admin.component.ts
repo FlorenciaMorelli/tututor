@@ -32,12 +32,13 @@ export class DashboardAdminComponent{
 
   constructor (
       private http: HttpClient,
-      private alumnosService: AlumnosService,
-      private profesoresService: ProfesoresService,
-      private materiasService: MateriasService,
       private router: Router)
   {
     
+  }
+  logout(){
+    localStorage.removeItem('id_usuario');
+    //TODO: completar logout
   }
 
   show(tab: string){
@@ -58,21 +59,5 @@ export class DashboardAdminComponent{
           }
         });
     }
-  }
-  
-  
-
-  private cargarProfesores(): void {
-    this.profesoresService.getAllProfesores()
-    .subscribe((profesoresResponse:any) => {
-      this.profesores = profesoresResponse;
-    });
-  }
-  
-  private cargarMaterias(): void {
-    this.materiasService.getAllMaterias()
-    .subscribe((materiasResponse:any) => {
-      this.materias = materiasResponse;
-    });
   }
 }
