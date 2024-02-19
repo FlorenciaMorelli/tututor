@@ -1,19 +1,8 @@
-<section id="main-content">
-    <section id="materias">
-        <h3>Mis materias</h3>
-        <div id="cardgroup-materias" class="card-group">
-            <div id="card-materia" class="card" *ngFor="let materia of materiasAlumno.slice(0, 5)">
-                <img id="cardimg-materia" src="../../../assets/img/{{ materia.icono }}" class="card-img-top" alt="...">
-                <div id="cardbody-materia" class="card-body">
-                    <h5 class="card-title">{{ materia.nombre }}</h5>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="clases">
-        <h3>Mis últimas clases</h3>
+<section>
+    <h2>Mis últimas reseñas</h2>
+    <div class="container">
         <div id="cardgroup-clases" class="card-group">
-            <div id="card-clase" class="card" *ngFor="let resena of resenasAlumno.slice(0, 4)">
+            <div id="card-clase" class="card" *ngFor="let resena of resenasProfesor">
                 <div id="cardbody-clase" class="card-body">
                     <div class="claseTop">
                         <div class="datosProfe">
@@ -31,5 +20,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </section>
