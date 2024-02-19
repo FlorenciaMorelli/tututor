@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,10 @@ export class ProfesoresService {
   private apiURL: string;
 
   constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/profesores/';
+    this.apiURL = 'http://localhost/tututor/backend/profesores';
   }
 
-  getAllProfesores(){
+  getAllProfesores(): Observable<any>{
     return this.http.get(this.apiURL);
   }
   
@@ -24,7 +25,7 @@ export class ProfesoresService {
   }
 
   editarProfesor(idProfesor: number, value: any){
-    return this.http.patch(this.apiURL + '/' + idProfesor, JSON.stringify(value));
+    return this.http.patch(this.apiURL + '/' + idProfesor, value);
   }
 
   postProfesor(value: any){

@@ -41,10 +41,6 @@ export const routes: Routes = [
         component: DashboardAdminComponent
     },
     {
-        path: 'buscar',
-        component: SearchComponent
-    },
-    {
         path: 'adminUsuarios',
         component: AdminUsuariosComponent
     },

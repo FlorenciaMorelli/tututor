@@ -75,9 +75,11 @@ export class SearchAlumnosComponent {
   }
 
   ngOnInit(): void {
-    this.profesoresService.getAllProfesores().subscribe((profesoresResponse:any) => {
-      console.log('Respuesta del servicio getAllProfesores: ',profesoresResponse);
-      this.profesores=profesoresResponse;
-    });
+    this.profesoresService.getAllProfesores()
+    .subscribe(
+      (profesoresResponse: any) => {
+        this.profesores = profesoresResponse;
+      }
+    )
   }
 }
