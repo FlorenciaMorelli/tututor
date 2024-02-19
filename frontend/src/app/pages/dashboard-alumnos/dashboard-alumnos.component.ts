@@ -1,15 +1,27 @@
 import { Component } from '@angular/core';
-import { OffcanvasComponent } from '../../components/offcanvas/offcanvas.component';
-import { HomeAlumnosComponent } from '../../components/home-alumnos/home-alumnos.component';
-import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
+import { CommonModule } from '@angular/common';
+import { HomeAlumnosComponent } from '../home-alumnos/home-alumnos.component';
+import { SearchAlumnosComponent } from '../search-alumnos/search-alumnos.component';
+import { ResenasAlumnosComponent } from '../resenas-alumnos/resenas-alumnos.component';
+import { PerfilAlumnosComponent } from '../perfil-alumnos/perfil-alumnos.component';
 
 @Component({
   selector: 'dashboard-alumnos',
   standalone: true,
-  imports: [OffcanvasComponent, HomeAlumnosComponent, SearchbarComponent],
+  imports: [CommonModule, HomeAlumnosComponent, SearchAlumnosComponent, ResenasAlumnosComponent, PerfilAlumnosComponent],
   templateUrl: './dashboard-alumnos.component.html',
   styleUrl: './dashboard-alumnos.component.css'
 })
 export class DashboardAlumnosComponent {
-  
+  secciones: any[] = [
+    {src: "../../../assets/icon/home.png", nombre: "Inicio", tag: "inicio"},
+    {src: "../../../assets/icon/messages.png", nombre: "Buscar", tag: "buscar"},
+    {src: "../../../assets/icon/reviews.png", nombre: "Mis reseñas", tag: "resenas"},
+    {src: "../../../assets/icon/profile.png", nombre: "Mi perfil", tag: "perfil"}
+  ];
+  seccionActiva: string = "inicio";
+
+  show(seccion: string){
+    this.seccionActiva = seccion;
+  }
 }

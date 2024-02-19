@@ -8,7 +8,7 @@ export class ProfesoresService {
   private apiURL: string;
 
   constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/profesores';
+    this.apiURL = 'http://localhost/tututor/backend/profesores/';
   }
 
   getAllProfesores() {
@@ -18,7 +18,14 @@ export class ProfesoresService {
   getProfesoresConParametros(id: any) {
     return this.http.get(this.apiURL + '/' + id);
   }
+  
+  getIDProfesor(id: any) {
+    return this.http.get('http://localhost/tututor/backend/profesor/' + id);
+  }
 
+  editarProfesor(idProfesor: number, value: any){
+    return this.http.patch(this.apiURL + '/' + idProfesor, JSON.stringify(value));
+  }
   editarProfesor(id: any, value: any){
     return this.http.patch(this.apiURL + '/' + id, value);
   }

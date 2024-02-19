@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -19,8 +19,8 @@ export class AlumnosService {
     return this.http.get(this.apiURL + '/' + id);
   }
 
-  editarAlumno(id: any, value: any){
-    return this.http.patch(this.apiURL + '/' + id, value);
+  editarAlumno(id: number, value: any){
+    return this.http.patch(this.apiURL + '/' + id, JSON.stringify(value));
   }
 
   postAlumno(value: any){

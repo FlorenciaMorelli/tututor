@@ -3,7 +3,9 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { DashboardAlumnosComponent } from './pages/dashboard-alumnos/dashboard-alumnos.component';
 import { DashboardProfesoresComponent } from './pages/dashboard-profesores/dashboard-profesores.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
-import { SearchComponent } from './pages/search/search.component';
+import { SearchAlumnosComponent } from './pages/search-alumnos/search-alumnos.component';
+import { ResenasAlumnosComponent } from './pages/resenas-alumnos/resenas-alumnos.component';
+import { PerfilAlumnosComponent } from './pages/perfil-alumnos/perfil-alumnos.component';
 import { AdminUsuariosComponent } from './pages/admin-usuarios/admin-usuarios.component';
 import { AdminAlumnosComponent } from './pages/admin-alumnos/admin-alumnos.component';
 import { AdminProfesoresComponent } from './pages/admin-profesores/admin-profesores.component';
@@ -17,6 +19,18 @@ export const routes: Routes = [
     {
         path:'dashboardAlumnos',
         component: DashboardAlumnosComponent
+    },
+    {
+        path: 'buscarProfesores',
+        component: SearchAlumnosComponent
+    },
+    {
+        path: 'resenasAlumnos',
+        component: ResenasAlumnosComponent
+    },
+    {
+        path: 'perfilAlumnos',
+        component: PerfilAlumnosComponent
     },
     {
         path:'dashboardProfesores',
