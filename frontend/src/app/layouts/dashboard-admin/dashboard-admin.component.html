@@ -1,6 +1,13 @@
 <section>
     <div class="container">
-        <h1>Bienvenido al administrador de TuTutor.com</h1>
+        <div class="row">
+        <div class="col">
+            <h1>Bienvenido al administrador de TuTutor.com</h1>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary" type="button" (click)="logout()" >Salir</button>
+        </div>
+        </div>
         <ul class="nav nav-tabs">
             <li class="nav-item" *ngFor="let tab of tabs">
                 @if(tabActivo === tab){
