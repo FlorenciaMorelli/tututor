@@ -1,0 +1,38 @@
+section{
+    margin: 2% auto;
+}
+
+h2{
+    margin: 3% auto 2% auto;
+    text-align: center;
+}
+
+#card-clase{
+    padding: 1%;
+}
+
+.claseTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 3%;
+}
+
+.datosProfe{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.datosProfe h5{
+    padding: 0% 10%;
+}
+
+.resenaPic{
+    width: 50px;
+    min-width: 49px;
+    height: 50px;
+    min-height: 49px;
+    overflow: hidden;
+    border-radius: 50%;
+}
