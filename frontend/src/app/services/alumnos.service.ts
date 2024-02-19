@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Alumno } from '../helpers/interfaces/alumno';
 
-const apiUrl = environment.apiUrl;
+const apiUrl = environment.apiUrl + '/alumnos';
 /* const apiKey = environment.apiKey; */
 
 @Injectable({
