@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MateriasService } from '../../services/materias.service';
+import { Materia } from '../../helpers/interfaces/materia';
 
 @Component({
   selector: 'admin-materias',
@@ -11,26 +12,27 @@ import { MateriasService } from '../../services/materias.service';
   styleUrl: './admin-materias.component.css'
 })
 export class AdminMateriasComponent {
-  materias: any[] = [];
+  private materiasService = inject(MateriasService);
+  materias: Materia[] = [];
 
   materiasForm: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private materiasService: MateriasService)
-    {
-      this.materiasForm = this.formBuilder.group({
-        id_materia  : [null, []],
-        nombre    : ['', [Validators.required]],
-        icono    : ['', [Validators.required]],
-      });
-    }
+  constructor(private formBuilder: FormBuilder)
+  {
+    this.materiasForm = this.formBuilder.group({
+      id_materia  : [null, []],
+      nombre    : ['', [Validators.required]],
+      icono    : ['', [Validators.required]],
+    });
+  }
 
   private cargarMaterias(): void {
     this.materiasService.getAllMaterias()
-    .subscribe((materiasResponse:any) => {
-      this.materias = materiasResponse;
-      console.log("cargamos:" + materiasResponse);
+    .subscribe({
+      next: (materiasResponse:any) => {
+        this.materias = materiasResponse as Materia[];
+        console.log("cargamos:" + materiasResponse);
+      }, error: (error) => console.log("Error al cargar las materias: ", error)
     });
   }
 
@@ -63,7 +65,7 @@ export class AdminMateriasComponent {
     });
   }
 
-  editar (materia: any): void {
+  editar (materia: Materia): void {
     let comp = this;
     this.materiasService.getMateriasConParametros(materia.id_materia)
       .subscribe({
@@ -77,7 +79,7 @@ export class AdminMateriasComponent {
       });
   }
 
-  borrar (materia: any): void {
+  borrar (materia: Materia): void {
     if (confirm("¿Estás seguro de que querés borrar esta materia? Se borrarán también los datos asociados a ella. Esta acción es irreversible.")) {
       let comp = this;
       this.materiasService.deleteMateria(materia.id_materia)

@@ -52,7 +52,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="modalidad" class="form-label">Modalidad</label>
-                    <input formControlName="modalidad" type="text" class="form-control" required>
+                    <select formControlName="modalidad" class="form-select" required>
+                        @for (modalidad of modalidades; track modalidades) {
+                            <option value="{{ modalidad }}" [ngValue]="modalidad">{{ modalidad }}</option>
+                        }
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="zona" class="form-label">Zona</label>

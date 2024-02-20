@@ -1,3 +1,5 @@
 export interface Materia {
-    //TODO: implementar interface Materia
+    id_materia: number
+    nombre: string
+    icono: string
 }

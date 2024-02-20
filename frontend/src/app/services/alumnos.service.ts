@@ -26,7 +26,7 @@ export class AlumnosService {
   }
 
   editarAlumno(id: number, value: any): Observable<Alumno>{
-    return this.http.patch<Alumno>(apiUrl + '/' + id, JSON.stringify(value));
+    return this.http.patch<Alumno>(apiUrl + '/' + id, value);
   }
 
   postAlumno(value: any): Observable<Alumno>{

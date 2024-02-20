@@ -1,33 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Materia } from '../helpers/interfaces/materia';
 
+const apiUrl = environment.apiUrl + '/materias';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MateriasService {
-  private apiURL: string;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/materias';
-  }
+  constructor() {}
   
-  getAllMaterias() {
-    return this.http.get(this.apiURL);
+  getAllMaterias(): Observable<Materia> {
+    return this.http.get<Materia>(apiUrl);
   }
 
-  getMateriasConParametros(id: any) {
-    return this.http.get(this.apiURL + '/' + id);
-  }
-  editarMateria(id: any, value: any){
-    return this.http.patch(this.apiURL + '/' + id, value);
+  getMateriasConParametros(id: any): Observable<Materia> {
+    return this.http.get<Materia>(apiUrl + '/' + id);
   }
 
-  postMateria(value: any){
-    return this.http.post(this.apiURL, value);
+  editarMateria(id: any, value: any): Observable<Materia>{
+    return this.http.patch<Materia>(apiUrl + '/' + id, value);
   }
 
-  deleteMateria(id: any) {
-    return this.http.delete(this.apiURL + "/" + id);
+  postMateria(value: any): Observable<Materia>{
+    return this.http.post<Materia>(apiUrl, value);
+  }
+
+  deleteMateria(id: any): Observable<Materia> {
+    return this.http.delete<Materia>(apiUrl + "/" + id);
   }
 }

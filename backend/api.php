@@ -524,7 +524,6 @@ function patchUsuarios($id){
 }
 
 function patchAlumnos($id){
-    global $alumnos;
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
     

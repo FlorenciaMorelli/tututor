@@ -16,6 +16,8 @@ export class AdminProfesoresComponent {
   profesores: Profesor[] = [];
   profesoresForm: FormGroup;
 
+  modalidades: string[] = ["En casa", "A domicilio", "Punto de encuentro"];
+
   constructor(
     private formBuilder: FormBuilder)
     {
@@ -83,18 +85,18 @@ export class AdminProfesoresComponent {
     let comp = this;
     this.profesoresService.getProfesoresConParametros(profesor.id_profesor)
       .subscribe({
-        next : function (profesorResponse: Profesor) {
+        next : function (response: any) {
           comp.profesoresForm.setValue({
-            id_profesor: profesorResponse.id_profesor,
-            id_usuario: profesorResponse.id_usuario,
-            nombre: profesorResponse.nombre,
-            apellido: profesorResponse.apellido,
-            modalidad: profesorResponse.modalidad,
-            zona: profesorResponse.zona,
-            direccion: profesorResponse.direccion,
-            foto_path: profesorResponse.foto_path,
-            archivos_path: profesorResponse.archivos_path,
-            puntuacion: profesorResponse.puntuacion,
+            id_profesor: response[0].id_profesor,
+            id_usuario: response[0].id_usuario,
+            nombre: response[0].nombre,
+            apellido: response[0].apellido,
+            modalidad: response[0].modalidad,
+            zona: response[0].zona,
+            direccion: response[0].direccion,
+            foto_path: response[0].foto_path,
+            archivos_path: response[0].archivos_path,
+            puntuacion: response[0].puntuacion,
           });
         },
       });
@@ -105,8 +107,8 @@ export class AdminProfesoresComponent {
       let comp = this;
       this.profesoresService.deleteProfesor(profesor.id_profesor)
         .subscribe({
-          next : function (profesorResponse: Profesor) {
-            if(comp.profesoresForm.value.id==profesorResponse.id_profesor) {
+          next : function () {
+            if(comp.profesoresForm.value.id==profesor.id_profesor) {
               comp.descartarProfesor();
             }
             comp.cargarProfesores();
