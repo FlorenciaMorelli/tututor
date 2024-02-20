@@ -12,6 +12,9 @@ import { ProfesoresPerfilComponent } from '../../pages/profesores-perfil/profeso
   styleUrl: './dashboard-profesores.component.css'
 })
 export class DashboardProfesoresComponent {
+  nombre: string = String(localStorage.getItem('nombre'));
+  profilePic: string = String(localStorage.getItem('foto_path'));
+
   secciones: any[] = [
     {src: "../../../assets/icon/home.png", nombre: "Inicio", tag: "inicio"},
     {src: "../../../assets/icon/reviews.png", nombre: "Reseñas", tag: "resenas"},

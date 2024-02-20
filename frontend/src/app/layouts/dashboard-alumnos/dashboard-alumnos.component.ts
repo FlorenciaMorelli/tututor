@@ -13,6 +13,9 @@ import { PerfilAlumnosComponent } from '../../pages/perfil-alumnos/perfil-alumno
   styleUrl: './dashboard-alumnos.component.css'
 })
 export class DashboardAlumnosComponent {
+  nombre: string = String(localStorage.getItem('nombre'));
+  profilePic: string = String(localStorage.getItem('foto_path'));
+
   secciones: any[] = [
     {src: "../../../assets/icon/home.png", nombre: "Inicio", tag: "inicio"},
     {src: "../../../assets/icon/messages.png", nombre: "Buscar", tag: "buscar"},
