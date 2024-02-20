@@ -1,33 +1,36 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Usuario } from '../helpers/interfaces/usuario';
+import { environment } from '../../environments/environment';
+
+const apiUrl = environment.apiUrl + '/usuarios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
-  private apiURL: string;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/usuarios';
-  }
+  constructor() {}
 
-  getAllUsuarios() {
-    return this.http.get(this.apiURL);
+  getAllUsuarios(): Observable<Usuario> {
+    return this.http.get<Usuario>(apiUrl);
   }
   
-  getUsuariosConParametros(id: number) {
-    return this.http.get(this.apiURL + '/' + id);
+  getUsuariosConParametros(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(apiUrl + '/' + id);
   }
 
-  editarUsuario(id: any, value: any){
-    return this.http.patch(this.apiURL + '/' + id, value);
+  editarUsuario(id: any, value: any): Observable<Usuario>{
+    return this.http.patch<Usuario>(apiUrl + '/' + id, value);
   }
 
-  postUsuario(value: any){
-    return this.http.post(this.apiURL, value);
+  postUsuario(value: any): Observable<Usuario>{
+    return this.http.post<Usuario>(apiUrl, value);
   }
 
-  deleteUsuario(id: any) {
-    return this.http.delete(this.apiURL + "/" + id);
+  deleteUsuario(id: any): Observable<Usuario> {
+    return this.http.delete<Usuario>(apiUrl + "/" + id);
   }
 }

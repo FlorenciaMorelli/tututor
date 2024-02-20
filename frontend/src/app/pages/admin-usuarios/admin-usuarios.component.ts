@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
 import { CommonModule } from '@angular/common';
+import { Usuario } from '../../helpers/interfaces/usuario';
 
 @Component({
   selector: 'admin-usuarios',
@@ -12,27 +12,29 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-usuarios.component.css'
 })
 export class AdminUsuariosComponent {
-  usuarios: any[] = [];
+  private usuariosService = inject(UsuariosService);
+  usuarios: Usuario[] = [];
   roles: string[] = ["Alumno", "Profesor", "Admin"];
 
   usuarioForm: FormGroup;
 
-  constructor(
-    private http: HttpClient,
-    private formBuilder: FormBuilder,
-    private usuariosService: UsuariosService)
-    {
-      this.usuarioForm = this.formBuilder.group({
-        id_usuario  : [null, []],
-        mail    : ['', [Validators.required]],
-        rol : ['', [Validators.required]],
-      });
-    }
+  constructor(private formBuilder: FormBuilder)
+  {
+    this.usuarioForm = this.formBuilder.group({
+      id_user  : [null, []],
+      mail    : ['', [Validators.required, Validators.email]],
+      rol : ['', [Validators.required]],
+    });
+  }
 
   private cargarUsuarios(): void {
     this.usuariosService.getAllUsuarios()
-    .subscribe((usuariosResponse:any) => {
-      this.usuarios = usuariosResponse;
+    .subscribe({
+      next: (usuariosResponse:any) => {
+        this.usuarios = usuariosResponse as Usuario[];
+        console.log("cargamos:" + usuariosResponse);
+      },
+      error: (error: any) => console.log("Error al cargar los usuarios: ", error)
     });
   }
 
@@ -41,14 +43,14 @@ export class AdminUsuariosComponent {
     if (this.usuarioForm.value.id) {
       this.usuariosService.editarUsuario(this.usuarioForm.value.id, this.usuarioForm.value)
       .subscribe({
-        next : function (response: any) {
+        next : function () {
           comp.cargarUsuarios();
         },
       });
     } else {
       this.usuariosService.postUsuario(this.usuarioForm.value)
       .subscribe({
-        next : function (response: any) {
+        next : function () {
           comp.cargarUsuarios();
         },
       });
@@ -58,19 +60,19 @@ export class AdminUsuariosComponent {
 
   descartarUsuario (): void {
     this.usuarioForm.setValue({
-      id_usuario  : null,
+      id_user  : null,
       mail    : '',
       rol : ''
     });
   }
 
-  editar (usuario: any): void {
+  editar (usuario: Usuario): void {
     let comp = this;
     this.usuariosService.getUsuariosConParametros(usuario.id_user)
       .subscribe({
         next : function (response: any) {
           comp.usuarioForm.setValue({
-            id_usuario: response[0].id_user,
+            id_user: response[0].id_user,
             mail: response[0].mail,
             rol: response[0].rol
           });
@@ -78,12 +80,12 @@ export class AdminUsuariosComponent {
       });
   }
 
-  borrar (usuario: any): void {
+  borrar (usuario: Usuario): void {
     if (confirm("¿Estás seguro de que querés borrar este usuario? Esta acción es irreversible")) {
       let comp = this;
       this.usuariosService.deleteUsuario(usuario.id_user)
         .subscribe({
-          next : function (response: any) {
+          next : function () {
             if(comp.usuarioForm.value.id==usuario.id_user) {
               comp.descartarUsuario();
             }

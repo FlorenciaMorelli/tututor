@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProfesoresService } from '../../services/profesores.service';
-import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Profesor } from '../../helpers/interfaces/profesor';
 
 @Component({
   selector: 'admin-profesores',
@@ -12,14 +12,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-profesores.component.css'
 })
 export class AdminProfesoresComponent {
-  profesores: any[] = [];
-
+  private profesoresService = inject(ProfesoresService);
+  profesores: Profesor[] = [];
   profesoresForm: FormGroup;
 
+  modalidades: string[] = ["En casa", "A domicilio", "Punto de encuentro"];
+
   constructor(
-    private http: HttpClient,
-    private formBuilder: FormBuilder,
-    private profesoresService: ProfesoresService)
+    private formBuilder: FormBuilder)
     {
       this.profesoresForm = this.formBuilder.group({
         id_profesor  : [null, []],
@@ -37,9 +37,11 @@ export class AdminProfesoresComponent {
 
   private cargarProfesores(): void {
     this.profesoresService.getAllProfesores()
-    .subscribe((profesoresResponse:any) => {
-      this.profesores = profesoresResponse;
-      console.log("cargamos:" + profesoresResponse);
+    .subscribe({
+      next: (profesoresResponse:any) => {
+        this.profesores = profesoresResponse as Profesor[];
+        console.log("cargamos:" + profesoresResponse);
+      }, error: (error) => console.log("Error al cargar los profesores: ", error)
     });
   }
 
@@ -49,14 +51,14 @@ export class AdminProfesoresComponent {
       console.log("Vamos a editar: " + this.profesoresForm.value.id_profesor);
       this.profesoresService.editarProfesor(this.profesoresForm.value.id_profesor, this.profesoresForm.value)
       .subscribe({
-        next : function (response: any) {
+        next : function () {
           comp.cargarProfesores();
         },
       });
     } else {
       this.profesoresService.postProfesor(this.profesoresForm.value)
       .subscribe({
-        next : function (response: any) {
+        next : function () {
           comp.cargarProfesores();
         },
       });
@@ -79,7 +81,7 @@ export class AdminProfesoresComponent {
     });
   }
 
-  editar (profesor: any): void {
+  editar (profesor: Profesor): void {
     let comp = this;
     this.profesoresService.getProfesoresConParametros(profesor.id_profesor)
       .subscribe({
@@ -100,12 +102,12 @@ export class AdminProfesoresComponent {
       });
   }
 
-  borrar (profesor: any): void {
+  borrar (profesor: Profesor): void {
     if (confirm("¿Estás seguro de que querés borrar este profesor? Se borrarán también los datos asociados a él. Esta acción es irreversible.")) {
       let comp = this;
       this.profesoresService.deleteProfesor(profesor.id_profesor)
         .subscribe({
-          next : function (response: any) {
+          next : function () {
             if(comp.profesoresForm.value.id==profesor.id_profesor) {
               comp.descartarProfesor();
             }
