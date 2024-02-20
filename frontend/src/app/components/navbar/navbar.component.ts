@@ -16,22 +16,22 @@ export class NavbarComponent {
   menu = [
     {
       texto: 'Home',
-      link:  '/',
+      link:  '#home',
       tipo: 1
     },
     {
       texto: 'Cómo funciona',
-      link: '/howto',
+      link: '#howto',
       tipo: 1
     },
     {
       texto: 'Quiero aprender',
-      link: '/login',
+      link: '',
       tipo: 2
     },
     {
       texto: 'Quiero enseñar',
-      link: '/login',
+      link: '',
       tipo: 3
     }
   ]
