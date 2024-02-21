@@ -1,0 +1,44 @@
+<div class="container" id="userAdmin">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">ID Usuario</th>
+                        <th scope="col" class="text-center">Mail</th>
+                        <th scope="col" class="text-center">Rol</th>
+                        <th scope="col" class="text-center">Fecha de creación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let usuario of usuarios">
+                        <th scope="row" class="text-center">{{ usuario.id_user }}</th>
+                        <td class="text-center">{{ usuario.mail }}</td>
+                        <td class="text-center">{{ usuario.rol }}</td>
+                        <td class="text-center">{{ usuario.fecha_creacion }}</td>
+                        <td class="text-center text-nowrap">
+                            <button type="button" (click)="editar(usuario)" class="btn btn-sm btn-primary me-1">Editar</button>
+                            <button type="button" (click)="borrar(usuario)" class="btn btn-sm btn-success">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <form [formGroup]="usuarioForm">
+                <div class="mb-3">
+                    <label for="mail" class="form-label">Mail</label>
+                    <input formControlName="mail" type="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select formControlName="rol" class="form-select" required>
+                        <option *ngFor="let rol of roles" value="{{ rol }}" [ngValue]="rol">{{ rol }}</option>
+                    </select>
+                </div>
+                <button type="button" (click)="guardarUsuario()" [disabled]="usuarioForm.invalid" class="btn btn-outline-primary me-1">Guardar</button>
+                <button type="reset" (click)="descartarUsuario()" class="btn btn-outline-secondary">Descartar</button>
+            </form>
+        </div>
+    </div>
+</div>

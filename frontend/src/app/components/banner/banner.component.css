@@ -1,0 +1,23 @@
+section{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(83.16, 112.60, 146.80, 0.80) 53%, #274C77 100%);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.content{
+    width: 80%;
+}
+
+h1{
+    margin-top: 10%;
+    color: #274C77;
+}
+
+h3{
+    color: white;
+    text-align: left;
+    width: 100%;
+    margin-top: 3%;
+}

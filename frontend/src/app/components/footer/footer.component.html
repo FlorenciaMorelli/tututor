@@ -1,0 +1,22 @@
+<div id="myFooter" class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <a id="titulo" class="navbar-brand" href="#home">
+                <img src="../../favicon.ico" alt="Logo" width="60" height="auto" class="d-inline-block align-text-top">
+                {{titulo}}
+            </a>
+        </div>
+        <div class="col">
+            <h5>Información</h5>
+                @for(item of info; track item){
+                    <img src="{{ item.icon }}" alt="Logo" width="auto" height="20" class="d-inline-block align-text-top"> 
+                    @if (item.link != '') {
+                        <a href="{{item.link}}">{{item.dato}}</a>
+                    } @else {
+                        {{ item.dato }}
+                    }
+                    <br>
+                }
+        </div>
+    </div>
+</div>

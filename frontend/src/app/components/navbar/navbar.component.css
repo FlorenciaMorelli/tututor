@@ -1,0 +1,19 @@
+*{
+    border-radius: 10px;
+}
+
+a{
+    color: #3B3A5D;
+}
+
+#botonPrimario{
+    background-color: #274C77 !important;
+    color: white !important;
+    border-color: #274C77 !important;
+}
+
+#botonSecundario{
+    background-color: #A1BCAD !important;
+    color: #274C77 !important;
+    border-color: #274C77 !important;
+}

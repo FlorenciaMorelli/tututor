@@ -1,0 +1,87 @@
+<section id="howto">
+    <div class="container">
+
+        <h1>Cómo funciona TuTutor.com</h1>
+        @if(display){
+            <input type="radio" class="btn-check" name="options" id="alumno" autocomplete="off" checked>
+            <label class="btn btn-primary" for="alumno">Alumno</label>
+
+            <input type="radio" class="btn-check" name="options" id="notProfesor" autocomplete="off" (click)="changeDisplay()">
+            <label class="btn" for="notProfesor">Profesor</label>
+            <br><br>
+            <div class="container">
+                @for (item of alumnosInfo; track alumnosInfo) {
+                    @if(item.nro % 2 != 0){
+                        <div class="card mb-3" style="min-height: 400px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{item.imagen}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.titulo }}</h5>
+                                        <p class="card-text">{{ item.descripcion }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    } @else {
+                        <div class="card mb-3" style="min-height: 400px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.titulo }}</h5>
+                                        <p class="card-text">{{ item.descripcion }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <img src="{{item.imagen}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        } @else {
+            <input type="radio" class="btn-check" name="options" id="notAlumno" autocomplete="off" (click)="changeDisplay()">
+            <label class="btn" for="notAlumno">Alumno</label>
+
+            <input type="radio" class="btn-check" name="options" id="profesor" autocomplete="off" checked>
+            <label class="btn btn-primary" for="profesor">Profesor</label>
+            <br><br>
+            <div class="container">
+                @for (item of profesoresInfo; track profesoresInfo) {
+                    @if(item.nro % 2 == 0){
+                        <div class="card mb-3" style="min-height: 400px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{item.imagen}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.titulo }}</h5>
+                                        <p class="card-text">{{ item.descripcion }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    } @else {
+                        <div class="card mb-3" style="min-height: 400px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.titulo }}</h5>
+                                        <p class="card-text">{{ item.descripcion }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <img src="{{item.imagen}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,82 @@
+<div class="container" id="userAdmin">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">ID Profesor</th>
+                        <th scope="col" class="text-center">ID de usuario</th>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Apellido</th>
+                        <th scope="col" class="text-center">Modalidad</th>
+                        <th scope="col" class="text-center">Zona</th>
+                        <th scope="col" class="text-center">Dirección</th>
+                        <th scope="col" class="text-center">Ruta de foto</th>
+                        <th scope="col" class="text-center">Ruta de archivos</th>
+                        <th scope="col" class="text-center">Puntuación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let profesor of profesores">
+                        <th scope="row" class="text-center">{{ profesor.id_profesor }}</th>
+                        <td class="text-center">{{ profesor.id_usuario }}</td>
+                        <td class="text-center">{{ profesor.nombre }}</td>
+                        <td class="text-center">{{ profesor.apellido }}</td>
+                        <td class="text-center">{{ profesor.modalidad }}</td>
+                        <td class="text-center">{{ profesor.zona }}</td>
+                        <td class="text-center">{{ profesor.direccion }}</td>
+                        <td class="text-center">{{ profesor.foto_path }}</td>
+                        <td class="text-center">{{ profesor.archivos_path }}</td>
+                        <td class="text-center">{{ profesor.puntuacion }}</td>
+                        <td class="text-center text-nowrap">
+                            <button type="button" (click)="editar(profesor)" class="btn btn-sm btn-primary me-1">Editar</button>
+                            <button type="button" (click)="borrar(profesor)" class="btn btn-sm btn-success">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <form [formGroup]="profesoresForm">
+                <div class="mb-3">
+                    <label for="id_profesor" class="col-sm-2 col-form-label">ID del profesor</label>
+                    <input formControlName="id_profesor" type="text" readonly class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input formControlName="nombre" type="text" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input formControlName="apellido" type="text" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="modalidad" class="form-label">Modalidad</label>
+                    <select formControlName="modalidad" class="form-select" required>
+                        @for (modalidad of modalidades; track modalidades) {
+                            <option value="{{ modalidad }}" [ngValue]="modalidad">{{ modalidad }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="zona" class="form-label">Zona</label>
+                    <input formControlName="zona" type="text" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input formControlName="direccion" type="text" class="form-control" >
+                </div>
+                <div class="mb-3">
+                    <label for="foto_path" class="form-label">Ruta de foto</label>
+                    <input formControlName="foto_path" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="archivos_path" class="form-label">Ruta de archivos</label>
+                    <input formControlName="archivos_path" type="text" class="form-control">
+                </div>
+                <button type="button" (click)="guardarProfesor()" [disabled]="profesoresForm.invalid" class="btn btn-outline-primary me-1">Guardar</button>
+                <button type="reset" (click)="descartarProfesor()" class="btn btn-outline-secondary">Descartar</button>
+            </form>
+        </div>
+    </div>
+</div>

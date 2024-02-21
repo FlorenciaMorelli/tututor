@@ -1,0 +1,15 @@
+<form>
+    <div class="mb-3">
+        <label for="mail" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" [(ngModel)]="loginObj.mail" name="mail" value="{{ mailValue }}" required>
+        <div id="emailHelp" class="form-text">Tu email está a salvo con nosotros.</div>
+    </div>
+    <div class="mb-3">
+        <label for="password_hash" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password_hash" [(ngModel)]="loginObj.password_hash" name="password_hash" required>
+    </div>
+    <div *ngIf="error==true" class="mb-3" style="color: red !important;">
+        {{ errorMessage }}
+    </div>
+    <button type="button" class="btn btn-primary" (click)="onLogin()">Ingresar</button>
+</form>

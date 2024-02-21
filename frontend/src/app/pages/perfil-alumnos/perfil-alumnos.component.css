@@ -1,0 +1,9 @@
+#puntuacionText{
+    font-size: 30px;
+}
+
+#profPic{
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}

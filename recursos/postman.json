@@ -1,0 +1,902 @@
+{
+	"info": {
+		"_postman_id": "6fdff18f-ce4d-425a-bb03-73e9bea10c50",
+		"name": "TuTutor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24094727"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "USUARIOS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USUARIOS CON PARÁMETROS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS CON PARÁMETROS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESORES",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESORES CON PARÁMETROS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MATERIAS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/materias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"materias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MATERIAS CON PARÁMETROS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"materias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TOP MATERIAS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/topmaterias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"topmaterias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS-MATERIAS CON PARÁMETROS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnosmaterias/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnosmaterias",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RESEÑAS DADAS POR UN ALUMNO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnosresenasdadas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnosresenasdadas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RESEÑAS RECIBIDAS POR UN ALUMNO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnosresenasdadas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnosresenasdadas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RESEÑAS DADAS POR UN PROFESOR",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesoresresenasdadas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesoresresenasdadas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PROFESORESMATERIAS CON ID DE USUARIO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesoresmaterias/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesoresmaterias",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESOR CON ID USUARIO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesoresusuario/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesoresusuario",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNO CON ID USUARIO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnosusuario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnosusuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "USUARIOS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mail\": \"usuario_de_prueba@post.com\",\r\n    \"password\": \"soylaprueba123\",\r\n    \"rol\": \"alumno\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_usuario\": 6,\r\n  \"nombre\": \"Prueba\",\r\n  \"apellido\": \"Pruebita\",\r\n  \"zona\": \"Zona 1\",\r\n  \"direccion\": \"Calle Principal 123\",\r\n  \"foto_path\": \"url_de_la_foto.jpg\",\r\n  \"puntuacion\": 5.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESORES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_usuario\": 1,\r\n  \"nombre\": \"Juan\",\r\n  \"apellido\": \"Pérez\",\r\n  \"modalidad\": \"Presencial\",\r\n  \"zona\": \"Centro\",\r\n  \"direccion\": \"Calle Principal 123\",\r\n  \"foto_path\": \"/path/to/foto.jpg\",\r\n  \"archivos_path\": \"/path/to/archivos\",\r\n  \"puntuacion\": 4.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MATERIAS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_usuario\": 1,\r\n  \"nombre\": \"Juan\",\r\n  \"apellido\": \"Pérez\",\r\n  \"modalidad\": \"Presencial\",\r\n  \"zona\": \"Centro\",\r\n  \"direccion\": \"Calle Principal 123\",\r\n  \"foto_path\": \"/path/to/foto.jpg\",\r\n  \"archivos_path\": \"/path/to/archivos\",\r\n  \"puntuacion\": 4.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PATCH",
+			"item": [
+				{
+					"name": "USUARIOS",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"mail\": \"nuevoemail@example.com\",\r\n  \"rol\": \"nuevo_rol\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"NuevoNombre\",\r\n  \"direccion\": \"NuevaDireccion\",\r\n  \"puntuacion\": 4.2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESORES",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"apellido\" : \"Gomez\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MATERIAS",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"NuevaMateria\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"materias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "USUARIOS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALUMNOS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/alumnos/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"alumnos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFESORES",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/profesores/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"profesores",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MATERIAS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"materias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SERVICIOS",
+			"item": [
+				{
+					"name": "RESTABLECER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/tututor/backend/restablecer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"restablecer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mail\": \"alumno1@email.com\",\r\n    \"password_hash\": \"contraseña1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/checklogin.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"checklogin.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SIGNUP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newMail\": \"usuario_de_prueba1@post.com\",\r\n    \"newPassword\": \"soylaprueba123\",\r\n    \"newConfirmPassword\": \"soylaprueba123\",\r\n    \"newRole\": \"Alumno\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/tututor/backend/signup.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"tututor",
+								"backend",
+								"signup.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

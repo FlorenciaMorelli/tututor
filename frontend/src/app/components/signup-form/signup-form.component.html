@@ -1,0 +1,22 @@
+<form>
+    <div class="mb-3">
+        <label for="newMail" class="form-label">Correo electrónico *</label>
+        <input type="email" class="form-control" id="newMail" aria-describedby="emailHelp" [(ngModel)]="signupObj.newMail" name="newMail" required>
+        <div id="emailHelp" class="form-text">Tu email está a salvo con nosotros.</div>
+    </div>
+    <div class="mb-3">
+        <label for="newPassword" class="form-label">Contraseña *</label>
+        <input type="password" class="form-control" id="newPassword" [(ngModel)]="signupObj.newPassword" name="newPassword" required>
+    </div>
+    <div class="mb-3">
+        <label for="newConfirmPassword" class="form-label">Confirmar contraseña *</label>
+        <input type="password" class="form-control" id="newConfirmPassword" [(ngModel)]="signupObj.newConfirmPassword" name="newConfirmPassword" required>
+    </div>
+    <div class="mb-3">
+        <label for="newRole" class="form-label">Tipo de perfil *</label>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="signupObj.newRole" name="newRole" required>
+            <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+        </select>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="onSignup()" data-bs-dismiss="modal">Crear cuenta</button>
+</form>

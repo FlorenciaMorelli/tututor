@@ -1,0 +1,60 @@
+<button id="offcanvas-toggle" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+    </svg>
+</button>
+
+<div id="offcanvas-nav" class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+        <button id="offcanvas-toggle2" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"/>
+            </svg>
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="welcome">
+            @if(profilePic != null){
+                <img id="profPic" src="{{ profilePic }}" alt="" height="50" />
+            } @else {
+                <img id="profPic" src="../../../assets/img/profilePic.jpg" alt="" height="50" />
+            }
+            <h3>Bienvenido {{ nombre }}</h3>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item" *ngFor="let seccion of secciones">
+                @if(seccionActiva === seccion){
+                    <a id="{{ seccion }}" class="w-100 nav-item nav-link active" (click)="show(seccion.tag)" style="flex: 1">
+                        <img class="offcanvas-icon" src="{{ seccion.src }}" alt="">
+                        {{ seccion.nombre }}
+                    </a>
+                } @else {
+                    <a id="{{ seccion }}" class="w-100 nav-item nav-link" (click)="show(seccion.tag)" style="flex: 1">
+                        <img class="offcanvas-icon" src="{{ seccion.src }}" alt="">
+                        {{ seccion.nombre }}
+                    </a>
+                }
+            </li>
+        </ul>
+    </div>
+    <div class="logoutbtn">
+        <button (click)="logout()" id="cerrarSesion" type="button" class="btn">
+            Salir
+            <img class="offcanvas-icon" src="../../../assets/icon/logout.png" alt="" />
+        </button>
+    </div>
+</div>
+
+<div class="show">
+    @switch (seccionActiva) {
+        @case ("inicio") {
+            <profesores-home />
+        }
+        @case("resenas"){
+            <profesores-resenas />
+        }
+        @case("perfil"){
+            <profesores-perfil />
+        }
+    }
+</div>

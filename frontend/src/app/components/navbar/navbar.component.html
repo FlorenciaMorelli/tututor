@@ -1,0 +1,54 @@
+<div class="container">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../../favicon.ico" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            {{titulo}}
+        </a>
+        <ul class="nav justify-content-end" *ngFor="let item of menu">
+            @if(item.tipo == 1){
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ item.link }}">{{ item.texto }}</a>
+                </li>
+            } @else if (item.tipo == 2) {
+                <button id="botonPrimario" class="btn btn-primary" data-bs-target="#modalLoginToggle" data-bs-toggle="modal">{{ item.texto }}</button>
+            } @else {
+                <button id="botonSecundario" class="btn btn-secondary" data-bs-target="#modalLoginToggle" data-bs-toggle="modal">{{ item.texto }}</button>
+            }
+        </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="modal fade" id="modalLoginToggle" aria-hidden="true" aria-labelledby="modalLoginToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLoginToggleLabel">Crear cuenta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <signup-form />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#modalLoginToggle2" data-bs-toggle="modal">Ya tengo una cuenta</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalLoginToggle2" aria-hidden="true" aria-labelledby="modalLoginToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLoginToggleLabel2">Iniciar sesión</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <login-form />
+            </div>
+                <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#modalLoginToggle" data-bs-toggle="modal">No tengo cuenta aún</button>
+            </div>
+        </div>
+    </div>
+</div>
