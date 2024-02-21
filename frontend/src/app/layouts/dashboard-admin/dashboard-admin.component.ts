@@ -44,15 +44,18 @@ export class DashboardAdminComponent{
   show(tab: string){
     this.tabActivo = tab;
   }
-    
+  
+  actualizar(){
+    location.reload();
+  }
 
   restablecerBD (): void {
     let comp = this;
     if (confirm("¿Estás seguro de que querés restablecer la base de datos? ¡Esta acción es irreversible!")) {
-      this.http.post('http://localhost/tututor/backend/restablecer', {})
+      this.http.post('http://localhost/tututor/backend/restablecer', '')
         .subscribe({
           next : () => {
-            this.router.navigate(['']);
+            this.actualizar();
           },
           error: err => {
             console.error('Error resetting database:', err);

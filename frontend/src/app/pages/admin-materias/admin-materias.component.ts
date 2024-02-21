@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MateriasService } from '../../services/materias.service';
 import { Materia } from '../../helpers/interfaces/materia';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'admin-materias',
@@ -12,13 +13,14 @@ import { Materia } from '../../helpers/interfaces/materia';
   styleUrl: './admin-materias.component.css'
 })
 export class AdminMateriasComponent {
-  private materiasService = inject(MateriasService);
+  public materiasList$!: Observable<Materia>;
   materias: Materia[] = [];
 
   materiasForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder)
+  constructor(private formBuilder: FormBuilder, private materiasService: MateriasService)
   {
+    this.materiasList$ = this.materiasService.getAllMaterias();
     this.materiasForm = this.formBuilder.group({
       id_materia  : [null, []],
       nombre    : ['', [Validators.required]],
@@ -39,13 +41,10 @@ export class AdminMateriasComponent {
   guardarMateria (): void {
     let comp = this;
     if (this.materiasForm.value.id_materia) {
-      console.log("Vamos a editar: " + this.materiasForm.value.id_materia);
       this.materiasService.editarMateria(this.materiasForm.value.id_materia, this.materiasForm.value)
-      .subscribe({
-        next : function () {
-          comp.cargarMaterias();
-        },
-      });
+      .subscribe((response: any) => {
+        comp.cargarMaterias();
+      })
     } else {
       this.materiasService.postMateria(this.materiasForm.value)
       .subscribe({
@@ -67,7 +66,7 @@ export class AdminMateriasComponent {
 
   editar (materia: Materia): void {
     let comp = this;
-    this.materiasService.getMateriasConParametros(materia.id_materia)
+    this.materiasService.getMateriaConIDMateria(materia.id_materia)
       .subscribe({
         next : function (response: any) {
           comp.materiasForm.setValue({

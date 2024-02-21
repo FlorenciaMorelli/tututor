@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS alumnos (
     direccion TEXT,
     foto_path TEXT,
     puntuacion FLOAT NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_user)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_user) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS profesores (
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS profesores (
     foto_path TEXT,
     archivos_path TEXT,
     puntuacion FLOAT NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_user)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_user) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS materias (
@@ -49,16 +49,16 @@ CREATE TABLE IF NOT EXISTS alumnos_materias (
     id_alumno INT,
     id_materia INT,
     PRIMARY KEY (id_alumno, id_materia),
-    FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno),
-    FOREIGN KEY (id_materia) REFERENCES materias(id_materia)
+    FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno) ON DELETE CASCADE,
+    FOREIGN KEY (id_materia) REFERENCES materias(id_materia) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS profesores_materias (
     id_profesor INT,
     id_materia INT,
     PRIMARY KEY (id_profesor, id_materia),
-    FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor),
-    FOREIGN KEY (id_materia) REFERENCES materias(id_materia)
+    FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor) ON DELETE CASCADE,
+    FOREIGN KEY (id_materia) REFERENCES materias(id_materia) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS resenas (
@@ -67,24 +67,24 @@ CREATE TABLE IF NOT EXISTS resenas (
     id_usuario_receptor INT NOT NULL,
     estrellas INT,
     opinion TEXT,
-    FOREIGN KEY (id_usuario_emisor) REFERENCES usuarios(id_user),
-    FOREIGN KEY (id_usuario_receptor) REFERENCES usuarios(id_user)
+    FOREIGN KEY (id_usuario_emisor) REFERENCES usuarios(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario_receptor) REFERENCES usuarios(id_user) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS alumnos_resenas (
     id_alumno INT,
     id_resena INT,
     PRIMARY KEY (id_alumno, id_resena),
-    FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno),
-    FOREIGN KEY (id_resena) REFERENCES resenas(id_resena)
+    FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno) ON DELETE CASCADE,
+    FOREIGN KEY (id_resena) REFERENCES resenas(id_resena) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS profesores_resenas (
     id_profesor INT,
     id_resena INT,
     PRIMARY KEY (id_profesor, id_resena),
-    FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor),
-    FOREIGN KEY (id_resena) REFERENCES resenas(id_resena)
+    FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor) ON DELETE CASCADE,
+    FOREIGN KEY (id_resena) REFERENCES resenas(id_resena) ON DELETE CASCADE
 );
 
 -- Inyección de datos de ejemplo
@@ -98,7 +98,7 @@ INSERT INTO materias (nombre, icono) VALUES
 ('Física', 'fisica.png'),
 ('Química', 'quimica.png');
 
-INSERT INTO usuarios (mail, password, rol) VALUES 
+INSERT INTO usuarios (mail, password_hash, rol) VALUES 
 ('alumno1@email.com', 'contrasena1', 'alumno'),
 ('alumno2@email.com', 'contrasena2', 'alumno'),
 ('profesor1@email.com', 'contrasena3', 'profesor'),
@@ -106,12 +106,12 @@ INSERT INTO usuarios (mail, password, rol) VALUES
 ('admin@email.com', 'contrasena5', 'admin');
 
 INSERT INTO alumnos (id_usuario, nombre, zona, puntuacion) VALUES 
-(1, 'Alumno1', 'Zona1', 4.5),
-(2, 'Alumno2', 'Zona2', 3.8);
+(1, 'Alumno1', 'Buenos Aires Zona Norte', 4.5),
+(2, 'Alumno2', 'Buenos Aires Zona Sur', 3.8);
 
-INSERT INTO profesores (id_usuario, nombre, zona, modalidad, puntuacion) VALUES 
-(3, 'Profesor1', 'Zona3', 'Presencial', 4.9),
-(4, 'Profesor2', 'Zona4', 'Virtual', 4.7);
+INSERT INTO profesores (id_usuario, nombre, apellido, zona, modalidad, puntuacion) VALUES 
+(3, 'Profesor1', 'Apellido1', 'CABA', 'En casa', 4.9),
+(4, 'Profesor2', 'Apellido2', 'Buenos Aires Interior', 'Punto de encuentro', 4.7);
 
 INSERT INTO alumnos_materias (id_alumno, id_materia) VALUES 
 (1, 1), (1, 3), (2, 2), (2, 3);

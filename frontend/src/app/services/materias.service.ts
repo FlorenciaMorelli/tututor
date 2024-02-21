@@ -18,12 +18,12 @@ export class MateriasService {
     return this.http.get<Materia>(apiUrl);
   }
 
-  getMateriasConParametros(id: any): Observable<Materia> {
+  getMateriaConIDMateria(id: any): Observable<Materia> {
     return this.http.get<Materia>(apiUrl + '/' + id);
   }
 
   editarMateria(id: any, value: any): Observable<Materia>{
-    return this.http.patch<Materia>(apiUrl + '/' + id, value);
+    return this.http.patch<Materia>(apiUrl + '/' + id, JSON.stringify(value));
   }
 
   postMateria(value: any): Observable<Materia>{

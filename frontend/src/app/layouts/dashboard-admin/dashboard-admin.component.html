@@ -6,10 +6,19 @@
                     <h1>Bienvenido al administrador de TuTutor.com</h1>
                 </span>
                 <span class="navbar-brand mb-0 h1">
-                    <button class="btn btn-primary" type="button" (click)="logout()" >Salir</button>
+                    <button class="btn btn-primary" type="button" (click)="logout()">Salir</button>
                 </span>
             </div>
         </nav>
+
+        <div class="row" style="margin: 2% auto;">
+            <span class="col">
+                <button style="width: 100%;" type="button" (click)="restablecerBD()" class="btn btn-danger btn-block">Restablecer BBDD</button>
+            </span>
+            <span class="col">
+                <button style="width: 100%;" class="btn btn-success" type="button" (click)="actualizar()">Actualizar</button>
+            </span>
+        </div>
         
         <ul class="nav nav-tabs">
             <li class="nav-item" *ngFor="let tab of tabs">
@@ -40,10 +49,6 @@
                     <admin-materias />
                 }
             }
-        </div>
-
-        <div class="row">
-            <button type="button" (click)="restablecerBD()" class="btn btn-danger btn-block">Restablecer BBDD</button>
         </div>
     </div>
 </section>
