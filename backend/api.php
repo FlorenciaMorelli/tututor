@@ -46,7 +46,6 @@ function postRestablecer () {
         }
     }
     
-    // Crear las tablas nuevamente
     $sql = file_get_contents('../storage/dump.sql');
     if ($db->multi_query($sql) === TRUE) {
         echo "Tablas creadas correctamente<br>";
@@ -59,7 +58,6 @@ function postRestablecer () {
 }
 
 
-// Funciones para el administrador
 function getUsuarios() 
 {
     $db = conectarBD();
@@ -368,7 +366,6 @@ function getProfesoresresenasrecibidasConParametros($id){
     outputJson($ret);
 }
 
-// Función top 5 materias para banner de inicio
 function getTopMaterias(){
     $db = conectarBD();
     $sql = "SELECT m.nombre, m.icono
@@ -391,7 +388,6 @@ function getTopMaterias(){
     outputJson($ret);
 }
 
-// Función para agregar una materia que no había
 function postUsuarios(){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
@@ -476,7 +472,6 @@ function postProfesores(){
 }
 
 
-// Función para agregar una materia que no había
 function postMaterias(){
     $db = conectarBD();
     $data = json_decode(file_get_contents('php://input'), true);
@@ -505,7 +500,7 @@ function patchUsuarios($id){
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (empty($data)) {
-        outputError(400); // No hay datos proporcionados para actualizar
+        outputError(400);
     }
 
     $cambios = [];
@@ -544,7 +539,7 @@ function patchAlumnos($id){
     $data = json_decode(file_get_contents('php://input'), true);
     
     if (empty($data)) {
-        outputError(400); // No hay datos proporcionados para actualizar
+        outputError(400);
     }
     
     $cambios = [];
@@ -597,7 +592,7 @@ function patchProfesores($id){
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (empty($data)) {
-        outputError(400); // No hay datos proporcionados para actualizar
+        outputError(400);
     }
 
     $cambios = [];
@@ -662,7 +657,7 @@ function patchMaterias($id){
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (empty($data)) {
-        outputError(400); // No hay datos proporcionados para actualizar
+        outputError(400);
     }
 
     $cambios = [];
@@ -686,10 +681,9 @@ function patchMaterias($id){
     return getMateriasConParametros($id);
 }
 
-// Función para eliminar un Usuario y sus relaciones
+
 function deleteUsuarios($id) {
     $db = conectarBD();
-    // Eliminar registros de alumnos_resenas y profesores_resenas
     $sqlAlumnoRes = "DELETE FROM alumnos_resenas WHERE id_alumno IN (SELECT id_alumno FROM alumnos WHERE id_usuario = $id)";
     $resultAlumnoRes = mysqli_query($db, $sqlAlumnoRes);
 
@@ -698,7 +692,6 @@ function deleteUsuarios($id) {
         outputError(500);
     }
 
-    // Eliminar registros de profesores_resenas
     $sqlProfRes = "DELETE FROM profesores_resenas WHERE id_profesor IN (SELECT id_profesor FROM profesores WHERE id_usuario = $id)";
     $resultProfRes = mysqli_query($db, $sqlProfRes);
 
@@ -707,7 +700,6 @@ function deleteUsuarios($id) {
         outputError(500);
     }
 
-    // Eliminar registros de alumnos_materias
     $sqlAlumnoMat = "DELETE FROM alumnos_materias WHERE id_alumno IN (SELECT id_alumno FROM alumnos WHERE id_usuario = $id)";
     $resultAlumnoMat = mysqli_query($db, $sqlAlumnoMat);
 
@@ -716,7 +708,6 @@ function deleteUsuarios($id) {
         outputError(500);
     }
 
-    // Eliminar registros de profesores_materias
     $sqlProfMat = "DELETE FROM profesores_materias WHERE id_profesor IN (SELECT id_profesor FROM profesores WHERE id_usuario = $id)";
     $resultProfMat = mysqli_query($db, $sqlProfMat);
 
@@ -725,7 +716,6 @@ function deleteUsuarios($id) {
         outputError(500);
     }
 
-    // Eliminar registros de alumnos
     $sqlAlumno = "DELETE FROM alumnos WHERE id_usuario = $id";
     $resultAlumno = mysqli_query($db, $sqlAlumno);
 
@@ -734,7 +724,6 @@ function deleteUsuarios($id) {
         outputError(500);
     }
 
-    // Eliminar registros de profesores
     $sqlProfesor = "DELETE FROM profesores WHERE id_usuario = $id";
     $resultProfesor = mysqli_query($db, $sqlProfesor);
 
@@ -743,7 +732,6 @@ function deleteUsuarios($id) {
         outputError(500);
     }
 
-    // Finalmente, eliminar el usuario
     $sqlUsuario = "DELETE FROM usuarios WHERE id_user = $id";
     $resultUsuario = mysqli_query($db, $sqlUsuario);
 
@@ -756,11 +744,9 @@ function deleteUsuarios($id) {
     outputJson(['id_user' => $id]);
 }
 
-// Función para eliminar un Alumno y sus relaciones
 function deleteAlumnos($id_alumno) {
     $db = conectarBD();
 
-    // Eliminar registros de alumnos_resenas
     $sqlAlumnoRes = "DELETE FROM alumnos_resenas WHERE id_alumno = '$id_alumno'";
     $resultAlumnoRes = mysqli_query($db, $sqlAlumnoRes);
 
@@ -769,7 +755,6 @@ function deleteAlumnos($id_alumno) {
         outputError(500);
     }
 
-    // Eliminar registros de alumnos_materias
     $sqlAlumnoMat = "DELETE FROM alumnos_materias WHERE id_alumno = '$id_alumno'";
     $resultAlumnoMat = mysqli_query($db, $sqlAlumnoMat);
 
@@ -778,7 +763,6 @@ function deleteAlumnos($id_alumno) {
         outputError(500);
     }
 
-    // Finalmente, eliminar el usuario
     $sqlUsuario = "DELETE FROM usuarios WHERE id_user IN (SELECT id_usuario FROM alumnos WHERE id_alumno = '$id_alumno')";
     $resultUsuario = mysqli_query($db, $sqlUsuario);
 
@@ -787,7 +771,6 @@ function deleteAlumnos($id_alumno) {
         outputError(500);
     }
 
-    // Eliminar registros de alumnos
     $sqlAlumno = "DELETE FROM alumnos WHERE id_usuario = '$id_alumno'";
     $resultAlumno = mysqli_query($db, $sqlAlumno);
 
@@ -800,15 +783,13 @@ function deleteAlumnos($id_alumno) {
     outputJson(['id_alumno' => $id_alumno]);
 }
 
-// Función para eliminar un Profesor y sus relaciones
 function deleteProfesores($id_profesor) {
     if (empty($id_profesor) || !is_numeric($id_profesor)) {
-        outputError(400); // Bad Request, ID no válido
+        outputError(400);
     }
 
     $db = conectarBD();
 
-    // Eliminar registros de profesores_resenas
     $sqlProfRes = "DELETE FROM profesores_resenas WHERE id_profesor = $id_profesor";
     $resultProfRes = mysqli_query($db, $sqlProfRes);
 
@@ -817,7 +798,6 @@ function deleteProfesores($id_profesor) {
         outputError(500);
     }
 
-    // Eliminar registros de profesores_materias
     $sqlProfMat = "DELETE FROM profesores_materias WHERE id_profesor = $id_profesor";
     $resultProfMat = mysqli_query($db, $sqlProfMat);
 
@@ -826,7 +806,6 @@ function deleteProfesores($id_profesor) {
         outputError(500);
     }
 
-    // Finalmente, eliminar el profesor
     $sqlProf = "DELETE FROM profesores WHERE id_profesor = $id_profesor";
     $resultProf = mysqli_query($db, $sqlProf);
 
@@ -847,11 +826,9 @@ function deleteProfesores($id_profesor) {
     outputJson(['id_profesor' => $id_profesor]);
 }
 
-// Función para eliminar una Materia y sus relaciones
 function deleteMaterias($id) {
     $db = conectarBD();
 
-    // Eliminar registros de alumnos_materias y profesores_materias
     $sqlAlumnoMat = "DELETE FROM alumnos_materias WHERE id_materia = $id";
     $resultAlumnoMat = mysqli_query($db, $sqlAlumnoMat);
 
@@ -868,7 +845,6 @@ function deleteMaterias($id) {
         outputError(500);
     }
 
-    // Finalmente, eliminar la materia
     $sqlMateria = "DELETE FROM materias WHERE id_materia = $id";
     $resultMateria = mysqli_query($db, $sqlMateria);
 
@@ -886,7 +862,7 @@ function postLogin() {
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (!isset($data['mail']) || !isset($data['password'])) {
-        outputError(400); // Bad Request, Datos faltantes
+        outputError(400);
     }
 
     $mail = mysqli_real_escape_string($db, $data['mail']);
@@ -897,13 +873,12 @@ function postLogin() {
 
     if ($result === false) {
         print mysqli_error($db);
-        outputError(500); // Internal Server Error
     }
 
     $user = mysqli_fetch_assoc($result);
 
     if (!$user) {
-        outputError(401); // Unauthorized, Credenciales incorrectas
+        outputError(401);
     }
 
     mysqli_close($db);

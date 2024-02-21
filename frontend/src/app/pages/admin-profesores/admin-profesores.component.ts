@@ -40,15 +40,13 @@ export class AdminProfesoresComponent {
     .subscribe({
       next: (profesoresResponse:any) => {
         this.profesores = profesoresResponse as Profesor[];
-        console.log("cargamos:" + profesoresResponse);
-      }, error: (error) => console.log("Error al cargar los profesores: ", error)
+      }
     });
   }
 
   guardarProfesor (): void {
     let comp = this;
     if (this.profesoresForm.value.id_profesor) {
-      console.log("Vamos a editar: " + this.profesoresForm.value.id_profesor);
       this.profesoresService.editarProfesor(this.profesoresForm.value.id_profesor, this.profesoresForm.value)
       .subscribe({
         next : function () {

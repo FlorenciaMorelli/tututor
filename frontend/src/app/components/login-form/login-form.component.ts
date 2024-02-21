@@ -29,7 +29,6 @@ export class LoginFormComponent {
     this.authService.login(this.loginObj)
     .subscribe(
       (data) =>{
-        console.log("this.authService.login(this.loginObj) devolvió el observable: " + JSON.stringify(data));
         const id_user = data.id_user;
         const rol = data.rol;
         localStorage.setItem('ID_USER', id_user);
@@ -43,11 +42,9 @@ export class LoginFormComponent {
         } else if (rol === 'admin'){
           this.router.navigate(['dashboardAdmin']);
         } else {
-          console.log("No se ha definido el tipo de usuario");
         }
     },
       (err) => {
-      console.log("Falló auth.service.login(" + this.loginObj + "). Error: " + err + ". Mensaje de error: " + err.message);
       this.error = true;
       this.errorMessage = "El mail o la contraseña son incorrectos.";
     })
@@ -64,7 +61,6 @@ export class LoginFormComponent {
       bodyElement.removeAttribute('class');
       bodyElement.removeAttribute('style');
     } else {
-      console.log("Error al cerrar ventana del modal");
     }
   }
 }

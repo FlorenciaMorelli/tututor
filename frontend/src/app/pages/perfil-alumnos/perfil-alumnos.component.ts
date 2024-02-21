@@ -35,7 +35,6 @@ export class PerfilAlumnosComponent {
   ngOnInit(){
     this.alumnosService.getAlumnoConIDUsuario(this.idUsuario)
     .subscribe( (alumnoResponse: any)=>{
-      console.log('Respuesta del servicio getAlumnoConIDUsuario: ',alumnoResponse);
       if (alumnoResponse.length > 0) {
         const alumno = alumnoResponse[0];
         this.perfilAlumno.setValue({
@@ -50,7 +49,6 @@ export class PerfilAlumnosComponent {
           id_usuario: alumno.id_usuario
         });
       } else {
-        console.log('No se encontró ningún alumno para el usuario.');
       }
     });
   }
@@ -78,16 +76,13 @@ export class PerfilAlumnosComponent {
       this.alumnosService.editarAlumno(alumnoData.id_alumno, alumnoData)
         .subscribe({
           next: (response: any) => {
-            console.log('Alumno actualizado correctamente.');
             this.editando = false;
             this.perfilAlumno.patchValue(response);
           },
           error: (error: any) => {
-            console.error('Error al actualizar el alumno:', error);
           }
         });
     } else {
-      console.log('Formulario no válido.');
     }
   }
 

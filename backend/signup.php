@@ -1,4 +1,13 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, X-Auth-Token");
+header('Access-Control-Allow-Methods: POST, GET, PATCH, DELETE');
+header("Allow: GET, POST, PATCH, DELETE");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {    
+    return 0;    
+}
+
 require_once(__DIR__.'/../config/generals.php');
 
 $db = conectarBD();
@@ -12,7 +21,7 @@ if(!filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL)){
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($data['newMail']) || !isset($data['newPassword']) || !isset($data['newConfirmPassword']) || !isset($data['newRole'])) {
-    outputError(400); // Bad Request, Datos faltantes
+    outputError(400);
     if(empty($data['newMail'])) {
         echo '<div class="alert alert-primary" role="alert">
                 Debe ingresar un correo electrónico
@@ -48,13 +57,6 @@ if(preg_match($password_regex, $password)){
             \tTener al menos un dígito.
             \tTener al menos 1 caracter especial."
             </div>';
-    /* 
-        1. Adjust it by modifying {8,}
-        2. You can remove this condition by removing (?=.*?[A-Z])
-        3. You can remove this condition by removing (?=.*?[a-z])
-        4. You can remove this condition by removing (?=.*?[0-9])
-        5. You can remove this condition by removing (?=.*?[#?!@$%^&*-])");
-    */
 }
 
 if($password != $password_confirm){
@@ -79,7 +81,7 @@ $stmt->bind_param("sss",
                     $rol);
 
 if($stmt->execute()){
-    header("Location: /");
+    outputJson('success', 'Usuario creado correctamente');
 } else {
     if($db->errno === 1062){
         die("El mail que ingresaste ya está registrado");

@@ -36,7 +36,6 @@ export class ProfesoresPerfilComponent implements OnInit {
   ngOnInit(){
     this.profesoresService.getProfesorConIDUsuario(this.idUsuario)
     .subscribe( (profesorResponse: any) => {
-      console.log('Respuesta del servicio: ', profesorResponse);
       if (profesorResponse.length > 0) {
         const profesor = profesorResponse[0];
         this.perfilProfesor.setValue({
@@ -51,7 +50,6 @@ export class ProfesoresPerfilComponent implements OnInit {
           id_usuario: profesor.id_usuario
         });
       } else {
-        console.log('No se encontró ningún profesor para el usuario.');
       }
     });
   }
@@ -80,16 +78,13 @@ export class ProfesoresPerfilComponent implements OnInit {
       this.profesoresService.editarProfesor(profesorData.id_profesor, profesorData)
         .subscribe({
           next: (response: any) => {
-            console.log('Profesor actualizado correctamente.');
             this.editando = false;
             this.perfilProfesor.patchValue(response);
           },
           error: (error: any) => {
-            console.error('Error al actualizar el profesor:', error);
           }
         });
     } else {
-      console.log('Formulario no válido.');
     }
   }
   

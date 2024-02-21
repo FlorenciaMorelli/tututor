@@ -58,7 +58,6 @@ export class DashboardAdminComponent{
             this.actualizar();
           },
           error: err => {
-            console.error('Error resetting database:', err);
           }
         });
     }

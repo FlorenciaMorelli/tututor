@@ -24,12 +24,10 @@ export class ProfesoresResenasComponent implements OnInit{
     .subscribe(
       (data: any) => {
         this.idProfesor = data.id_profesor;
-        console.log(data.id_profesor);
       }
     )
 
     this.profesoresResenasService.getAllResenasRecibidasPorIDUsuario(this.idUsuario).subscribe( (resenasResponse: any)=>{
-      console.log('Respuesta del servicio getAllResenasRecibidasPorIDProfesor: ',resenasResponse);
       this.resenasProfesor =  resenasResponse;
     });
   }

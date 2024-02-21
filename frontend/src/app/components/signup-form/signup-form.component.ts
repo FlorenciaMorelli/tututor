@@ -20,12 +20,12 @@ export class SignupFormComponent {
   }
 
   onSignup() {
-    debugger;
     this.authService.signup(this.signupObj)
-    .subscribe(() => 
-      {console.log('User has been signed up!');
-        alert('You have successfully created an account!\nNow you can log in with your credentials.\nRedirecting...');
+    .subscribe((response: any) => {
+      if(response.success){ 
+        alert('¡Tu cuenta fue creada satisfactoriamente!\nAhora puedes ingresar.\nRedirigiendo...');
         this.router.navigate(['']);
+      }
       })
   }
 }

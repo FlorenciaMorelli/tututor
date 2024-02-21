@@ -13,7 +13,6 @@ import { Profesor } from '../../helpers/interfaces/profesor';
   styleUrl: './search-alumnos.component.css'
 })
 export class SearchAlumnosComponent {
-  /* zonas: string[] = ["CABA", "Bs As Zona Norte", "Bs As Zona Oeste", "Bs As Zona Sur", "Buenos Aires Interior"]; */
   zonas: any[] = [
     {id: 1, nombre: "CABA", estado: false},
     {id: 2, nombre: "Bs As Zona Norte", estado: false},
@@ -23,11 +22,6 @@ export class SearchAlumnosComponent {
   ];
   
   modalidades: string[] = ["En casa", "A domicilio", "Punto de encuentro"];
-  /* modalidades: any[] = [
-    {id:1, nombre: "En casa", estado: false},
-    {id: 2, nombre: "A domicilio", estado: false},
-    {id: 3, nombre: "Punto de encuentro", estado: false}
-  ]; */
 
   profesores: Profesor[] = [];
   default: boolean = true;

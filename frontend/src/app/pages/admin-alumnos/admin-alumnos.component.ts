@@ -38,15 +38,13 @@ export class AdminAlumnosComponent {
     .subscribe({
       next: (alumnosResponse:any) => {
         this.alumnos = alumnosResponse as Alumno[];
-        console.log("cargamos:" + alumnosResponse);
-      }, error: (error) => console.log("Error al cargar los alumnos: ", error)
+      }
     });
   }
 
   guardarAlumno (): void {
     let comp = this;
     if (this.alumnosForm.value.id_alumno) {
-      console.log("Vamos a editar: " + this.alumnosForm.value.id_alumno);
       this.alumnosService.editarAlumno(this.alumnosForm.value.id_alumno, this.alumnosForm.value)
       .subscribe({
         next : function () {

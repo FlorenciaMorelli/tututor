@@ -19,7 +19,6 @@ export class CardgroupMateriasComponent implements OnInit{
 
   ngOnInit(): void {
     this.materiasService.getAllMaterias().subscribe((materiasResponse:any) => {
-      console.log('Respuesta del servicio getMaterias: ',materiasResponse);
       this.materias=materiasResponse;
     });
   }

@@ -7,13 +7,13 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost/tututor/backend'; // URL del endpoint de login
+  private apiUrl = 'http://localhost/tututor/backend';
   private isLogged = false;
 
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
-    const url = `${this.apiUrl}/login.php`; // Ruta correcta para iniciar sesión
+    const url = `${this.apiUrl}/login.php`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ export class AuthService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>(url, credentials, httpOptions).pipe(
+    return this.http.post<any>(url, JSON.stringify(credentials), httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -48,7 +48,6 @@ export class AuthService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.error(errorMessage);
     return throwError(errorMessage);
   }
 }

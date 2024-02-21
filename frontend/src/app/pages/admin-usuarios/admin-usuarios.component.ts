@@ -32,9 +32,7 @@ export class AdminUsuariosComponent {
     .subscribe({
       next: (usuariosResponse:any) => {
         this.usuarios = usuariosResponse as Usuario[];
-        console.log("cargamos:" + usuariosResponse);
       },
-      error: (error: any) => console.log("Error al cargar los usuarios: ", error)
     });
   }
 

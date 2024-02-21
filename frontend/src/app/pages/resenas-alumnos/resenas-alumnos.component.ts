@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlumnosResenasService } from '../../services/alumnos-resenas.service';
 import { CommonModule } from '@angular/common';
 import { ResenaRecibidaDeProfesor } from '../../helpers/interfaces/resena-recibida-de-profesor';
+import { ResenaDadaAProfesor } from '../../helpers/interfaces/resena-dada-a-profesor';
 
 @Component({
   selector: 'resenas-alumnos',
@@ -11,15 +12,14 @@ import { ResenaRecibidaDeProfesor } from '../../helpers/interfaces/resena-recibi
   styleUrl: './resenas-alumnos.component.css'
 })
 export class ResenasAlumnosComponent implements OnInit {
-  resenasAlumno: ResenaRecibidaDeProfesor[] = [];
+  resenasAlumno: ResenaDadaAProfesor[] = [];
   idUsuario = Number(localStorage.getItem("ID_USER"));
 
   constructor(private alumnosResenasService: AlumnosResenasService){
   }
 
   ngOnInit(){
-    this.alumnosResenasService.getAllResenasRecibidasPorIDUsuario(this.idUsuario).subscribe( (resenasResponse: any)=>{
-      console.log('Respuesta del servicio getAlumnosResenas: ',resenasResponse);
+    this.alumnosResenasService.getAllResenasDadasPorIDUsuario(this.idUsuario).subscribe( (resenasResponse: any)=>{
       this.resenasAlumno =  resenasResponse;
     });
   }

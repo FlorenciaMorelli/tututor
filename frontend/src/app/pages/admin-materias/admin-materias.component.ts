@@ -33,8 +33,7 @@ export class AdminMateriasComponent {
     .subscribe({
       next: (materiasResponse:any) => {
         this.materias = materiasResponse as Materia[];
-        console.log("cargamos:" + materiasResponse);
-      }, error: (error) => console.log("Error al cargar las materias: ", error)
+      }
     });
   }
 

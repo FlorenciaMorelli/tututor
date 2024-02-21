@@ -12,8 +12,11 @@
         <label for="newConfirmPassword" class="form-label">Confirmar contraseña *</label>
         <input type="password" class="form-control" id="newConfirmPassword" [(ngModel)]="signupObj.newConfirmPassword" name="newConfirmPassword" required>
     </div>
-    <select class="form-select" aria-label="Default select example" [(ngModel)]="signupObj.newRole" name="newRole" required>
-        <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
-    </select>
+    <div class="mb-3">
+        <label for="newRole" class="form-label">Tipo de perfil *</label>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="signupObj.newRole" name="newRole" required>
+            <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+        </select>
+    </div>
     <button type="button" class="btn btn-primary" (click)="onSignup()" data-bs-dismiss="modal">Crear cuenta</button>
 </form>

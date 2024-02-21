@@ -23,7 +23,6 @@ export class CardProfesorComponent {
 
   ngOnInit(): void {
     this.profesoresService.getProfesorConIDProfesor(this.idProfesor).subscribe((profesorResponse:any) => {
-      console.log('Respuesta del servicio getMaterias: ',profesorResponse);
       this.profesor=profesorResponse;
     });
   }

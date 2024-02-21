@@ -29,19 +29,16 @@ export class ProfesoresHomeComponent {
   ngOnInit(): void {
     this.profesoresMateriasService.getAllMateriasDelIDUsuario(this.idUsuario)
     .subscribe((materiasResponse:any) => {
-      console.log('Respuesta del servicio getProfesoresMaterias: ',materiasResponse);
       this.materiasProfesor = materiasResponse;
     });
     
     this.profesoresResenasService.getAllResenasDadasPorIDUsuario(this.idUsuario)
     .subscribe( (resenasResponse: any)=>{
-      console.log('Respuesta del servicio getProfesoresResenas: ',resenasResponse);
       this.resenasDadas =  resenasResponse;
     });
     
     this.profesoresResenasService.getAllResenasRecibidasPorIDUsuario(this.idUsuario)
     .subscribe( (resenasResponse: any)=>{
-      console.log('Respuesta del servicio getProfesoresResenas: ',resenasResponse);
       this.resenasRecibidas =  resenasResponse;
     });
   }
