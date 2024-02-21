@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ProfesoresMateriasService } from '../../services/profesores-materias.service';
 import { ProfesoresResenasService } from '../../services/profesores-resenas.service';
 import { ProfesoresService } from '../../services/profesores.service';
+import { Materia } from '../../helpers/interfaces/materia';
+import { ResenaRecibidaDeAlumno } from '../../helpers/interfaces/resena-recibida-de-alumno';
+import { ResenaDadaAAlumno } from '../../helpers/interfaces/resena-dada-a-alumno';
 
 @Component({
   selector: 'profesores-home',
@@ -11,37 +14,33 @@ import { ProfesoresService } from '../../services/profesores.service';
   templateUrl: './profesores-home.component.html',
   styleUrl: './profesores-home.component.css'
 })
-export class ProfesoresHomeComponent {
-  idUsuario = 4 /* Number(localStorage.getItem("id_usuario")) */;
-  idProfesor!: number;
 
-  materiasProfesor: any[] = [];
-  resenasDadas: any[] = [];
-  resenasRecibidas: any[] = [];
+export class ProfesoresHomeComponent {
+  idUsuario = Number(localStorage.getItem("ID_USER"));
+
+  materiasProfesor: Materia[] = [];
+  resenasDadas: ResenaDadaAAlumno[] = [];
+  resenasRecibidas: ResenaRecibidaDeAlumno[] = [];
 
   constructor(private profesoresService: ProfesoresService, private profesoresMateriasService: ProfesoresMateriasService, private profesoresResenasService: ProfesoresResenasService) {
 
   }
 
   ngOnInit(): void {
-    this.profesoresService.getIDProfesor(this.idUsuario)
-    .subscribe(
-      (data: any) => {
-        this.idProfesor = data.id_profesor;
-      }
-    )
-
-    this.profesoresMateriasService.getProfesoresMaterias(this.idProfesor).subscribe((materiasResponse:any) => {
+    this.profesoresMateriasService.getAllMateriasDelIDUsuario(this.idUsuario)
+    .subscribe((materiasResponse:any) => {
       console.log('Respuesta del servicio getProfesoresMaterias: ',materiasResponse);
       this.materiasProfesor = materiasResponse;
     });
     
-    this.profesoresResenasService.getProfesoresResenasDadasConParametros(this.idProfesor).subscribe( (resenasResponse: any)=>{
+    this.profesoresResenasService.getAllResenasDadasPorIDUsuario(this.idUsuario)
+    .subscribe( (resenasResponse: any)=>{
       console.log('Respuesta del servicio getProfesoresResenas: ',resenasResponse);
       this.resenasDadas =  resenasResponse;
     });
     
-    this.profesoresResenasService.getProfesoresResenasRecibidasConParametros(this.idProfesor).subscribe( (resenasResponse: any)=>{
+    this.profesoresResenasService.getAllResenasRecibidasPorIDUsuario(this.idUsuario)
+    .subscribe( (resenasResponse: any)=>{
       console.log('Respuesta del servicio getProfesoresResenas: ',resenasResponse);
       this.resenasRecibidas =  resenasResponse;
     });

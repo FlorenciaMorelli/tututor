@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProfesoresService } from '../../services/profesores.service';
+import { Profesor } from '../../helpers/interfaces/profesor';
 
 @Component({
   selector: 'profesores-perfil',
@@ -10,9 +11,9 @@ import { ProfesoresService } from '../../services/profesores.service';
   templateUrl: './profesores-perfil.component.html',
   styleUrl: './profesores-perfil.component.css'
 })
-export class ProfesoresPerfilComponent {
-  private idUsuario = 4 /* Number(localStorage.getItem("id_usuario")) */;
-  datosProfesor: any[] = [];
+export class ProfesoresPerfilComponent implements OnInit {
+  idUsuario = Number(localStorage.getItem("ID_USER"));
+  datosProfesor: Profesor[] = [];
 
   perfilProfesor: FormGroup;
 
@@ -22,7 +23,8 @@ export class ProfesoresPerfilComponent {
     this.perfilProfesor = this.formBuilder.group({
       foto_path: ['', []],
       nombre: ['', [Validators.required]],
-      apellido: ['', []],
+      apellido: ['', [Validators.required]],
+      modalidad: ['', [Validators.required]],
       zona: ['', [Validators.required]],
       direccion: ['', []],
       puntuacion: [null, []],
@@ -32,46 +34,65 @@ export class ProfesoresPerfilComponent {
   }
 
   ngOnInit(){
-    this.profesoresService.getProfesoresConParametros(this.idUsuario)
-    .subscribe( (profesorResponse: any)=>{
-      console.log('Respuesta del servicio getProfesoresConParametros: ',profesorResponse);
-      this.datosProfesor =  profesorResponse;
+    this.profesoresService.getProfesorConIDUsuario(this.idUsuario)
+    .subscribe( (profesorResponse: any) => {
+      console.log('Respuesta del servicio: ', profesorResponse);
+      if (profesorResponse.length > 0) {
+        const profesor = profesorResponse[0];
+        this.perfilProfesor.setValue({
+          foto_path: profesor.foto_path,
+          nombre: profesor.nombre,
+          apellido: profesor.apellido,
+          zona: profesor.zona,
+          direccion: profesor.direccion,
+          modalidad: profesor.modalidad,
+          puntuacion: profesor.puntuacion,
+          id_profesor: profesor.id_profesor,
+          id_usuario: profesor.id_usuario
+        });
+      } else {
+        console.log('No se encontró ningún profesor para el usuario.');
+      }
     });
   }
 
   editar(){
-    let comp = this;
-    if(!this.editando){
-      this.editando = true;
-      this.profesoresService.getProfesoresConParametros(this.idUsuario)
-      .subscribe({
-        next : function (response: any) {
-          comp.perfilProfesor.setValue({
-            foto_path: response.foto_path !== null ? response.foto_path : '../../../../assets/img/profilePic.png',
-            nombre: response.nombre,
-            apellido: response.apellido,
-            zona: response.zona,
-            direccion: response.direccion,
-            puntuacion: response.puntuacion,
-            id_profesor: response.id_profesor,
-            id_usuario: response.id_usuario,
-          });
-        }
-      })
-    }
+    this.editando = true;
   }
 
-  guardar(): void {
-    if (this.perfilProfesor.value.id_profesor) {
-      this.profesoresService.editarProfesor(this.perfilProfesor.value.id_profesor, this.perfilProfesor.value)
-      .subscribe({
-        next : function (response: any) {
-          alert("Tu perfil ha sido editado!")
-        },
-      });
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.perfilProfesor.patchValue({
+          foto_path: reader.result
+        });
+      };
+      reader.readAsDataURL(file);
     }
-    this.editando = false;
   }
+  
+
+  guardar(): void {
+    if (this.perfilProfesor.valid) {
+      const profesorData = this.perfilProfesor.value;
+      this.profesoresService.editarProfesor(profesorData.id_profesor, profesorData)
+        .subscribe({
+          next: (response: any) => {
+            console.log('Profesor actualizado correctamente.');
+            this.editando = false;
+            this.perfilProfesor.patchValue(response);
+          },
+          error: (error: any) => {
+            console.error('Error al actualizar el profesor:', error);
+          }
+        });
+    } else {
+      console.log('Formulario no válido.');
+    }
+  }
+  
 
   cancelar(): void {
     this.editando = false;

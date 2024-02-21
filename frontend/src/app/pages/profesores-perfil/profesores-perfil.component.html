@@ -1,51 +1,75 @@
 <div class="container">
-    @if(editando == false){
-        <div *ngFor="let item of datosProfesor">
-            <button type="button" class="btn btn-primary" (click)="editar()">Editar perfil</button>
-            <img src="{{ item.foto_path }}" alt="Foto de perfil">
-            <h5>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg>
-                {{ item.puntuacion }}
-            </h5>
+    <form [formGroup]="perfilProfesor">
+        <div class="row">
+            <div class="col">
+                <img src="{{ perfilProfesor.value.foto_path }}" alt="Foto del profesor" class="img-thumbnail mb-3">
+            </div>
+            <div class="col">
+                <div class="row">
+                    <p id="puntuacionText">{{ perfilProfesor.value.puntuacion }} <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg></p>
+                </div>
+            </div>
+        </div>
+        @if(editando){
+            <div class="mb-3">
+                <label for="foto" class="form-label">Foto</label>
+                <input type="file" class="form-control" id="foto" (change)="onFileChange($event)">
+            </div>
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" aria-describedby="nombre" name="nombre" required readonly>
+                <input type="text" class="form-control" id="nombre" formControlName="nombre" [disabled]="!editando">
             </div>
             <div class="mb-3">
                 <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" aria-describedby="apellido" name="apellido" required readonly>
+                <input type="text" class="form-control" id="apellido" formControlName="apellido" [disabled]="!editando">
             </div>
             <div class="mb-3">
                 <label for="zona" class="form-label">Zona</label>
-                <input type="text" class="form-control" id="zona" aria-describedby="zona" name="zona" required readonly>
+                <select class="form-select" id="zona" formControlName="zona" [disabled]="!editando">
+                    <option value="">Seleccionar...</option>
+                    <option value="CABA">CABA</option>
+                    <option value="Buenos Aires Zona Norte">Buenos Aires Zona Norte</option>
+                    <option value="Buenos Aires Zona Oeste">Buenos Aires Zona Oeste</option>
+                    <option value="Buenos Aires Zona Sur">Buenos Aires Zona Sur</option>
+                    <option value="Buenos Aires Interior">Buenos Aires Interior</option>
+                </select>
             </div>
             <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="direccion" aria-describedby="direccion" name="direccion" required readonly>
+                <label for="modalidad" class="form-label">Modalidad</label>
+                <select class="form-select" id="modalidad" formControlName="modalidad" [disabled]="!editando">
+                    <option value="">Seleccionar...</option>
+                    <option value="En casa">En casa</option>
+                    <option value="Punto de encuentro">Punto de encuentro</option>
+                </select>
             </div>
-        </div>
-    } @else {
-        <form [formGroup]="perfilProfesor">
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary" (click)="cancelar()">Descartar</button>
+                <button type="button" class="btn btn-success" (click)="guardar()">Guardar</button>
+            </div>
+        } @else {
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre*</label>
-                <input type="text" class="form-control" formControlName="nombre" required>
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" formControlName="nombre" [disabled]="!editando" readonly>
             </div>
             <div class="mb-3">
                 <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" formControlName="apellido">
+                <input type="text" class="form-control" id="apellido" formControlName="apellido" [disabled]="!editando" readonly>
             </div>
             <div class="mb-3">
-                <label for="zona" class="form-label">Zona *</label>
-                <input type="text" class="form-control" formControlName="zona" required>
+                <label for="zona" class="form-label">Zona</label>
+                <input class="form-control" type="text" id="zona" formControlName="zona" [disabled]="!editando" readonly>
             </div>
             <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" formControlName="direccion">
+                <label for="modalidad" class="form-label">Modalidad</label>
+                <input class="form-control" type="text" id="modalidad" formControlName="modalidad" [disabled]="!editando" readonly>
             </div>
-            <button type="reset" (click)="cancelar()" class="btn btn-outline-secondary">Cancelar</button>
-            <button type="button" (click)="guardar()" [disabled]="perfilProfesor.invalid" class="btn btn-outline-primary me-1">Guardar</button>
-        </form>
-    }
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary" (click)="editar()">Editar perfil</button>
+                <button type="button" class="btn btn-success" (click)="guardar()">Guardar</button>
+            </div>
+        }
+        
+    </form>
 </div>

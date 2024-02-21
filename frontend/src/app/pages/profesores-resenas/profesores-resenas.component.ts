@@ -12,7 +12,7 @@ import { ProfesoresResenasService } from '../../services/profesores-resenas.serv
 })
 export class ProfesoresResenasComponent implements OnInit{
   resenasProfesor: any[] = [];
-  idUsuario = 4 /* Number(localStorage.getItem("id_usuario")) */;
+  idUsuario = Number(localStorage.getItem("ID_USER"));
   idProfesor!: number;
 
   constructor(private profesoresResenasService: ProfesoresResenasService, private profesoresService: ProfesoresService){
@@ -20,7 +20,7 @@ export class ProfesoresResenasComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.profesoresService.getIDProfesor(this.idUsuario)
+    this.profesoresService.getProfesorConIDUsuario(this.idUsuario)
     .subscribe(
       (data: any) => {
         this.idProfesor = data.id_profesor;
@@ -28,8 +28,8 @@ export class ProfesoresResenasComponent implements OnInit{
       }
     )
 
-    this.profesoresResenasService.getProfesoresResenasRecibidasConParametros(this.idUsuario).subscribe( (resenasResponse: any)=>{
-      console.log('Respuesta del servicio getProfesoresResenasRecibidasConParametros: ',resenasResponse);
+    this.profesoresResenasService.getAllResenasRecibidasPorIDUsuario(this.idUsuario).subscribe( (resenasResponse: any)=>{
+      console.log('Respuesta del servicio getAllResenasRecibidasPorIDProfesor: ',resenasResponse);
       this.resenasProfesor =  resenasResponse;
     });
   }

@@ -151,9 +151,9 @@ function getProfesores(){
     outputJson($ret);
 }
 
-function getProfesoresConParametros($id){
+function getProfesoresConParametros($idProfesor){
     $db = conectarBD();
-    $sql = "SELECT * FROM profesores WHERE id_profesor = $id";
+    $sql = "SELECT * FROM profesores WHERE id_profesor = '$idProfesor'";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
@@ -168,9 +168,10 @@ function getProfesoresConParametros($id){
     mysqli_close($db);
     outputJson($ret);
 }
-function getProfesorConParametros($idUsuario){
+
+function getProfesoresusuarioConParametros($idUsuario){
     $db = conectarBD();
-    $sql = "SELECT * FROM profesores WHERE id_usuario = $idUsuario";
+    $sql = "SELECT * FROM profesores WHERE id_usuario = '$idUsuario'";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
@@ -178,8 +179,8 @@ function getProfesorConParametros($idUsuario){
     }
     $ret = [];
     while ($fila = mysqli_fetch_assoc($result)) {
-        settype($fila['id_usuario'], 'integer');
         settype($fila['id_profesor'], 'integer');
+        settype($fila['id_usuario'], 'integer');
         $ret[] = $fila;
     }
     mysqli_free_result($result);
@@ -245,12 +246,33 @@ function getAlumnosmateriasConParametros($id){
     outputJson($ret);
 }
 
-function getAlumnosresenasConParametros($id){
+function getAlumnosresenasdadasConParametros($idAlumno){
     $db = conectarBD();
-    $sql = "SELECT p.foto_path, p.nombre AS nombre_profesor, p.apellido AS apellido_profesor, r.estrellas, r.opinion
+    $sql = "SELECT r.id_resena, p.foto_path, p.nombre AS nombre_profesor, p.apellido AS apellido_profesor, r.estrellas, r.opinion
         FROM resenas r
         INNER JOIN profesores p ON r.id_usuario_receptor = p.id_usuario
-        WHERE r.id_usuario_emisor = (SELECT id_usuario FROM alumnos WHERE id_alumno = $id)";
+        WHERE r.id_usuario_emisor = (SELECT id_usuario FROM alumnos WHERE id_alumno = '$idAlumno')";
+    $result = mysqli_query($db, $sql);
+
+    if ($result===false) {
+        print mysqli_error($db);
+        outputError(500);
+    }
+    $ret = [];
+    while ($fila = mysqli_fetch_assoc($result)) {
+        $ret[] = $fila;
+    }
+    mysqli_free_result($result);
+    mysqli_close($db);
+    outputJson($ret);
+}
+
+function getAlumnosresenasrecibidasConParametros($idAlumno){
+    $db = conectarBD();
+    $sql = "SELECT r.id_resena, p.foto_path, p.nombre AS nombre_profesor, p.apellido AS apellido_profesor, r.estrellas, r.opinion
+        FROM resenas r
+        INNER JOIN profesores p ON r.id_usuario_receptor = p.id_usuario
+        WHERE r.id_usuario_receptor = (SELECT id_usuario FROM alumnos WHERE id_alumno = '$idAlumno')";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
@@ -265,13 +287,13 @@ function getAlumnosresenasConParametros($id){
     outputJson($ret);
 }
 
-function getProfesoresmateriasConParametros($idProfesor){
+function getProfesoresmateriasConParametros($idUsuario){
     $db = conectarBD();
     $sql = "SELECT m.nombre, m.icono 
         FROM materias m
         INNER JOIN profesores_materias am ON m.id_materia = am.id_materia
         INNER JOIN profesores p ON am.id_profesor = p.id_profesor
-        WHERE p.id_profesor = $idProfesor
+        WHERE p.id_profesor IN (SELECT id_profesor FROM profesores WHERE id_usuario = '$idUsuario')
         GROUP BY m.id_materia";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
@@ -287,12 +309,12 @@ function getProfesoresmateriasConParametros($idProfesor){
     outputJson($ret);
 }
 
-function getProfesoresresenasdadasConParametros($idProfesor){
+function getProfesoresresenasdadasConParametros($id){
     $db = conectarBD();
-    $sql = "SELECT a.foto_path, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, r.estrellas, r.opinion
+    $sql = "SELECT r.id_resena, a.nombre AS nombre_alumno, r.estrellas, r.opinion
         FROM resenas r
         INNER JOIN alumnos a ON r.id_usuario_receptor = a.id_usuario
-        WHERE r.id_usuario_emisor = (SELECT id_usuario FROM profesores WHERE id_profesor = $idProfesor)";
+        WHERE r.id_usuario_emisor = '$id'";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);
@@ -307,12 +329,12 @@ function getProfesoresresenasdadasConParametros($idProfesor){
     outputJson($ret);
 }
 
-function getProfesoresresenasrecibidasConParametros($idProfesor){
+function getProfesoresresenasrecibidasConParametros($id){
     $db = conectarBD();
-    $sql = "SELECT a.foto_path, a.nombre AS nombre_alumno, a.apellido AS apellido_alumno, r.estrellas, r.opinion
+    $sql = "SELECT r.id_resena, a.nombre AS nombre_alumno, r.estrellas, r.opinion
         FROM resenas r
         INNER JOIN alumnos a ON r.id_usuario_emisor = a.id_usuario
-        WHERE r.id_usuario_receptor = (SELECT id_usuario FROM profesores WHERE id_profesor = $idProfesor)";
+        WHERE r.id_usuario_receptor = '$id'";
     $result = mysqli_query($db, $sql);
     if ($result===false) {
         print mysqli_error($db);

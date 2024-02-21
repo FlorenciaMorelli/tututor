@@ -17,7 +17,7 @@ export class ResenasAlumnosComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.alumnosResenasService.getAlumnosresenasConParametros(this.idUsuario).subscribe( (resenasResponse: any)=>{
+    this.alumnosResenasService.getAllResenasRecibidasPorIDAlumno(this.idUsuario).subscribe( (resenasResponse: any)=>{
       console.log('Respuesta del servicio getAlumnosResenas: ',resenasResponse);
       this.resenasAlumno =  resenasResponse;
     });

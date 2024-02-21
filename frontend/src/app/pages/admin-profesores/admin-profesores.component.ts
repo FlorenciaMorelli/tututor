@@ -83,7 +83,7 @@ export class AdminProfesoresComponent {
 
   editar (profesor: Profesor): void {
     let comp = this;
-    this.profesoresService.getProfesoresConParametros(profesor.id_profesor)
+    this.profesoresService.getProfesorConIDProfesor(profesor.id_profesor)
       .subscribe({
         next : function (response: any) {
           comp.profesoresForm.setValue({

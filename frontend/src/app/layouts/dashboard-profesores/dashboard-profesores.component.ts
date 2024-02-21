@@ -5,6 +5,10 @@ import { ProfesoresResenasComponent } from '../../pages/profesores-resenas/profe
 import { ProfesoresPerfilComponent } from '../../pages/profesores-perfil/profesores-perfil.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { UsuariosService } from '../../services/usuarios.service';
+import { Usuario } from '../../helpers/interfaces/usuario';
+import { ProfesoresService } from '../../services/profesores.service';
+import { Profesor } from '../../helpers/interfaces/profesor';
 
 @Component({
   selector: 'app-dashboard-profesores',
@@ -14,11 +18,9 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard-profesores.component.css'
 })
 export class DashboardProfesoresComponent {
-  private authService = inject(AuthService);
-  private router = inject(Router);
-
-  nombre: string = String(localStorage.getItem('nombre'));
-  profilePic: string = String(localStorage.getItem('foto_path'));
+  idUsuario: number = Number((localStorage.getItem('ID_USER')));
+  nombre: string = '';
+  profilePic: string = '';
 
   secciones: any[] = [
     {src: "../../../assets/icon/home.png", nombre: "Inicio", tag: "inicio"},
@@ -26,6 +28,20 @@ export class DashboardProfesoresComponent {
     {src: "../../../assets/icon/profile.png", nombre: "Perfil", tag: "perfil"}
   ];
   seccionActiva: string = "inicio";
+
+  constructor(private authService: AuthService, private router: Router, private profesoresService: ProfesoresService){
+    this.cargarNombreYFoto();
+  }
+
+  cargarNombreYFoto() {
+    this.profesoresService.getProfesorConIDUsuario(this.idUsuario)
+    .subscribe({
+      next: (profesor: any) => {
+        this.nombre = profesor[0].nombre;
+        this.profilePic = profesor[0].foto_path;
+      }
+    })
+  }
 
   logout(){
     this.authService.logout();

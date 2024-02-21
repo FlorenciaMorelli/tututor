@@ -18,7 +18,7 @@ export class UsuariosService {
     return this.http.get<Usuario>(apiUrl);
   }
   
-  getUsuariosConParametros(id: number): Observable<Usuario> {
+  getDatosUsuarioConID(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(apiUrl + '/' + id);
   }
 

@@ -8,14 +8,18 @@ export class AlumnosResenasService {
   private apiURL: string;
 
   constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/alumnosresenas/1'/* + 'id' */;
+    this.apiURL = 'http://localhost/tututor/backend/alumnosresenas';
   }
   
   getAlumnosResenas() {
     return this.http.get(this.apiURL);
   }
   
-  getAlumnosresenasConParametros(id: number) {
-    return this.http.get(this.apiURL + '/' + id);
+  getAllResenasDadasPorIDAlumno(id: number) {
+    return this.http.get(this.apiURL + 'dadas/' + id);
+  }
+  
+  getAllResenasRecibidasPorIDAlumno(id: number) {
+    return this.http.get(this.apiURL + 'recibidas/' + id);
   }
 }

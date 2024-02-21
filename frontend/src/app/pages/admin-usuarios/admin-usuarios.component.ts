@@ -68,7 +68,7 @@ export class AdminUsuariosComponent {
 
   editar (usuario: Usuario): void {
     let comp = this;
-    this.usuariosService.getUsuariosConParametros(usuario.id_user)
+    this.usuariosService.getDatosUsuarioConID(usuario.id_user)
       .subscribe({
         next : function (response: any) {
           comp.usuarioForm.setValue({

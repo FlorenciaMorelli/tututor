@@ -16,7 +16,11 @@
     </div>
     <div class="offcanvas-body">
         <div class="welcome">
-            <img id="profPic" src="../../../assets/img/profilePic.jpg" alt="" height="50" />
+            @if(profilePic != null){
+                <img id="profPic" src="{{ profilePic }}" alt="" height="50" />
+            } @else {
+                <img id="profPic" src="../../../assets/img/profilePic.jpg" alt="" height="50" />
+            }
             <h3>Bienvenido {{ nombre }}</h3>
         </div>
         <ul class="nav flex-column">

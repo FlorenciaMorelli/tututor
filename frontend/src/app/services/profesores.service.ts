@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import { Profesor } from '../helpers/interfaces/profesor';
 
 const apiUrl = environment.apiUrl + '/profesores';
-/* const apiKey = environment.apiKey; */
 @Injectable({
   providedIn: 'root'
 })
@@ -16,15 +15,14 @@ export class ProfesoresService {
 
   getAllProfesores(): Observable<Profesor>{
     return this.http.get<Profesor>(apiUrl);
-    /* return this.http.get(`${apiUrl}?api_key=${apiKey}`); */
   }
   
-  getProfesoresConParametros(id: any): Observable<Profesor> {
-    return this.http.get<Profesor>(apiUrl + '/' + id);
+  getProfesorConIDProfesor(idProfesor: any): Observable<Profesor> {
+    return this.http.get<Profesor>(apiUrl + '/' + idProfesor);
   }
   
-  getIDProfesor(id: any): Observable<Profesor> {
-    return this.http.get<Profesor>('http://localhost/tututor/backend/profesor/' + id);
+  getProfesorConIDUsuario(idUsuario: any): Observable<Profesor> {
+    return this.http.get<Profesor>(apiUrl + 'usuario/' + idUsuario);
   }
 
   editarProfesor(idProfesor: number, value: any): Observable<Profesor>{

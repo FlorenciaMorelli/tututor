@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Alumno } from '../helpers/interfaces/alumno';
 
 const apiUrl = environment.apiUrl + '/alumnos';
-/* const apiKey = environment.apiKey; */
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,6 @@ export class AlumnosService {
 
   getAllAlumnos(): Observable<Alumno> {
     return this.http.get<Alumno>(apiUrl);
-    /* return this.http.get(`${apiUrl}?api_key=${apiKey}`); */
   }
   
   getAlumnosConParametros(id: number): Observable<Alumno>{

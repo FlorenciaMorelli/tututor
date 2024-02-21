@@ -8,18 +8,18 @@ export class ProfesoresResenasService {
   private apiURL: string;
 
   constructor(private http: HttpClient) {
-    this.apiURL = 'http://localhost/tututor/backend/profesoresResenas'/* + 'id' */;
+    this.apiURL = 'http://localhost/tututor/backend/profesoresResenas';
   }
   
   getProfesoresResenas() {
     return this.http.get(this.apiURL);
   }
   
-  getProfesoresResenasDadasConParametros(idProfesor: number) {
-    return this.http.get(this.apiURL + 'Dadas/' + idProfesor);
+  getAllResenasDadasPorIDUsuario(id: number) {
+    return this.http.get(this.apiURL + 'Dadas/' + id);
   }
   
-  getProfesoresResenasRecibidasConParametros(idProfesor: number) {
-    return this.http.get(this.apiURL + 'Recibidas/' + idProfesor);
+  getAllResenasRecibidasPorIDUsuario(id: number) {
+    return this.http.get(this.apiURL + 'Recibidas/' + id);
   }
 }
