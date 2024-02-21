@@ -1,26 +1,7 @@
 <?php
+require_once(__DIR__.'/../config/generals.php');
 
-function conectarBase() {
-    include "../config/config.php";
-
-    $db = mysqli_connect(DBHOST, DBUSER, DBPASS, DBBASE);
-
-    if (!$db) {
-        die("Falló la conexión: " . mysqli_connect_error());
-    }
-
-    return $db;
-}
-
-function outputJson($data, $codigo = 200)
-{
-    header('', true, $codigo);
-    header('Content-type: application/json');
-    print json_encode($data);
-    die;
-}
-
-$db = conectarBase();
+$db = conectarBD();
 
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -47,13 +28,11 @@ if (!isset($data['mail']) || !isset($data['password_hash'])) {
         //usuario unico
         $usuario = mysqli_fetch_assoc($result);
         if($usuario['password_hash'] === $password){
-            $_SESSION['id_usuario'] = $usuario['id_user'];
-            $_SESSION['rol'] = $usuario['rol'];
-            $_SESSION['mail'] = $usuario['mail'];
+            iniciarSesion($usuario);
         }
         outputJson($usuario);
     } else {
-        echo "Usuario inexistente";
+        outputError(403); //'Usuario no encontrado o clave incorrecta'
     }
 }
 

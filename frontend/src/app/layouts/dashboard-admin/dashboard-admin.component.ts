@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AlumnosService } from '../../services/alumnos.service';
-import { ProfesoresService } from '../../services/profesores.service';
-import { MateriasService } from '../../services/materias.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AdminUsuariosComponent } from '../../pages/admin-usuarios/admin-usuarios.component';
 import { AdminAlumnosComponent } from '../../pages/admin-alumnos/admin-alumnos.component';
 import { AdminProfesoresComponent } from '../../pages/admin-profesores/admin-profesores.component';
 import { AdminMateriasComponent } from '../../pages/admin-materias/admin-materias.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -24,6 +22,9 @@ import { AdminMateriasComponent } from '../../pages/admin-materias/admin-materia
 })
 
 export class DashboardAdminComponent{
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   profesores: any[] = [];
   materias: any[] = [];
   resenas: any[] = [];
@@ -31,14 +32,13 @@ export class DashboardAdminComponent{
   tabActivo: string = "Usuarios";
 
   constructor (
-      private http: HttpClient,
-      private router: Router)
+      private http: HttpClient)
   {
     
   }
   logout(){
-    localStorage.removeItem('id_usuario');
-    //TODO: completar logout
+    this.authService.logout();
+    this.router.navigate(['']);
   }
 
   show(tab: string){

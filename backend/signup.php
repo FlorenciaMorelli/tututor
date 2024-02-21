@@ -1,17 +1,7 @@
 <?php
-function conectarBase() {
-    include "../config/config.php";
+require_once(__DIR__.'/../config/generals.php');
 
-    $db = mysqli_connect(DBHOST, DBUSER, DBPASS, DBBASE);
-
-    if (!$db) {
-        die("Falló la conexión: " . mysqli_connect_error());
-    }
-
-    return $db;
-}
-
-$db = conectarBase();
+$db = conectarBD();
 
 if(!filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL)){
     echo '<div class="alert alert-primary" role="alert">
