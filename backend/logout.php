@@ -1,5 +1,6 @@
 <?php
+require_once(__DIR__.'/../config/generals.php');
 
-session_destroy();
-header("Location: /");
-exit;
+if(estaAutenticado()){
+    cerrarSesion();
+}
