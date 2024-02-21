@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeAlumnosComponent } from '../../pages/home-alumnos/home-alumnos.component';
 import { SearchAlumnosComponent } from '../../pages/search-alumnos/search-alumnos.component';
 import { ResenasAlumnosComponent } from '../../pages/resenas-alumnos/resenas-alumnos.component';
 import { PerfilAlumnosComponent } from '../../pages/perfil-alumnos/perfil-alumnos.component';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-alumnos',
@@ -13,6 +15,9 @@ import { PerfilAlumnosComponent } from '../../pages/perfil-alumnos/perfil-alumno
   styleUrl: './dashboard-alumnos.component.css'
 })
 export class DashboardAlumnosComponent {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   nombre: string = String(localStorage.getItem('nombre'));
   profilePic: string = String(localStorage.getItem('foto_path'));
 
@@ -23,6 +28,11 @@ export class DashboardAlumnosComponent {
     {src: "../../../assets/icon/profile.png", nombre: "Mi perfil", tag: "perfil"}
   ];
   seccionActiva: string = "inicio";
+
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['']);
+  }
 
   show(seccion: string){
     this.seccionActiva = seccion;

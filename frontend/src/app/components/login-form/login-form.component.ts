@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/auth.service';
 import * as bootstrap from 'bootstrap';
 import { style } from '@angular/animations';
 
@@ -30,13 +30,21 @@ export class LoginFormComponent {
     .subscribe(
       (data) =>{
         console.log("this.authService.login(this.loginObj) devolvió el observable: " + JSON.stringify(data));
-        localStorage.setItem('id_usuario', data.id_user);
-        localStorage.setItem('rol', data.rol);
+        const id_user = data.id_user;
+        const rol = data.rol;
+        localStorage.setItem('ID_USER', id_user);
+        localStorage.setItem('ROL', rol);
+        localStorage.setItem('STATE', 'true');
         this.cerrarModal();
-        const dashboardRoute = data.rol === "profesor" ? 'dashboardProfesores' :
-        data.rol === "alumno" ? 'dashboardAlumnos' : 'dashboardAdmin';
-        this.router.navigate([dashboardRoute]);
-        console.log("El rol es: " + data.rol + ". Navega a: " + dashboardRoute);
+        if(rol === 'alumno'){
+          this.router.navigate(['dashboardAlumnos']);
+        } else if (rol === 'profesor'){
+          this.router.navigate(['dashboardProfesores']);
+        } else if (rol === 'admin'){
+          this.router.navigate(['dashboardAdmin']);
+        } else {
+          console.log("No se ha definido el tipo de usuario");
+        }
     },
       (err) => {
       console.log("Falló auth.service.login(" + this.loginObj + "). Error: " + err + ". Mensaje de error: " + err.message);
