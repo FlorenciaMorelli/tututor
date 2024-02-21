@@ -15,11 +15,11 @@ export class AlumnosResenasService {
     return this.http.get(this.apiURL);
   }
   
-  getAllResenasDadasPorIDAlumno(id: number) {
+  getAllResenasDadasPorIDUsuario(id: number) {
     return this.http.get(this.apiURL + 'dadas/' + id);
   }
   
-  getAllResenasRecibidasPorIDAlumno(id: number) {
+  getAllResenasRecibidasPorIDUsuario(id: number) {
     return this.http.get(this.apiURL + 'recibidas/' + id);
   }
 }

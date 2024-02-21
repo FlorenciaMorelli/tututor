@@ -23,6 +23,10 @@ export class AlumnosService {
     return this.http.get<Alumno>(apiUrl + '/' + id);
   }
 
+  getAlumnoConIDUsuario(idUsuario: any): Observable<Alumno> {
+    return this.http.get<Alumno>(apiUrl + 'usuario/' + idUsuario);
+  }
+
   editarAlumno(id: number, value: any): Observable<Alumno>{
     return this.http.patch<Alumno>(apiUrl + '/' + id, value);
   }

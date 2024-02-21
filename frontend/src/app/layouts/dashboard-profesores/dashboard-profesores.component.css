@@ -54,6 +54,7 @@
 li{
     align-items:baseline;
     justify-items: baseline;
+    cursor: pointer;
 }
 
 img.offcanvas-icon{

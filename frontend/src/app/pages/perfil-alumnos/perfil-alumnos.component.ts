@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlumnosService } from '../../services/alumnos.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Alumno } from '../../helpers/interfaces/alumno';
 
 @Component({
   selector: 'perfil-alumnos',
@@ -11,15 +12,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './perfil-alumnos.component.css'
 })
 export class PerfilAlumnosComponent {
-  private alumnosService = inject(AlumnosService);
-  private idUsuario = Number(localStorage.getItem("id_user"));
-  datosAlumno: any[] = [];
+  idUsuario = Number(localStorage.getItem("ID_USER"));
+  datosAlumno: Alumno[] = [];
 
   perfilAlumno: FormGroup;
 
   editando: boolean = false;
 
-  constructor(private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder, private alumnosService: AlumnosService){
     this.perfilAlumno = this.formBuilder.group({
       foto_path: ['', []],
       nombre: ['', [Validators.required]],
@@ -33,45 +33,62 @@ export class PerfilAlumnosComponent {
   }
 
   ngOnInit(){
-    this.alumnosService.getAlumnosConParametros(this.idUsuario)
+    this.alumnosService.getAlumnoConIDUsuario(this.idUsuario)
     .subscribe( (alumnoResponse: any)=>{
-      console.log('Respuesta del servicio getAlumnosConParametros: ',alumnoResponse);
-      this.datosAlumno =  alumnoResponse;
+      console.log('Respuesta del servicio getAlumnoConIDUsuario: ',alumnoResponse);
+      if (alumnoResponse.length > 0) {
+        const alumno = alumnoResponse[0];
+        this.perfilAlumno.setValue({
+          foto_path: alumno.foto_path,
+          nombre: alumno.nombre,
+          apellido: alumno.apellido,
+          zona: alumno.zona,
+          direccion: alumno.direccion,
+          modalidad: alumno.modalidad,
+          puntuacion: alumno.puntuacion,
+          id_alumno: alumno.id_alumno,
+          id_usuario: alumno.id_usuario
+        });
+      } else {
+        console.log('No se encontró ningún alumno para el usuario.');
+      }
     });
   }
 
   editar(){
-    let comp = this;
-    if(!this.editando){
-      this.editando = true;
-      this.alumnosService.getAlumnosConParametros(this.idUsuario)
-      .subscribe({
-        next : function (response: any) {
-          comp.perfilAlumno.setValue({
-            foto_path: response.foto_path !== null ? response.foto_path : '../../../../assets/img/profilePic.png',
-            nombre: response.nombre,
-            apellido: response.apellido,
-            zona: response.zona,
-            direccion: response.direccion,
-            puntuacion: response.puntuacion,
-            id_alumno: response.id_alumno,
-            id_usuario: response.id_usuario,
-          });
-        }
-      })
+    this.editando = true;
+  }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.perfilAlumno.patchValue({
+          foto_path: reader.result
+        });
+      };
+      reader.readAsDataURL(file);
     }
   }
 
   guardar(): void {
-    if (this.perfilAlumno.value.id_alumno) {
-      this.alumnosService.editarAlumno(this.perfilAlumno.value.id_alumno, this.perfilAlumno.value)
-      .subscribe({
-        next : function (response: any) {
-          alert("Tu perfil ha sido editado!")
-        },
-      });
+    if (this.perfilAlumno.valid) {
+      const alumnoData = this.perfilAlumno.value;
+      this.alumnosService.editarAlumno(alumnoData.id_alumno, alumnoData)
+        .subscribe({
+          next: (response: any) => {
+            console.log('Alumno actualizado correctamente.');
+            this.editando = false;
+            this.perfilAlumno.patchValue(response);
+          },
+          error: (error: any) => {
+            console.error('Error al actualizar el alumno:', error);
+          }
+        });
+    } else {
+      console.log('Formulario no válido.');
     }
-    this.editando = false;
   }
 
   cancelar(): void {

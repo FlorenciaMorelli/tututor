@@ -2,7 +2,7 @@
     <form [formGroup]="perfilProfesor">
         <div class="row">
             <div class="col">
-                <img src="{{ perfilProfesor.value.foto_path }}" alt="Foto del profesor" class="img-thumbnail mb-3">
+                <img  [src]="perfilProfesor.value.foto_path ? perfilProfesor.value.foto_path : '../../../assets/img/profilePic.jpg'" alt="Foto del profesor" class="img-thumbnail mb-3">
             </div>
             <div class="col">
                 <div class="row">
@@ -18,15 +18,23 @@
                 <input type="file" class="form-control" id="foto" (change)="onFileChange($event)">
             </div>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
+                <label for="nombre" class="form-label">Nombre *</label>
                 <input type="text" class="form-control" id="nombre" formControlName="nombre" [disabled]="!editando">
             </div>
             <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
+                <label for="apellido" class="form-label">Apellido *</label>
                 <input type="text" class="form-control" id="apellido" formControlName="apellido" [disabled]="!editando">
             </div>
             <div class="mb-3">
-                <label for="zona" class="form-label">Zona</label>
+                <label for="modalidad" class="form-label">Modalidad *</label>
+                <select class="form-select" id="modalidad" formControlName="modalidad" [disabled]="!editando">
+                    <option value="">Seleccionar...</option>
+                    <option value="En casa">En casa</option>
+                    <option value="Punto de encuentro">Punto de encuentro</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="zona" class="form-label">Zona *</label>
                 <select class="form-select" id="zona" formControlName="zona" [disabled]="!editando">
                     <option value="">Seleccionar...</option>
                     <option value="CABA">CABA</option>
@@ -37,12 +45,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="modalidad" class="form-label">Modalidad</label>
-                <select class="form-select" id="modalidad" formControlName="modalidad" [disabled]="!editando">
-                    <option value="">Seleccionar...</option>
-                    <option value="En casa">En casa</option>
-                    <option value="Punto de encuentro">Punto de encuentro</option>
-                </select>
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccion" aria-describedby="d" name="direccion" required>
             </div>
             <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-primary" (click)="cancelar()">Descartar</button>
@@ -67,7 +71,6 @@
             </div>
             <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-primary" (click)="editar()">Editar perfil</button>
-                <button type="button" class="btn btn-success" (click)="guardar()">Guardar</button>
             </div>
         }
         

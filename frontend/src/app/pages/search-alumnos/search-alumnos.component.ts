@@ -8,7 +8,7 @@ import { Profesor } from '../../helpers/interfaces/profesor';
 @Component({
   selector: 'search-alumnos',
   standalone: true,
-  imports: [CommonModule, SearchbarComponent],
+  imports: [CommonModule, SearchbarComponent, CardProfesorComponent],
   templateUrl: './search-alumnos.component.html',
   styleUrl: './search-alumnos.component.css'
 })
@@ -35,7 +35,7 @@ export class SearchAlumnosComponent {
 
   resultado: Profesor[] = [];
 
-  constructor(private profesoresService: ProfesoresService, private cardProfesor: CardProfesorComponent) {
+  constructor(private profesoresService: ProfesoresService) {
 
   }
 

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { ProfesoresService } from '../../services/profesores.service';
+import { Profesor } from '../../helpers/interfaces/profesor';
 
 @Component({
   selector: 'app-card-profesor',
@@ -9,10 +10,11 @@ import { ProfesoresService } from '../../services/profesores.service';
   styleUrl: './card-profesor.component.css'
 })
 export class CardProfesorComponent {
-  idProfesor: number = 1;
-  profesor: any;
-  
+  profesor: Profesor[] = [];
+  @Input() idProfesor!: number;
+
   constructor(private profesoresService: ProfesoresService) {
+
   }
 
   show(id :number){

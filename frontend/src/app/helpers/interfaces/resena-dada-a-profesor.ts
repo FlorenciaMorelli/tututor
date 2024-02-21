@@ -1,6 +1,8 @@
 export interface ResenaDadaAProfesor {
     id_resena: number,
-    nombre_alumno: string,
+    foto_path: string,
+    nombre_profesor: string,
+    apellido_profesor: string,
     estrellas: number,
     opinion: string
 }

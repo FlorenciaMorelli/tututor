@@ -6,6 +6,7 @@ import { ResenasAlumnosComponent } from '../../pages/resenas-alumnos/resenas-alu
 import { PerfilAlumnosComponent } from '../../pages/perfil-alumnos/perfil-alumnos.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AlumnosService } from '../../services/alumnos.service';
 
 @Component({
   selector: 'dashboard-alumnos',
@@ -15,19 +16,31 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard-alumnos.component.css'
 })
 export class DashboardAlumnosComponent {
-  private authService = inject(AuthService);
-  private router = inject(Router);
-
-  nombre: string = String(localStorage.getItem('nombre'));
-  profilePic: string = String(localStorage.getItem('foto_path'));
+  idUsuario: number = Number((localStorage.getItem('ID_USER')));
+  nombre: string = '';
+  profilePic: string = '';
 
   secciones: any[] = [
     {src: "../../../assets/icon/home.png", nombre: "Inicio", tag: "inicio"},
-    {src: "../../../assets/icon/messages.png", nombre: "Buscar", tag: "buscar"},
+    {src: "../../../assets/icon/search.png", nombre: "Buscar", tag: "buscar"},
     {src: "../../../assets/icon/reviews.png", nombre: "Mis reseñas", tag: "resenas"},
     {src: "../../../assets/icon/profile.png", nombre: "Mi perfil", tag: "perfil"}
   ];
   seccionActiva: string = "inicio";
+
+  constructor(private authService: AuthService, private router: Router, private alumnosService: AlumnosService){
+    this.cargarNombreYFoto();
+  }
+
+  cargarNombreYFoto() {
+    this.alumnosService.getAlumnoConIDUsuario(this.idUsuario)
+    .subscribe({
+      next: (alumno: any) => {
+        this.nombre = alumno[0].nombre;
+        this.profilePic = alumno[0].foto_path;
+      }
+    })
+  }
 
   logout(){
     this.authService.logout();
